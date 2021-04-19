@@ -1,11 +1,26 @@
-<mxfile host="app.diagrams.net" modified="2021-04-19T08:27:03.809Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="KRaDupPhNi2h-XC88LKh" version="14.6.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-19T08:40:21.804Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="1n2YOiNDazkYkUgt3HEu" version="14.6.0" type="github">
   <diagram id="LoRkxZrGQF_bMvdw9qJP" name="Page-1">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="SN9ToEZ5n2eKpUGSWhb2-1" value="User" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="110" y="150" width="120" height="60" as="geometry" />
+          <mxGeometry x="60" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SN9ToEZ5n2eKpUGSWhb2-10" value="Phase I&amp;nbsp;&lt;br&gt;-&lt;br&gt;Collateralize" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=1 4;" vertex="1" parent="1">
+          <mxGeometry x="270" y="280" width="140" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="SN9ToEZ5n2eKpUGSWhb2-11" value="Phase II&lt;br&gt;-&lt;br&gt;Strategy Execution" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="280" width="140" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="SN9ToEZ5n2eKpUGSWhb2-12" value="Phase III&lt;br&gt;-&lt;br&gt;Revenue Generator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="280" width="140" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="SN9ToEZ5n2eKpUGSWhb2-13" value="IDEAS:&amp;nbsp;&lt;br&gt;- Add APY consists of normal + liq mining&lt;br&gt;- Add fee structure to revenue generator&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="135" y="505" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SN9ToEZ5n2eKpUGSWhb2-14" value="Pool" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="160" height="120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
