@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-23T12:27:40.679Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="ZV9JszukWNccNF_2X2tz" version="14.6.1" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2021-04-23T12:47:53.458Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="4cc6qMkqXOQAd0zpFHP0" version="14.6.1" type="github" pages="5">
   <diagram id="LoRkxZrGQF_bMvdw9qJP" name="Simple">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -169,7 +169,7 @@
         <mxCell id="rLiOQiquxt9r2ZwviNbM-8" value="Phase III&lt;br&gt;-&lt;br&gt;Re-invest" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="rLiOQiquxt9r2ZwviNbM-1">
           <mxGeometry x="705" y="790" width="140" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="rLiOQiquxt9r2ZwviNbM-10" value="Pool" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="rLiOQiquxt9r2ZwviNbM-1">
+        <mxCell id="rLiOQiquxt9r2ZwviNbM-10" value="Phase 0&lt;br&gt;-&lt;br&gt;Pool funding" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="rLiOQiquxt9r2ZwviNbM-1">
           <mxGeometry x="5" y="800" width="170" height="160" as="geometry" />
         </mxCell>
         <mxCell id="rLiOQiquxt9r2ZwviNbM-11" value="Withdraw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="rLiOQiquxt9r2ZwviNbM-1">
@@ -263,12 +263,12 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="6U-HDwfOqSKlkIaeHrls" name="Phase2">
+  <diagram id="6U-HDwfOqSKlkIaeHrls" name="Phase2-oldSec4">
     <mxGraphModel dx="981" dy="526" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-0" />
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-1" parent="eU6tTHB7eerEKfsOSjHJ-0" />
-        <mxCell id="eU6tTHB7eerEKfsOSjHJ-2" value="Capital" style="endArrow=classic;html=1;" edge="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
+        <mxCell id="eU6tTHB7eerEKfsOSjHJ-2" value="Invest" style="endArrow=classic;html=1;" edge="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="70" y="360" as="sourcePoint" />
             <mxPoint x="170" y="360" as="targetPoint" />
@@ -319,6 +319,28 @@
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-20" value="cToken&lt;br&gt;(Compound)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;fontStyle=1;fontSize=16;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
           <mxGeometry x="250" y="210" width="120" height="20" as="geometry" />
         </mxCell>
+        <mxCell id="__SHIoFxPEgoYzuh9Byx-0" value="Uniswap LP tokens" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;fontStyle=1;fontSize=16;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
+          <mxGeometry x="460" y="200" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="__SHIoFxPEgoYzuh9Byx-1" value="Sushiswap LP tokens" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;fontStyle=1;fontSize=16;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
+          <mxGeometry x="506" y="272" width="120" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="HIGCQ-zD-q6gr5_JDSgN" name="Phase0">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="VVioOVO6_eSqJs0EHOD2-0" />
+        <mxCell id="VVioOVO6_eSqJs0EHOD2-1" parent="VVioOVO6_eSqJs0EHOD2-0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="s7QBkY9ui7dOmc3hpmqQ" name="Phase2-new">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="IziZIb4dTT1y4amTdr42-0" />
+        <mxCell id="IziZIb4dTT1y4amTdr42-1" parent="IziZIb4dTT1y4amTdr42-0" />
       </root>
     </mxGraphModel>
   </diagram>
