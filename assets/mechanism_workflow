@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-26T15:03:40.908Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="l90zhDZ3QUFBh58pFWQJ" version="14.6.1" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2021-04-26T15:52:25.578Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="X1ndni1wRPZGpJfjgvta" version="14.6.1" type="github" pages="6">
   <diagram id="LoRkxZrGQF_bMvdw9qJP" name="Simple">
     <mxGraphModel dx="1185" dy="635" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -387,12 +387,6 @@
       <root>
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-0" />
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-1" parent="eU6tTHB7eerEKfsOSjHJ-0" />
-        <mxCell id="eU6tTHB7eerEKfsOSjHJ-2" value="Invest" style="endArrow=classic;html=1;" edge="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="70" y="360" as="sourcePoint" />
-            <mxPoint x="170" y="360" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-6" value="" style="ellipse;whiteSpace=wrap;html=1;rounded=1;shadow=0;comic=0;strokeColor=none;strokeWidth=6;fillColor=#dae8fc;fontSize=21;fontColor=#000000;opacity=70;fontStyle=0" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
           <mxGeometry x="210" y="162" width="250" height="250" as="geometry" />
         </mxCell>
@@ -410,12 +404,6 @@
         </mxCell>
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-11" value="&lt;font color=&quot;#b9e0a5&quot;&gt;Native tokens&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;shadow=0;comic=0;fontSize=25;arcSize=50;fontStyle=1;fontColor=#F19C99;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
           <mxGeometry x="315" y="535" width="220" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="eU6tTHB7eerEKfsOSjHJ-12" value="Yield" style="endArrow=classic;html=1;" edge="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="660" y="350.0000000000001" as="sourcePoint" />
-            <mxPoint x="760" y="350.0000000000001" as="targetPoint" />
-          </mxGeometry>
         </mxCell>
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-13" value="aToken (Aave)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;fontStyle=1;fontSize=16;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
           <mxGeometry x="250" y="280" width="30" height="20" as="geometry" />
