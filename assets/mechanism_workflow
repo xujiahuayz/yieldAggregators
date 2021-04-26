@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-26T16:05:32.174Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="IPMQy_YwpYFCUrzZZIM6" version="14.6.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-04-26T20:33:11.440Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="mq7WnBleklWDMHG7nHt0" version="14.6.1" type="github" pages="4">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -18,6 +18,9 @@
         </mxCell>
         <mxCell id="1N-KslljzOXim-EcQyQu-4" value="Phase I&amp;nbsp;&lt;br style=&quot;font-size: 18px;&quot;&gt;-&lt;br style=&quot;font-size: 18px;&quot;&gt;Collateralize" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=1 4;fontSize=18;" vertex="1" parent="1N-KslljzOXim-EcQyQu-1">
           <mxGeometry x="254" y="210" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="hr_9hauI80bR48m8zTEo-0" style="edgeStyle=orthogonalEdgeStyle;curved=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1.007;entryY=0.357;entryDx=0;entryDy=0;entryPerimeter=0;labelBackgroundColor=none;fontSize=18;fontColor=#000000;strokeColor=#000000;" edge="1" parent="1N-KslljzOXim-EcQyQu-1" source="1N-KslljzOXim-EcQyQu-5" target="1N-KslljzOXim-EcQyQu-4">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="1N-KslljzOXim-EcQyQu-5" value="Phase II&lt;br style=&quot;font-size: 18px;&quot;&gt;-&lt;br style=&quot;font-size: 18px;&quot;&gt;Strategy Execution" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1N-KslljzOXim-EcQyQu-1">
           <mxGeometry x="470" y="130" width="120" height="140" as="geometry" />
@@ -107,6 +110,11 @@
             <Array as="points">
               <mxPoint x="324" y="174" />
             </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hr_9hauI80bR48m8zTEo-1" value="Repay&lt;br style=&quot;font-size: 16px;&quot;&gt;loan" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="1N-KslljzOXim-EcQyQu-1">
+          <mxGeometry x="439.99501666157107" y="247.99952296953035" as="geometry">
+            <mxPoint x="-5" y="10" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
