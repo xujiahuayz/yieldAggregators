@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-27T08:00:58.423Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="VC3t4pVFk7pk_R4dhlF7" version="14.6.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-04-27T08:03:12.040Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="s1f1AeTm7G75b_qtSfpZ" version="14.6.1" type="github" pages="4">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -334,7 +334,7 @@
         <mxCell id="IziZIb4dTT1y4amTdr42-0" />
         <mxCell id="IziZIb4dTT1y4amTdr42-1" parent="IziZIb4dTT1y4amTdr42-0" />
         <mxCell id="B7YZQBEG8_lc89otEsoa-19" value="Phase II - Strategy execution" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;dashed=1;labelBackgroundColor=#ffffff;sketch=0;fillColor=none;verticalAlign=top;labelBorderColor=none;fontSize=19;" vertex="1" parent="IziZIb4dTT1y4amTdr42-1">
-          <mxGeometry x="140" y="410" width="590" height="270.25" as="geometry" />
+          <mxGeometry x="160" y="428.12" width="590" height="270.25" as="geometry" />
         </mxCell>
         <mxCell id="B7YZQBEG8_lc89otEsoa-20" value="" style="endArrow=classic;fontSize=16;fontColor=#000000;verticalAlign=bottom;horizontal=1;labelPosition=center;verticalLabelPosition=top;align=center;labelBackgroundColor=none;labelBorderColor=none;html=1;" edge="1" parent="IziZIb4dTT1y4amTdr42-1">
           <mxGeometry y="40" width="50" height="50" relative="1" as="geometry">
@@ -402,20 +402,26 @@
         </mxCell>
         <mxCell id="B7YZQBEG8_lc89otEsoa-36" value="" style="endArrow=classic;html=1;labelBackgroundColor=none;fontSize=10;fontColor=#000000;strokeColor=#000000;entryX=0.519;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="IziZIb4dTT1y4amTdr42-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="115" y="570" as="sourcePoint" />
-            <mxPoint x="454.97" y="520.25" as="targetPoint" />
+            <mxPoint x="120" y="550" as="sourcePoint" />
+            <mxPoint x="455.85" y="519.5" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="180" y="570" />
-              <mxPoint x="180" y="480" />
-              <mxPoint x="455" y="480.25" />
+              <mxPoint x="181" y="550" />
+              <mxPoint x="180.88" y="479.25" />
+              <mxPoint x="455.88" y="479.5" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="B7YZQBEG8_lc89otEsoa-37" value="Deployed Capital" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;labelBackgroundColor=none;sketch=0;fontSize=14;fontColor=#000000;fontStyle=1" vertex="1" parent="IziZIb4dTT1y4amTdr42-1">
-          <mxGeometry x="20" y="548.6" width="85.88" height="40" as="geometry" />
+          <mxGeometry x="30" y="529.25" width="85.88" height="40" as="geometry" />
         </mxCell>
         <mxCell id="M2YHAmBzUBmQFlYeJIIY-0" value="Yield" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;labelBackgroundColor=none;sketch=0;fontSize=14;fontColor=#000000;fontStyle=1" vertex="1" parent="IziZIb4dTT1y4amTdr42-1">
           <mxGeometry x="764" y="569.25" width="85.88" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IxdMVafzVonUqpgBbsfN-0" value="" style="endArrow=classic;html=1;labelBackgroundColor=none;fontSize=10;fontColor=#000000;strokeColor=#000000;" edge="1" parent="IziZIb4dTT1y4amTdr42-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="218.24" y="588.83" as="sourcePoint" />
+            <mxPoint x="118.24" y="588.83" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
