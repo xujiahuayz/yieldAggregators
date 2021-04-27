@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-27T08:00:38.976Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="XVls1-3eRnLyOH478xAe" version="14.6.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-04-27T08:00:58.423Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="VC3t4pVFk7pk_R4dhlF7" version="14.6.1" type="github" pages="4">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -40,9 +40,6 @@
         </mxCell>
         <mxCell id="1N-KslljzOXim-EcQyQu-8" value="Phase 3&lt;br style=&quot;font-size: 17px&quot;&gt;-&lt;br style=&quot;font-size: 17px&quot;&gt;Re-invest" style="rounded=0;whiteSpace=wrap;html=1;fontSize=17;" vertex="1" parent="1N-KslljzOXim-EcQyQu-1">
           <mxGeometry x="720" y="130" width="120" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="1N-KslljzOXim-EcQyQu-9" value="IDEAS:&amp;nbsp;&lt;br&gt;- Add APY consists of normal + liq mining&lt;br&gt;- Add fee structure to revenue generator&lt;br&gt;- Add other protocols (AMM, PLF, liquidity mining programs)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1N-KslljzOXim-EcQyQu-1">
-          <mxGeometry x="240" y="870" width="330" height="60" as="geometry" />
         </mxCell>
         <mxCell id="1N-KslljzOXim-EcQyQu-10" value="Phase 0&lt;br style=&quot;font-size: 21px;&quot;&gt;-&lt;br style=&quot;font-size: 21px;&quot;&gt;Pool funding" style="ellipse;whiteSpace=wrap;html=1;fontSize=21;" vertex="1" parent="1N-KslljzOXim-EcQyQu-1">
           <mxGeometry y="140" width="170" height="160" as="geometry" />
