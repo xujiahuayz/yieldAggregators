@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-27T08:39:04.558Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="Ds5UX4DYJ9mxqs-HnApC" version="14.6.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-04-27T08:41:07.011Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="8D7i7Akv8KGAv9Jek7Z5" version="14.6.1" type="github" pages="4">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -137,8 +137,8 @@
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-10" value="Revenue sharing" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;shadow=0;comic=0;fontSize=25;arcSize=50;fontStyle=1;fontColor=#F19C99;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
           <mxGeometry x="600" y="162" width="90" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="eU6tTHB7eerEKfsOSjHJ-11" value="&lt;font color=&quot;#b9e0a5&quot;&gt;Native tokens&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;shadow=0;comic=0;fontSize=25;arcSize=50;fontStyle=1;fontColor=#F19C99;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
-          <mxGeometry x="315" y="535" width="220" height="30" as="geometry" />
+        <mxCell id="eU6tTHB7eerEKfsOSjHJ-11" value="&lt;font color=&quot;#b9e0a5&quot;&gt;Liquidity mining&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;shadow=0;comic=0;fontSize=25;arcSize=50;fontStyle=1;fontColor=#F19C99;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
+          <mxGeometry x="315" y="520" width="220" height="30" as="geometry" />
         </mxCell>
         <mxCell id="eU6tTHB7eerEKfsOSjHJ-13" value="aToken (Aave)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;fontStyle=1;fontSize=16;" vertex="1" parent="eU6tTHB7eerEKfsOSjHJ-1">
           <mxGeometry x="250" y="280" width="30" height="20" as="geometry" />
