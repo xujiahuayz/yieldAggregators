@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-27T09:03:56.498Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="swLbqYIiIoO0kE9YcAaH" version="14.6.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-04-28T09:18:06.233Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="HzuWB2-dglo1oxT296Gy" version="14.6.1" type="github" pages="5">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -423,6 +423,14 @@
         <mxCell id="yTCwNl7lqkdyFpZTQAjp-2" value="Incentivizing protocols" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="rLiOQiquxt9r2ZwviNbM-1">
           <mxGeometry x="505" y="590" width="110" height="110" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="c2Tryhov73vsRXUWlPlN" name="new_strat">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="mkmfpCdEkUH9gV_-sY4x-0" />
+        <mxCell id="mkmfpCdEkUH9gV_-sY4x-1" parent="mkmfpCdEkUH9gV_-sY4x-0" />
       </root>
     </mxGraphModel>
   </diagram>
