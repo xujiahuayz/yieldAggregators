@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-28T18:10:03.032Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="kn0_269opT4wqPrbOem_" version="14.6.1" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2021-04-28T18:11:42.421Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="xtFa0En0z7E288_FKVU_" version="14.6.1" type="github" pages="5">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -181,7 +181,7 @@
       <root>
         <mxCell id="IziZIb4dTT1y4amTdr42-0" />
         <mxCell id="IziZIb4dTT1y4amTdr42-1" parent="IziZIb4dTT1y4amTdr42-0" />
-        <mxCell id="B7YZQBEG8_lc89otEsoa-19" value="Phase II - Strategy execution" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;dashed=1;labelBackgroundColor=#ffffff;sketch=0;fillColor=none;verticalAlign=top;labelBorderColor=none;fontSize=19;" vertex="1" parent="IziZIb4dTT1y4amTdr42-1">
+        <mxCell id="B7YZQBEG8_lc89otEsoa-19" value="Phase II - Single strategy" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;dashed=1;labelBackgroundColor=#ffffff;sketch=0;fillColor=none;verticalAlign=top;labelBorderColor=none;fontSize=19;" vertex="1" parent="IziZIb4dTT1y4amTdr42-1">
           <mxGeometry x="160" y="428.12" width="590" height="270.25" as="geometry" />
         </mxCell>
         <mxCell id="B7YZQBEG8_lc89otEsoa-20" value="" style="endArrow=classic;fontSize=16;fontColor=#000000;verticalAlign=bottom;horizontal=1;labelPosition=center;verticalLabelPosition=top;align=center;labelBackgroundColor=none;labelBorderColor=none;html=1;" edge="1" parent="IziZIb4dTT1y4amTdr42-1">
