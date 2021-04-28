@@ -1,9 +1,15 @@
-<mxfile host="app.diagrams.net" modified="2021-04-28T09:18:06.233Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="HzuWB2-dglo1oxT296Gy" version="14.6.1" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2021-04-28T18:10:03.032Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="kn0_269opT4wqPrbOem_" version="14.6.1" type="github" pages="5">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="1N-KslljzOXim-EcQyQu-0" />
         <mxCell id="1N-KslljzOXim-EcQyQu-1" parent="1N-KslljzOXim-EcQyQu-0" />
+        <mxCell id="wy9n0_xLz3O8xgOdo_6M-2" value="Phase 2&lt;br style=&quot;font-size: 20px;&quot;&gt;-&lt;br style=&quot;font-size: 20px;&quot;&gt;Strategy Execution" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1N-KslljzOXim-EcQyQu-1">
+          <mxGeometry x="490" y="110" width="120" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="wy9n0_xLz3O8xgOdo_6M-1" value="Phase 2&lt;br style=&quot;font-size: 20px;&quot;&gt;-&lt;br style=&quot;font-size: 20px;&quot;&gt;Strategy Execution" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1N-KslljzOXim-EcQyQu-1">
+          <mxGeometry x="480" y="120" width="120" height="140" as="geometry" />
+        </mxCell>
         <mxCell id="1N-KslljzOXim-EcQyQu-2" value="Deposit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.238;entryY=0.072;entryDx=0;entryDy=0;entryPerimeter=0;horizontal=1;fontSize=18;" edge="1" parent="1N-KslljzOXim-EcQyQu-1" source="1N-KslljzOXim-EcQyQu-3" target="1N-KslljzOXim-EcQyQu-10">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
@@ -95,9 +101,9 @@
             <mxPoint x="670" y="230" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="1N-KslljzOXim-EcQyQu-21" value="Claim&lt;br style=&quot;font-size: 17px;&quot;&gt;generated yield" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="1N-KslljzOXim-EcQyQu-20">
+        <mxCell id="1N-KslljzOXim-EcQyQu-21" value="Claim&lt;br style=&quot;font-size: 19px;&quot;&gt;generated&lt;br style=&quot;font-size: 19px;&quot;&gt;&amp;nbsp;yield" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=19;" vertex="1" connectable="0" parent="1N-KslljzOXim-EcQyQu-20">
           <mxGeometry x="-0.2946" relative="1" as="geometry">
-            <mxPoint x="14" y="-25" as="offset" />
+            <mxPoint x="24" y="-40" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ZA9_zhqE1ggFoWojyMiY-22" value="" style="endArrow=none;html=1;labelBackgroundColor=none;fontSize=10;fontColor=#000000;strokeColor=#000000;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1N-KslljzOXim-EcQyQu-1" source="1N-KslljzOXim-EcQyQu-4">
