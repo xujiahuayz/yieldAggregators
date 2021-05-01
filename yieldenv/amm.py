@@ -16,10 +16,7 @@ class CPAmm:
     def __post_init__(self):
         self.volumes = [0, 0]
         self.fee_retained_by_reserve = [0, 0]
-
-    @property
-    def reserves(self):
-        return self.initial_reserves
+        self.reserves = self.initial_reserves
 
     @property
     def invariant(self):
@@ -76,7 +73,9 @@ class CPAmm:
         _new_reserve = old_invariant / self.reserves[sell_index]
         buy_index = 1 - sell_index
         # theoretical quantity purchased
+
         buy_quantity = self.reserves[buy_index] - _new_reserve
+        # keep a record of the volume on the buy side
         self.volumes[buy_index] += buy_quantity
 
         # fee charge

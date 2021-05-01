@@ -41,10 +41,11 @@ def plot_value_course(args, plot_title):
 
     plt.plot(pool_value)
     plt.title(plot_title)
+    plt.xlabel("Pool value in DAI")
     plt.show()
 
     plt.plot(volume_course_DAI)
-    plt.title("Accumulated volume in DAI")
+    plt.xlabel("Accumulated volume in DAI")
     plt.show()
 
 
