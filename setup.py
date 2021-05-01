@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name="yield",
+    name="yieldenv",
     packages=find_packages(),
     install_requires=[
         "numpy",
