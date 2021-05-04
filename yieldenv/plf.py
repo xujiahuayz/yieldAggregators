@@ -1,7 +1,17 @@
 from dataclasses import dataclass
+import dataclasses
 import logging
 import numpy as np
 from numpy.core.arrayprint import ComplexFloatingFormat
+
+
+@dataclass
+class User:
+    name: str
+
+    def __post__init__(self):
+        self.collected_tokens = 0
+        self.deposit_available_as_collateral = 0
 
 
 class Plf:
@@ -29,7 +39,7 @@ class Plf:
         )
         # self.user_borrow = 0
 
-    def supply(self, amount, days):
+    def supply(self, amount, days, user: User):
 
         self.total_available_funds += amount
         self.user_interest_revenue += amount * (self.supply_apr / 365) * days
@@ -40,18 +50,19 @@ class Plf:
             amount / self.total_available_funds * self.distribution_per_day * days
         )  # this assumes that the portion of supplied tokens is constant throughout the supplying period
 
-    def borrow(self, amount: float, days: float):
+    def borrow(self, amount: float, days: float, user: User):
         collateral = amount * self.collateral_ratio
         assert (
             self.user_deposit_available_as_collateral >= collateral
         ), "Borrow position under-collateralized"
 
-        self.user_deposit_available_as_collateral -= amount
+        # self.user_deposit_available_as_collateral -= amount
         self.total_available_funds -= amount
 
         self.paid_fees += amount * (self.borrow_apr / 365) * days
 
-        self.user_collected_tokens += (
+        User.deposit_available_as_collateral -= amount
+        User.collected_tokens += (
             amount / self.total_available_funds * self.distribution_per_day * days
         )  # this assumes that the portion of supplied tokens is constant throughout the supplying period
 
