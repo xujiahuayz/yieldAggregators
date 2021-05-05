@@ -3,6 +3,7 @@ import dataclasses
 import logging
 import numpy as np
 
+
 class Plf:
     def __init__(
         self,
@@ -21,70 +22,81 @@ class Plf:
             # collateral divided by amount able to borrow
         )
         self.distribution_per_day = distribution_per_day
-    
+
     def setSupplyApr(self, apr: float):
         self.supply_apr = apr
-    
+
     def setBorrowApr(self, apr: float):
         self.borrow_apr = apr
-    
 
-    def supply(self, amount):
+    def process_supply(self, amount):
         self.total_available_funds += amount
-    
-    def stopSupply(self, amount):
+
+    def process_withdraw(self, amount):
         self.total_available_funds -= amount
 
-    def borrow(self, amount: float):
+    def process_borrow(self, amount: float):
         self.total_borrowed_funds += amount
 
-    def stopBorrow(self, amount: float): # = paying back loan
+    def process_repay(self, amount: float):  # = paying back loan
         self.total_borrowed_funds -= amount
 
 
 class User:
-    def __init__(self, name: str):
-        self.user_collected_tokens = 0
-        self.user_deposit_available_as_collateral = 0 #keep track of user funds available
-        self.user_borrowed_funds = 0 #keep track of user borrowed funds
-        self.user_interest_revenue = 0
-        self.user_paid_interest = 0
+    def __init__(self, name: str, plf: Plf):
+        self.plf = plf
+        self.collected_tokens = 0
+        self.deposit = 0
+        # self.deposit_available_as_collateral = 0  # keep track of user funds available
+        self.borrowed_funds = 0  # keep track of user borrowed funds
+        # self.interest_revenue = 0
+        # self.paid_interest = 0
         self.name = name
 
-    def startSupplying(self, amount: float, plf: Plf):
-        plf.supply(amount)
-        self.user_deposit_available_as_collateral += amount
+    def supply(self, amount: float, plf: Plf):
+        plf.process_supply(amount)
+        self.deposit += amount
 
-    def stopSupplying(self, amount: float, plf: Plf):
-        plf.stopSupply(amount)
-        self.user_deposit_available_as_collateral -= amount
+        # self.deposit_available_as_collateral += amount
 
-    def startBorrowing(self, amount: float, plf: Plf):
-        collateral = amount * plf.collateral_ratio
+    def withdraw(self, amount: float, plf: Plf):
+        plf.process_withdraw(amount)
+        self.deposit -= amount
+        # self.deposit_available_as_collateral -= amount
+
+    @property
+    def deposit_available_as_collateral(self) -> float:
+        return self.deposit - self.borrowed_funds * self.plf.collateral_ratio
+
+    def borrow(self, amount: float):
+        minimum_deposit_available_needed = amount * self.plf.collateral_ratio
         assert (
-            self.user_deposit_available_as_collateral >= collateral
+            self.deposit_available_as_collateral >= minimum_deposit_available_needed
         ), "Borrow position under-collateralized"
-        plf.borrow(amount, collateral)
-        self.user_deposit_available_as_collateral -= collateral
-        self.user_borrowed_funds +=amount
+        self.plf.process_borrow(amount)
+        self.borrowed_funds += amount
 
-    def stopBorrowing(self, amount: float, plf: Plf): # = paying back loan
-        collateral = amount * plf.collateral_ratio
+    def repay(self, amount: float, plf: Plf):  # = paying back loan
 
-        plf.stopBorrow(amount)
-        self.user_deposit_available_as_collateral += collateral
-        self.user_borrowed_funds -=amount
+        plf.process_repay(amount)
+        self.borrowed_funds -= amount
 
+    def calculate_profit(self, token_price: float, plf: Plf):
 
-    def getProfit(self, token_price: float, plf: Plf):
+        daily_interest_revenue = self.deposit * (plf.supply_apr / 365)
+        daily_interest_cost = self.borrowed_funds * np.exp(plf.borrow_apr / 365)
 
-        interest_revenue = self.user_deposit_available_as_collateral * (plf.supply_apr/365)
-        interest_cost = self.user_borrowed_funds * (plf.borrow_apr/365)
+        yield_interest = daily_interest_revenue - daily_interest_cost
 
-        yield_interest = interest_revenue - interest_cost
-
-        tokens_for_supplying = (self.user_deposit_available_as_collateral/plf.total_available_funds) * plf.distribution_per_day * 0.5 # 50% goes to suppliers
-        tokens_for_borrowing = (self.user_borrowed_funds/plf.total_borrowed_funds) * plf.distribution_per_day * 0.5 # 50% goes to borrowers 
+        # Governance token distribution ---
+        tokens_for_supplying = (
+            (self.deposit / plf.total_available_funds) * plf.distribution_per_day * 0.5
+        )  # 50% goes to suppliers
+        tokens_for_borrowing = (
+            (self.borrowed_funds / plf.total_borrowed_funds)
+            * plf.distribution_per_day
+            * 0.5
+        )  # 50% goes to borrowers
         yield_tokens = tokens_for_supplying + tokens_for_borrowing
 
         value_yield_tokens = yield_tokens * token_price
@@ -92,5 +104,3 @@ class User:
         total_yield = yield_interest + value_yield_tokens
 
         return (yield_interest, yield_tokens, value_yield_tokens, total_yield)
-
-
