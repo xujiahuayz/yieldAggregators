@@ -9,7 +9,9 @@ from typing import Dict, Optional, cast
 @dataclass
 class Env:
     users: Dict[str, User] = field(default_factory=dict)
-    prices: Dict[str, float] = field(default_factory=lambda: {"dai": 1.0, "eth": 1.0})
+    prices: Dict[str, float] = field(
+        default_factory=lambda: {"dai": 1.0, "eth": 2.0, "i-dai": 1.0, "b-dai": -1.0}
+    )
 
 
 class User:
@@ -24,13 +26,11 @@ class User:
         self.funds_available = funds_available
         self.env = env
 
-        self.collected_tokens = 0.0
-        self.deposit = 0.0
-        self.borrowed_funds = 0.0  # keep track of user borrowed funds
         self.name = name
 
     @property
     def wealth(self) -> float:
+
         user_wealth = sum(
             value * self.env.prices[asset_name]
             for asset_name, value in self.funds_available.items()
@@ -149,57 +149,57 @@ class User:
         # matching balance in user's account to pool registry record
         self.funds_available[amm.lp_token_name] = amm.user_pool_shares[self.name]
 
-    # PLF actions ----
-    def supply(self, amount: float, plf: Plf):
-        plf.process_supply(amount)
-        self.deposit += amount
+    # -------------------------  PLF actions ------------------------------
 
-        # self.deposit_available_as_collateral += amount
+    def supply_withdraw(self, amount: float, plf: Plf):  # negative for withdrawing
 
-    def withdraw(self, amount: float, plf: Plf):
-        plf.process_withdraw(amount)
-        self.deposit -= amount
-        # self.deposit_available_as_collateral -= amount
+        if self.name not in plf.user_i_tokens:
+            plf.user_i_tokens[self.name] = 0
 
-    def deposit_available_as_collateral(self, plf: Plf) -> float:
-        return self.deposit - self.borrowed_funds * plf.collateral_ratio
-
-    def borrow(self, amount: float, plf: Plf):
-        minimum_deposit_available_needed = amount * plf.collateral_ratio
         assert (
-            self.deposit_available_as_collateral(plf=plf)
-            >= minimum_deposit_available_needed
-        ), "Borrow position under-collateralized"
-        plf.process_borrow(amount)
-        self.borrowed_funds += amount
+            plf.user_i_tokens[self.name] + amount >= 0
+        ), "cannot withdraw more i-tokens than you have"
 
-    def repay(self, amount: float, plf: Plf):  # = paying back loan
-        plf.process_repay(amount)
-        self.borrowed_funds -= amount
+        assert (
+            self.funds_available[plf.asset_names] - amount >= 0
+        ), "insufficient funds to provide liquidity"
 
-    def net_interest_profit(self, plf: Plf):
-        daily_interest_revenue = self.deposit * (plf.supply_apr / 365)
-        daily_interest_cost = self.borrowed_funds * np.exp(plf.borrow_apr / 365)
-        return daily_interest_revenue - daily_interest_cost
+        self.funds_available[plf.asset_names] -= amount
 
-    def plf_reward_tokens_value(self, token_price: float, plf: Plf) -> float:
-        # Governance token distribution ---
-        tokens_for_supplying = (
-            (self.deposit / plf.total_available_funds) * plf.distribution_per_day * 0.5
-        )  # 50% goes to suppliers
-        tokens_for_borrowing = (
-            (self.borrowed_funds / plf.total_borrowed_funds)
-            * plf.distribution_per_day
-            * 0.5
-        )  # 50% goes to borrowers
-        reward_tokens = tokens_for_supplying + tokens_for_borrowing
+        # update liquidity pool
+        plf.total_available_funds += amount
 
-        return reward_tokens * token_price
+        # update i tokens of the user in the pool registry
+        plf.user_i_tokens[self.name] += amount
 
-    def plf_yield(self, token_price: float, plf: Plf) -> float:
-        return self.net_interest_profit(plf=plf) + self.plf_reward_tokens_value(
-            token_price=token_price, plf=plf
-        )
+        # matching balance in user's account to pool registry record
+        self.funds_available[plf.interest_token_name] = plf.user_i_tokens[self.name]
+
+    def borrow_repay(self, amount: float, plf: Plf):
+
+        if self.name not in plf.user_b_tokens:
+            plf.user_b_tokens[self.name] = 0
+
+        assert (
+            plf.user_b_tokens[self.name] + amount >= 0
+        ), "cannot repay more b-tokens than you have"
+
+        assert (
+            self.funds_available[plf.interest_token_name]
+            - amount * plf.collateral_ratio
+            >= 0
+        ), "insufficient i-tokens to get the amount of requested b-tokens"
+
+        self.funds_available[plf.interest_token_name] -= amount
+
+        # update liquidity pool
+        plf.total_borrowed_funds += amount
+
+        # update b tokens of the user in the pool registry
+        plf.user_b_tokens[self.name] += amount
+
+        # matching balance in user's account to pool registry record
+        self.funds_available[plf.borrow_token_name] = plf.user_b_tokens[self.name]
 
 
 @dataclass
@@ -315,42 +315,128 @@ class CPAmm:
             )
 
 
+@dataclass
 class Plf:
-    def __init__(
-        self,
-        supply_apr: float,
-        borrow_apr: float,
-        distribution_per_day: float,
-        initial_starting_funds: float = 1000,
-        collateral_ratio: float = 1.2,
-    ):
-        self.supply_apr = supply_apr
-        self.borrow_apr = borrow_apr
-        self.total_available_funds = initial_starting_funds
-        self.total_borrowed_funds = 0.5 * initial_starting_funds
-        self.collateral_ratio = (
-            collateral_ratio
-            # collateral divided by amount able to borrow
-        )
-        self.distribution_per_day = distribution_per_day
+    env: Env
+    initiator: User
+    reward_token_name: str = "aave"
+    supply_apy: float = 0.06
+    borrow_apy: float = 0.07
+    initial_starting_funds: float = 1000
+    collateral_ratio: float = 1.2
+    asset_names: str = "dai"  # you can only deposit and borrow 1 token
 
-    def setSupplyApr(self, apr: float):
-        self.supply_apr = apr
+    def __post_init__(self):
+        self.total_available_funds = self.initial_starting_funds
+        self.total_borrowed_funds = 0  # start with no funds borrowed
 
-    def setBorrowApr(self, apr: float):
-        self.borrow_apr = apr
+        available_prices = self.env.prices
+        self.interest_token_name = "i-" + self.asset_names
+        self.borrow_token_name = "b-" + self.asset_names
 
-    def process_supply(self, amount):
-        self.total_available_funds += amount
+        # if (
+        #     self.interest_token_name in available_prices
+        #     and available_prices[self.interest_token_name] != 0
+        # ):
+        #     raise RuntimeError("the dai pool is already created.")
 
-    def process_withdraw(self, amount):
-        self.total_available_funds -= amount
-
-    def process_borrow(self, amount: float):
         assert (
-            self.total_available_funds + amount
-        ) <= self.total_available_funds, "Lending pool cannot be depleted"
-        self.total_borrowed_funds += amount
+            self.asset_names in self.initiator.funds_available
+            and self.initiator.funds_available[self.asset_names]
+            >= self.initial_starting_funds
+        ), "insufficient funds"
 
-    def process_repay(self, amount: float):  # = paying back loan
-        self.total_borrowed_funds -= amount
+        # deduct funds from user balance
+        self.initiator.funds_available[self.asset_names] -= self.initial_starting_funds
+
+        initial_i_tokens = self.initial_starting_funds
+        self.user_i_tokens = {self.initiator.name: initial_i_tokens}
+
+        initial_b_tokens = 0
+        self.user_b_tokens = {self.initiator.name: initial_b_tokens}
+
+        # add interest-bearing token into initiator's wallet
+        self.initiator.funds_available[
+            self.interest_token_name
+        ] = self.initial_starting_funds
+        self.initiator.funds_available[self.borrow_token_name] = 0
+
+        # if reward token is a new token, then initiate price with 0
+        reward_token_name = self.reward_token_name
+        if reward_token_name not in available_prices:
+            available_prices[self.reward_token_name] = 0
+
+    def setSupplyApy(self, apy: float):
+        self.supply_apy = apy
+
+    def setBorrowApy(self, apy: float):
+        self.borrow_apy = apy
+
+    def __repr__(self):
+        return f"(available funds = {self.total_available_funds}, borrowed funds = {self.total_borrowed_funds})"
+
+    @property
+    def total_pool_shares(self) -> float:
+        total_i_tokens = sum(self.user_i_tokens.values())
+        total_b_tokens = sum(self.user_b_tokens.values())
+        return total_i_tokens, total_b_tokens
+
+    def get_user_pool_fraction(self, user_name: str) -> float:
+        if user_name not in self.user_i_tokens:
+            self.user_i_tokens[user_name] = 0.0
+        i_token_fraction = self.user_i_tokens[user_name] / self.total_pool_shares[0]
+
+        if user_name not in self.user_b_tokens:
+            self.user_b_tokens[user_name] = 0.0
+        b_token_fraction = self.user_b_tokens[user_name] / self.total_pool_shares[1]
+
+        return i_token_fraction, b_token_fraction
+
+    def receive_pay_interest(self):
+        for user_name in self.user_i_tokens:
+            user_funds = self.env.users[user_name].funds_available
+
+            # distribute reward token proportionaly
+            user_funds[self.interest_token_name] += user_funds[
+                self.interest_token_name
+            ] * ((1 + self.supply_apy) ** (1 / 365) - 1)
+
+        for user_name in self.user_b_tokens:
+            user_funds = self.env.users[user_name].funds_available
+
+            if self.borrow_token_name not in user_funds:
+                user_funds[self.borrow_token_name] = 0
+
+            # distribute reward token proportionaly
+            user_funds[self.borrow_token_name] += user_funds[self.borrow_token_name] * (
+                (1 + self.borrow_apy) ** (1 / 365) - 1
+            )
+
+    def distribute_reward(self, quantity: float):
+        for user_name in self.user_i_tokens:
+            user_funds = self.env.users[user_name].funds_available
+
+            # initialize if the balance does not exist before airdropping
+            if self.reward_token_name not in user_funds:
+                user_funds[self.reward_token_name] = 0
+
+            # distribute reward token proportionaly
+            user_funds[self.reward_token_name] += (
+                self.get_user_pool_fraction(user_name=user_name)[0]
+                * quantity
+                * 0.5  # 50% of rewards go to suppliers
+            )
+
+        for user_name in self.user_b_tokens:
+            user_funds = self.env.users[user_name].funds_available
+
+            # initialize if the balance does not exist before airdropping
+            if self.reward_token_name not in user_funds:
+                user_funds[self.reward_token_name] = 0
+
+            # distribute reward token proportionaly
+            user_funds[self.reward_token_name] += (
+                self.get_user_pool_fraction(user_name=user_name)[1]
+                * quantity
+                * 0.5  # 50% of rewards go to borrowers
+            )
