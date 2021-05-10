@@ -1,10 +1,41 @@
 import logging
 from os import name
-from yieldenv.env import CPAmm, Env, User
+from yieldenv.env import CPAmm, Env, User, Plf
 import matplotlib.pyplot as plt
 
 # toggle between logging.INFO and logging.DEBUG for less or more prints
 logging.basicConfig(level=logging.INFO)
+
+
+simulation_env = Env(prices={"dai": 1, "eth": 1, "i-dai": 1, "b-dai": 1})
+simulation_env.prices["aave"] = 10
+alice = User(env=simulation_env, name="alice", funds_available={"dai": 6000, "eth": 0})
+print(alice.funds_available, "alice")
+bob = User(env=simulation_env, name="bob", funds_available={"dai": 12000, "eth": 3})
+print(bob.funds_available, "bob")
+
+dai_plf = Plf(env=simulation_env, reward_token_name="aave", initiator=alice)
+print(alice.funds_available, "alice")
+
+alice.supply_withdraw(1200, dai_plf)
+print(alice.funds_available, "alice")
+bob.supply_withdraw(600, dai_plf)
+print(bob.funds_available, "bob")
+alice.supply_withdraw(-500, dai_plf)
+print(alice.funds_available, "alice")
+
+alice.borrow_repay(100, dai_plf)
+print(alice.funds_available, "alice")
+
+dai_plf.distribute_reward(200)
+print(alice.funds_available, "alice")
+print(bob.funds_available, "bob")
+
+dai_plf.receive_pay_interest()
+print(alice.funds_available, "alice")
+print(bob.funds_available, "bob")
+
+print(alice.wealth)
 
 """
 Storyline: investor had 100 DAI to invest,
@@ -12,7 +43,7 @@ and turned half of them to ETH for liquidity provision
 """
 
 
-simulation_env = Env()
+simulation_env = Env(prices={"dai": 1, "eth": 2})
 alice = User(env=simulation_env, name="alice", funds_available={"dai": 1000, "eth": 50})
 alice.wealth
 
