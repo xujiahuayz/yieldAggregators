@@ -401,6 +401,9 @@ class Plf:
                 self.interest_token_name
             ] * ((1 + self.supply_apy) ** (1 / 365) - 1)
 
+            # update i token register
+            self.user_i_tokens[user_name] = user_funds[self.interest_token_name]
+
         for user_name in self.user_b_tokens:
             user_funds = self.env.users[user_name].funds_available
 
@@ -411,6 +414,9 @@ class Plf:
             user_funds[self.borrow_token_name] += user_funds[self.borrow_token_name] * (
                 (1 + self.borrow_apy) ** (1 / 365) - 1
             )
+
+            # update b token register
+            self.user_b_tokens[user_name] = user_funds[self.borrow_token_name]
 
     def distribute_reward(self, quantity: float):
         for user_name in self.user_i_tokens:
