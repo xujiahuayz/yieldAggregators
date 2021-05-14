@@ -1,11 +1,36 @@
 import logging
 from os import name
+
+from numpy.random import random
 from yieldenv.env import CPAmm, Env, User, Plf
 import matplotlib.pyplot as plt
+import numpy as np
+
+
+def Randwalk(days: int, _start_price: float):
+
+    y = _start_price
+    price = [y]
+
+    for i in range(days):
+        move = np.random.uniform(0, 1)
+
+        if move < 0.5:  # go up
+            y += 0.05 * y
+
+        if move > 0.5:  # go down
+            if y - 0.05 >= 0:  # if price keeps above 0
+                y -= 0.05 * y
+            else:  # if price is going below 0
+                y -= y
+
+        price.append(y)
+
+    return price
 
 
 def simulate(
-    _price_governance_token: float,
+    _startprice_governance_token: float,
     _initial_funds_plf: float,
     _initial_borrow_ratio: float,
     _aggregator_percentage_liquidyt_plf: float,
@@ -16,7 +41,6 @@ def simulate(
 ):
 
     # initialization vars
-    price_governance_token = _price_governance_token
     initial_supplied_funds_plf = _initial_funds_plf
     initial_borrowed_funds = _initial_borrow_ratio * initial_supplied_funds_plf
     initial_supplied_funds_aggr = (
@@ -26,7 +50,6 @@ def simulate(
 
     # set up an environment with all DAI prices of 1, price for governance token
     simulation_env = Env(prices={"dai": 1, "i-dai": 1, "b-dai": 1})
-    simulation_env.prices["aave"] = price_governance_token
 
     # set up a user that represents (market - yield aggregator): give 500M DAI
     market_maker = User(
@@ -62,9 +85,13 @@ def simulate(
     # create array of x days of returns
     returns = [0] * days_to_simulate
 
-    # simulate every day
+    # simulate random walk for gov token price
+    gov_token_prices = Randwalk(365, _startprice_governance_token)
+    print(gov_token_prices)
 
+    # simulate every day
     for i in range(days_to_simulate):
+        simulation_env.prices["aave"] = gov_token_prices[i]
         dai_plf.accrue_interest()
         dai_plf.distribute_reward(_gov_tokens_distributed_perday)
         returns[i] = aggregator.wealth
@@ -72,5 +99,7 @@ def simulate(
     return returns
 
 
-returns = simulate(10, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
-returns
+returns_1 = simulate(10000000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
+plt.plot(returns_1)
+
+# random walk for gov token price

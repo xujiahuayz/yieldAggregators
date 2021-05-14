@@ -9,9 +9,9 @@ logging.basicConfig(level=logging.INFO)
 
 simulation_env = Env(prices={"dai": 1, "eth": 1, "i-dai": 1, "b-dai": 1})
 simulation_env.prices["aave"] = 10
-alice = User(env=simulation_env, name="alice", funds_available={"dai": 6000, "eth": 0})
+alice = User(env=simulation_env, name="alice", funds_available={"dai": 6000})
 print(alice.funds_available, "alice")
-bob = User(env=simulation_env, name="bob", funds_available={"dai": 12000, "eth": 3})
+bob = User(env=simulation_env, name="bob", funds_available={"dai": 12000})
 print(bob.funds_available, "bob")
 
 dai_plf = Plf(env=simulation_env, reward_token_name="aave", initiator=alice)
@@ -31,7 +31,7 @@ dai_plf.distribute_reward(200)
 print(alice.funds_available, "alice")
 print(bob.funds_available, "bob")
 
-dai_plf.receive_pay_interest()
+dai_plf.accrue_interest()
 print(alice.funds_available, "alice")
 print(bob.funds_available, "bob")
 
