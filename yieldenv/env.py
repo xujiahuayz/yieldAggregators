@@ -184,13 +184,13 @@ class User:
             plf.user_b_tokens[self.name] + amount >= 0
         ), "cannot repay more b-tokens than you have"
 
-        assert (
-            self.funds_available[plf.interest_token_name]
-            - amount * plf.collateral_ratio
-            >= 0
-        ), "insufficient i-tokens to get the amount of requested b-tokens"
-
-        self.funds_available[plf.interest_token_name] -= amount
+        if amount > 0:
+            assert (
+                self.funds_available[plf.interest_token_name]
+                - (amount + self.funds_available[plf.borrow_token_name])
+                * plf.collateral_ratio
+                >= 0
+            ), "insufficient collateral to get the amount of requested b-tokens"
 
         # update liquidity pool
         plf.total_borrowed_funds += amount
@@ -200,6 +200,7 @@ class User:
 
         # matching balance in user's account to pool registry record
         self.funds_available[plf.borrow_token_name] = plf.user_b_tokens[self.name]
+        self.funds_available[plf.asset_names] += amount
 
 
 @dataclass
@@ -392,11 +393,11 @@ class Plf:
 
         return i_token_fraction, b_token_fraction
 
-    def receive_pay_interest(self):
+    def accrue_interest(self):
         for user_name in self.user_i_tokens:
             user_funds = self.env.users[user_name].funds_available
 
-            # distribute reward token proportionaly
+            # distribute i-token
             user_funds[self.interest_token_name] += user_funds[
                 self.interest_token_name
             ] * ((1 + self.supply_apy) ** (1 / 365) - 1)
@@ -410,7 +411,7 @@ class Plf:
             if self.borrow_token_name not in user_funds:
                 user_funds[self.borrow_token_name] = 0
 
-            # distribute reward token proportionaly
+            # distribute b-token
             user_funds[self.borrow_token_name] += user_funds[self.borrow_token_name] * (
                 (1 + self.borrow_apy) ** (1 / 365) - 1
             )
