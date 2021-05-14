@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def Randwalk(days: int, _start_price: float):
+def Randwalk(days: int, _start_price: float, _daily_change: float):
 
     y = _start_price
     price = [y]
@@ -16,13 +16,10 @@ def Randwalk(days: int, _start_price: float):
         move = np.random.uniform(0, 1)
 
         if move < 0.5:  # go up
-            y += 0.05 * y
+            y += _daily_change * y
 
         if move > 0.5:  # go down
-            if y - 0.05 >= 0:  # if price keeps above 0
-                y -= 0.05 * y
-            else:  # if price is going below 0
-                y -= y
+            y -= _daily_change * y
 
         price.append(y)
 
@@ -86,8 +83,7 @@ def simulate(
     returns = [0] * days_to_simulate
 
     # simulate random walk for gov token price
-    gov_token_prices = Randwalk(365, _startprice_governance_token)
-    print(gov_token_prices)
+    gov_token_prices = Randwalk(365, _startprice_governance_token, 0.05)
 
     # simulate every day
     for i in range(days_to_simulate):
@@ -99,7 +95,12 @@ def simulate(
     return returns
 
 
-returns_1 = simulate(10000000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
-plt.plot(returns_1)
+returns_1 = simulate(1000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
+returns_2 = simulate(100, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
+returns_3 = simulate(10, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
+plt.plot(returns_1, label="Highest start price")
+plt.plot(returns_2, label="Medium start price")
+plt.plot(returns_3, label="Lowest start price")
+plt.legend(loc="lower right")
 
 # random walk for gov token price
