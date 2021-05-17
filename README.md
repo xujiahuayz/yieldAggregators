@@ -53,3 +53,11 @@ pip install -e ".[dev]"
 ssh -L 8545:localhost:8545 satoshi.doc.ic.ac.uk
 set -xg WEB3_PROVIDER_URI http://localhost:8545
 ```
+
+## Git Large File Storage (Git LFS)
+
+All files in [`data/`](data/) are stored with `lfs`:
+
+```
+git lfs track data/**/*
+```
