@@ -34,15 +34,12 @@ class Env:
         if type(value) is not PriceDict:
             raise TypeError("must use PriceDict type")
         self._prices = value
-<<<<<<< Updated upstream
-=======
         for asset in list(value):
             if "-" not in asset:
                 asset_price = self._prices[asset]
                 self._prices.update(
                     {f"i-{asset}": asset_price, f"b-{asset}": -asset_price}
                 )
->>>>>>> Stashed changes
 
 
 class User:
