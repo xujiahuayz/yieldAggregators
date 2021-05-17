@@ -72,19 +72,6 @@ class Env:
     def prices(self, value: PriceDict):
         assert type(value) is PriceDict, "must use PriceDict type"
         self._prices = value
-        # print(f"start setting now")
-        # self._prices = value
-        # for asset in list(value):
-        #     if "-" not in asset:
-        #         print(asset)
-        #         asset_price = self.prices[asset]
-        #         self.prices.update(
-        #             {f"i-{asset}": asset_price, f"b-{asset}": -asset_price}
-        #         )
-
-    # @property
-    # def prices(self):
-    #     return self._prices
 
 
 class User:
@@ -267,6 +254,7 @@ class User:
 
         # update liquidity pool
         plf.total_borrowed_funds += amount
+        plf.total_available_funds -= amount
 
         # update b tokens of the user in the pool registry
         plf.user_b_tokens[self.name] += amount
@@ -274,7 +262,6 @@ class User:
         # matching balance in user's account to pool registry record
         self.funds_available[plf.borrow_token_name] = plf.user_b_tokens[self.name]
 
-        # TODO: update available funds in the pool (taken out by the user as borrowed funds)
         self.funds_available[plf.asset_names] += amount
 
 
@@ -451,7 +438,6 @@ class Plf:
         total_b_tokens = sum(self.user_b_tokens.values())
         return total_i_tokens, total_b_tokens
 
-    # TODO: check interest accrue rules -- i believe linear for borrow and compound for supply
     @property
     def daily_supplier_multiplier(self) -> float:
         return (1 + self.supply_apy) ** (1 / 365)
@@ -483,10 +469,6 @@ class Plf:
 
         for user_name in self.user_b_tokens:
             user_funds = self.env.users[user_name].funds_available
-
-            # TODO: is this just a sanity check? could this `if` ever be true?
-            if self.borrow_token_name not in user_funds:
-                user_funds[self.borrow_token_name] = 0
 
             # distribute b-token
             user_funds[self.borrow_token_name] *= self.daily_borrow_multiplier

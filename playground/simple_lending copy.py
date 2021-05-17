@@ -42,7 +42,7 @@ def simulate_simple_lending(
     days_to_simulate = _days_to_simulate
 
     # set up an environment with all DAI prices of 1, price for governance token
-    simulation_env = Env(prices={"dai": 1, "i-dai": 1, "b-dai": 1})
+    simulation_env = Env(prices={"dai": 1, "i-dai": 1, "b-dai": -1})
 
     # set up a user that represents (market - yield aggregator): give 500M DAI
     market_maker = User(
