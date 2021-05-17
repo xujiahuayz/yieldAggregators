@@ -166,6 +166,8 @@ class User:
         # update market price due to trading
         self.env.prices[amm.asset_names[1]] = amm.spot_price
 
+        self.env.prices[amm.lp_token_name] = amm.lp_token_price
+
         logging.debug(
             f"""
             old invariant: {old_invariant}

@@ -1,4 +1,4 @@
-from yieldenv.env import Env, User, CPAmm
+from yieldenv.env import Env, PriceDict, User, CPAmm
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -47,7 +47,7 @@ def simulate_cpamm(
     )
 
     # set up an environment with all DAI prices of 1, price for governance token
-    simulation_env = Env(prices={"dai": 1, "eth": _startprice_quote_token})
+    simulation_env = Env(prices=PriceDict({"dai": 1, "eth": _startprice_quote_token}))
 
     # set up a user that represents (market - yield aggregator)
     market_maker = User(
@@ -60,7 +60,7 @@ def simulate_cpamm(
     dai_eth_amm = CPAmm(
         env=simulation_env,
         reward_token_name="sushi",
-        fee=0.003,
+        fee=0.00002,
         initiator=market_maker,
         initial_reserves=initial_reserves_amm,
     )
@@ -96,14 +96,9 @@ def simulate_cpamm(
     for i in range(_days_to_simulate):
         simulation_env.prices["sushi"] = gov_token_prices[i]
         print("before---------------------------------")
-        print(aggregator.wealth)
-        print(aggregator.funds_available)
-        print(simulation_env.prices)
-        trader.sell_to_amm(dai_eth_amm, 0.1 * dai_eth_amm.pool_value)
-        print("after-----------------------------------")
-        print(aggregator.wealth)
-        print(aggregator.funds_available)
-        print(simulation_env.prices)
+
+        trader.sell_to_amm(dai_eth_amm, 1000000, sell_index=1)
+
         # dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
         returns[i] = aggregator.wealth
 
