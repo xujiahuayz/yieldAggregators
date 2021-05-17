@@ -46,3 +46,10 @@ venv\Scripts\activate.bat
 ```
 pip install -e ".[dev]"
 ```
+
+## Connect to a full node to fetch onchain data
+
+```
+ssh -L 8545:localhost:8545 satoshi.doc.ic.ac.uk
+set -xg WEB3_PROVIDER_URI http://localhost:8545
+```
