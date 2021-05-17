@@ -200,6 +200,8 @@ class User:
 
         # matching balance in user's account to pool registry record
         self.funds_available[plf.borrow_token_name] = plf.user_b_tokens[self.name]
+
+        # TODO: update available funds in the pool (taken out by the user as borrowed funds)
         self.funds_available[plf.asset_names] += amount
 
 
@@ -329,17 +331,11 @@ class Plf:
 
     def __post_init__(self):
         self.total_available_funds = self.initial_starting_funds
-        self.total_borrowed_funds = 0  # start with no funds borrowed
+        self.total_borrowed_funds = 0.0  # start with no funds borrowed
 
         available_prices = self.env.prices
         self.interest_token_name = "i-" + self.asset_names
         self.borrow_token_name = "b-" + self.asset_names
-
-        # if (
-        #     self.interest_token_name in available_prices
-        #     and available_prices[self.interest_token_name] != 0
-        # ):
-        #     raise RuntimeError("the dai pool is already created.")
 
         assert (
             self.asset_names in self.initiator.funds_available
@@ -353,7 +349,7 @@ class Plf:
         initial_i_tokens = self.initial_starting_funds
         self.user_i_tokens = {self.initiator.name: initial_i_tokens}
 
-        initial_b_tokens = 0
+        initial_b_tokens = 0.0
         self.user_b_tokens = {self.initiator.name: initial_b_tokens}
 
         # add interest-bearing token into initiator's wallet
@@ -377,12 +373,21 @@ class Plf:
         return f"(available funds = {self.total_available_funds}, borrowed funds = {self.total_borrowed_funds})"
 
     @property
-    def total_pool_shares(self) -> float:
+    def total_pool_shares(self) -> tuple[float, float]:
         total_i_tokens = sum(self.user_i_tokens.values())
         total_b_tokens = sum(self.user_b_tokens.values())
         return total_i_tokens, total_b_tokens
 
-    def get_user_pool_fraction(self, user_name: str) -> float:
+    # TODO: check interest accrue rules -- i believe linear for borrow and compound for supply
+    @property
+    def daily_supplier_multiplier(self) -> float:
+        return (1 + self.supply_apy) ** (1 / 365)
+
+    @property
+    def daily_borrow_multiplier(self) -> float:
+        return (1 + self.borrow_apy) ** (1 / 365)
+
+    def get_user_pool_fraction(self, user_name: str) -> tuple[float, float]:
         if user_name not in self.user_i_tokens:
             self.user_i_tokens[user_name] = 0.0
         i_token_fraction = self.user_i_tokens[user_name] / self.total_pool_shares[0]
@@ -398,9 +403,7 @@ class Plf:
             user_funds = self.env.users[user_name].funds_available
 
             # distribute i-token
-            user_funds[self.interest_token_name] += user_funds[
-                self.interest_token_name
-            ] * ((1 + self.supply_apy) ** (1 / 365) - 1)
+            user_funds[self.interest_token_name] *= self.daily_supplier_multiplier
 
             # update i token register
             self.user_i_tokens[user_name] = user_funds[self.interest_token_name]
@@ -408,19 +411,18 @@ class Plf:
         for user_name in self.user_b_tokens:
             user_funds = self.env.users[user_name].funds_available
 
+            # TODO: is this just a sanity check? could this `if` ever be true?
             if self.borrow_token_name not in user_funds:
                 user_funds[self.borrow_token_name] = 0
 
             # distribute b-token
-            user_funds[self.borrow_token_name] += user_funds[self.borrow_token_name] * (
-                (1 + self.borrow_apy) ** (1 / 365) - 1
-            )
+            user_funds[self.borrow_token_name] *= self.daily_borrow_multiplier
 
             # update b token register
             self.user_b_tokens[user_name] = user_funds[self.borrow_token_name]
 
     def distribute_reward(self, quantity: float):
-        for user_name in self.user_i_tokens:
+        for user_name in self.env.users:
             user_funds = self.env.users[user_name].funds_available
 
             # initialize if the balance does not exist before airdropping
@@ -429,21 +431,5 @@ class Plf:
 
             # distribute reward token proportionaly
             user_funds[self.reward_token_name] += (
-                self.get_user_pool_fraction(user_name=user_name)[0]
-                * quantity
-                * 0.5  # 50% of rewards go to suppliers
-            )
-
-        for user_name in self.user_b_tokens:
-            user_funds = self.env.users[user_name].funds_available
-
-            # initialize if the balance does not exist before airdropping
-            if self.reward_token_name not in user_funds:
-                user_funds[self.reward_token_name] = 0
-
-            # distribute reward token proportionaly
-            user_funds[self.reward_token_name] += (
-                self.get_user_pool_fraction(user_name=user_name)[1]
-                * quantity
-                * 0.5  # 50% of rewards go to borrowers
+                np.mean(self.get_user_pool_fraction(user_name=user_name)) * quantity
             )

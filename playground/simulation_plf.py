@@ -12,7 +12,7 @@ def Randwalk(days: int, _start_price: float, _daily_change: float):
     y = _start_price
     price = [y]
 
-    for i in range(days):
+    for _ in range(days):
         move = np.random.uniform(0, 1)
 
         if move < 0.5:  # go up
@@ -80,7 +80,7 @@ def simulate(
     aggregator.supply_withdraw(initial_supplied_funds_aggr, dai_plf)
 
     # create array of x days of returns
-    returns = [0] * days_to_simulate
+    returns = [0.0] * days_to_simulate
 
     # simulate random walk for gov token price
     gov_token_prices = Randwalk(365, _startprice_governance_token, 0.05)
