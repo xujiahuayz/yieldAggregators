@@ -3,15 +3,40 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import numpy as np
 import logging
-from typing import Dict, Optional, cast
+from typing import Optional, cast
 
 
 @dataclass
 class Env:
-    users: Dict[str, User] = field(default_factory=dict)
-    prices: Dict[str, float] = field(
-        default_factory=lambda: {"dai": 1.0, "eth": 2.0, "i-dai": 1.0, "b-dai": -1.0}
-    )
+    def __init__(
+        self,
+        users: Optional[dict[str, User]] = None,
+        prices: Optional[dict[str, float]] = None,
+    ):
+        if users is None:
+            users = {}
+        if prices is None:
+            prices = {"dai": 1.0, "eth": 2.0}
+
+        self.users = users
+        self.prices = prices
+
+    @property
+    def prices(self):
+        # print(f"start getting now")
+        return self._prices
+
+    @prices.setter
+    def prices(self, value):
+        # print(f"start setting now")
+        self._prices = value
+        for asset in list(value):
+            if "-" not in asset:
+                print(asset)
+                asset_price = self._prices[asset]
+                self._prices.update(
+                    {f"i-{asset}": asset_price, f"b-{asset}": -asset_price}
+                )
 
 
 class User:

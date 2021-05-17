@@ -1,8 +1,4 @@
-import logging
-from os import name
-
-from numpy.random import random
-from yieldenv.env import CPAmm, Env, User, Plf
+from yieldenv.env import Env, User, Plf
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -26,7 +22,7 @@ def Randwalk(days: int, _start_price: float, _daily_change: float):
     return price
 
 
-def simulate(
+def simulate_simple_lending(
     _startprice_governance_token: float,
     _initial_funds_plf: float,
     _initial_borrow_ratio: float,
@@ -95,9 +91,9 @@ def simulate(
     return returns
 
 
-returns_1 = simulate(1000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
-returns_2 = simulate(100, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
-returns_3 = simulate(10, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
+returns_1 = simulate_simple_lending(1000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
+returns_2 = simulate_simple_lending(100, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
+returns_3 = simulate_simple_lending(10, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
 plt.plot(returns_1, label="Highest start price")
 plt.plot(returns_2, label="Medium start price")
 plt.plot(returns_3, label="Lowest start price")
