@@ -1,50 +1,12 @@
 # make sure User is recognized
 from __future__ import annotations
 from dataclasses import dataclass, field
+from yieldenv.constants import DEBT_TOKEN_PREFIX, INTEREST_TOKEN_PREFIX
 import numpy as np
 import logging
 from typing import Optional, cast
-import warnings
-from collections import abc
 
-
-class PriceDict(abc.MutableMapping):
-    # def __getitem__(self, key):
-    #     return dict.__getitem__(self, key)
-    def __init__(self, *args, **kwargs):
-        self.__dict__ = dict()
-
-        # calls newly written `__setitem__` below
-        self.update(*args, **kwargs)
-
-    # The next five methods are requirements of the ABC.
-    def __setitem__(self, key: str, value: float):
-        if "-" in key:
-            warnings.warn(f"value setting for {key} ignored")
-        self.__dict__[key] = value
-        self.__dict__[f"i-{key}"] = value
-        self.__dict__[f"b-{key}"] = -value
-
-    def __getitem__(self, key):
-        return self.__dict__[key]
-
-    def __delitem__(self, key):
-        del self.__dict__[key]
-
-    def __iter__(self):
-        return iter(self.__dict__)
-
-    def __len__(self):
-        return len(self.__dict__)
-
-    # The final two methods aren't required, but nice for demo purposes:
-    def __str__(self):
-        """returns simple dict representation of the mapping"""
-        return str(self.__dict__)
-
-    def __repr__(self):
-        """echoes class, id, & reproducible representation in the REPL"""
-        return f"{self.__dict__}"
+from yieldenv.utils import PriceDict
 
 
 @dataclass
@@ -64,13 +26,13 @@ class Env:
         self.prices = prices
 
     @property
-    def prices(self):
-        # print(f"start getting now")
+    def prices(self) -> PriceDict:
         return self._prices
 
     @prices.setter
     def prices(self, value: PriceDict):
-        assert type(value) is PriceDict, "must use PriceDict type"
+        if type(value) is not PriceDict:
+            raise TypeError("must use PriceDict type")
         self._prices = value
 
 
@@ -396,8 +358,8 @@ class Plf:
         self.total_borrowed_funds = 0.0  # start with no funds borrowed
 
         available_prices = self.env.prices
-        self.interest_token_name = "i-" + self.asset_names
-        self.borrow_token_name = "b-" + self.asset_names
+        self.interest_token_name = INTEREST_TOKEN_PREFIX + self.asset_names
+        self.borrow_token_name = DEBT_TOKEN_PREFIX + self.asset_names
 
         assert (
             self.asset_names in self.initiator.funds_available
@@ -408,11 +370,9 @@ class Plf:
         # deduct funds from user balance
         self.initiator.funds_available[self.asset_names] -= self.initial_starting_funds
 
-        initial_i_tokens = self.initial_starting_funds
-        self.user_i_tokens = {self.initiator.name: initial_i_tokens}
+        self.user_i_tokens = {self.initiator.name: self.initial_starting_funds}
 
-        initial_b_tokens = 0.0
-        self.user_b_tokens = {self.initiator.name: initial_b_tokens}
+        self.user_b_tokens = {self.initiator.name: 0.0}
 
         # add interest-bearing token into initiator's wallet
         self.initiator.funds_available[
@@ -425,6 +385,7 @@ class Plf:
         if reward_token_name not in available_prices:
             available_prices[self.reward_token_name] = 0
 
+    # TODO: what's this for? can't one set directly?
     def setSupplyApy(self, apy: float):
         self.supply_apy = apy
 
