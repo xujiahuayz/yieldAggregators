@@ -24,8 +24,7 @@ def get_onchain_data(
         function_name,
         start_block=start_no,
         end_block=end_no,
-        block_interval=1,
-        # contract_args=None,
+        block_interval=500,
     )
     with gzip.open(
         os.path.join(DATA_PATH, f"{file_prefix}_{function_name}.jsonl.gz"), "wt"
