@@ -35,6 +35,7 @@ class Env:
             raise TypeError("must use PriceDict type")
         self._prices = value
 
+
 class User:
     def __init__(self, env: Env, name: str, funds_available: Optional[dict] = None):
         assert name not in env.users, f"User {name} exists"
