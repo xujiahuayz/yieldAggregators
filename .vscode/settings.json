@@ -3,7 +3,7 @@
     "editor.formatOnSaveMode": "file",
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
-    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "python.pythonPath": "venv/bin/python",
     "python.linting.pylintPath": "venv/bin/pylint",
     "python.linting.pylintEnabled": true,
     "jupyter.jupyterServerType": "local"
