@@ -1,6 +1,7 @@
 from yieldenv.env import Env, PriceDict, User, CPAmm
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
 """
 Storyline: investor provides LP tokens to a yield aggregator, which 
@@ -36,6 +37,7 @@ def simulate_cpamm(
     _gov_tokens_distributed_perday: float,
     _initial_funds_trader: dict = {"dai": 1e20, "eth": 1e20},
     _days_to_simulate: int = 365,
+    _scenario: str = "benchmark",
 ):
 
     # initialization vars
@@ -79,8 +81,6 @@ def simulate_cpamm(
         funds_available=initial_funds_aggr,
     )
 
-    print(aggregator.funds_available)
-
     # aggregator supplies all funds into the amm pool
     aggregator.update_liquidity(
         dai_eth_amm.total_pool_shares * _percentage_liquidity_aggr, amm=dai_eth_amm
@@ -90,30 +90,101 @@ def simulate_cpamm(
     returns = [0.0] * _days_to_simulate
 
     # simulate random walk for gov token price
-    gov_token_prices = Randwalk(365, _startprice_governance_token, 0.05)
+    gov_token_prices = Randwalk(_days_to_simulate, _startprice_governance_token, 0.05)
 
     # simulate every day
-    for i in range(_days_to_simulate):
-        simulation_env.prices["sushi"] = gov_token_prices[i]
-        print("before---------------------------------")
+    if _scenario == "benchmark":
+        for i in range(_days_to_simulate):
+            simulation_env.prices["sushi"] = gov_token_prices[i]
 
-        trader.sell_to_amm(dai_eth_amm, 1000000, sell_index=1)
+            dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 
-        # dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
-        returns[i] = aggregator.wealth
+            returns[i] = aggregator.wealth
+    elif _scenario == "only buy":
+        for i in range(_days_to_simulate):
+            simulation_env.prices["sushi"] = gov_token_prices[i]
+
+            for m in range(50):
+                trade_amount = random.randint(1, 1000000)
+                trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=0)
+
+            dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
+
+            returns[i] = aggregator.wealth
+    elif _scenario == "only sell":
+        for i in range(_days_to_simulate):
+            simulation_env.prices["sushi"] = gov_token_prices[i]
+
+            for m in range(50):
+                trade_amount = random.randint(1, 1000000)
+                trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=1)
+
+            dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
+
+            returns[i] = aggregator.wealth
+    elif _scenario == "both":
+        for i in range(_days_to_simulate):
+            simulation_env.prices["sushi"] = gov_token_prices[i]
+
+            for m in range(25):
+                trade_amount = random.randint(1, 1000000)
+                trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=0)
+            for n in range(25):
+                trade_amount = random.randint(1, 1000000)
+                trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=1)
+
+            dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
+
+            returns[i] = aggregator.wealth
+    else:
+        print("Scenario not available")
+        returns = None
 
     return returns
 
 
-returns_1 = simulate_cpamm(
-    {"dai": 120000000, "eth": 30000}, 4000, 0.01, 40, 100, _days_to_simulate=5
+returns_benchmark = simulate_cpamm(
+    _initial_supplied_funds_amm={"dai": 120000000, "eth": 30000},
+    _startprice_quote_token=4000,
+    _percentage_liquidity_aggr=0.01,
+    _startprice_governance_token=30,
+    _gov_tokens_distributed_perday=100,
+    _days_to_simulate=365,
+    _scenario="benchmark",
 )
 
-# returns_2 = simulate_simple_lending(100, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
-# returns_3 = simulate_simple_lending(10, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
-plt.plot(returns_1, label="Highest start price")
-# plt.plot(returns_2, label="Medium start price")
-# plt.plot(returns_3, label="Lowest start price")
-# plt.legend(loc="lower right")
+returns_only_buy = simulate_cpamm(
+    _initial_supplied_funds_amm={"dai": 120000000, "eth": 30000},
+    _startprice_quote_token=4000,
+    _percentage_liquidity_aggr=0.01,
+    _startprice_governance_token=30,
+    _gov_tokens_distributed_perday=100,
+    _days_to_simulate=365,
+    _scenario="only buy",
+)
 
-# random walk for gov token price
+returns_only_sell = simulate_cpamm(
+    _initial_supplied_funds_amm={"dai": 120000000, "eth": 30000},
+    _startprice_quote_token=4000,
+    _percentage_liquidity_aggr=0.01,
+    _startprice_governance_token=30,
+    _gov_tokens_distributed_perday=100,
+    _days_to_simulate=365,
+    _scenario="only sell",
+)
+
+returns_both = simulate_cpamm(
+    _initial_supplied_funds_amm={"dai": 120000000, "eth": 30000},
+    _startprice_quote_token=4000,
+    _percentage_liquidity_aggr=0.01,
+    _startprice_governance_token=30,
+    _gov_tokens_distributed_perday=100,
+    _days_to_simulate=365,
+    _scenario="both",
+)
+
+plt.plot(returns_benchmark, label="Benchmark")
+plt.plot(returns_only_buy, label="Only buy")
+plt.plot(returns_only_sell, label="Only sell")
+plt.plot(returns_both, label="Both")
+plt.legend(loc="best")
