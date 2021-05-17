@@ -4,6 +4,47 @@ from dataclasses import dataclass, field
 import numpy as np
 import logging
 from typing import Optional, cast
+import warnings
+from collections import abc
+
+
+class PriceDict(abc.MutableMapping):
+    # def __getitem__(self, key):
+    #     return dict.__getitem__(self, key)
+    def __init__(self, *args, **kwargs):
+        self.__dict__ = dict()
+
+        # calls newly written `__setitem__` below
+        self.update(*args, **kwargs)
+
+    # The next five methods are requirements of the ABC.
+    def __setitem__(self, key: str, value: float):
+        if "-" in key:
+            warnings.warn(f"value setting for {key} ignored")
+        self.__dict__[key] = value
+        self.__dict__[f"i-{key}"] = value
+        self.__dict__[f"b-{key}"] = -value
+
+    def __getitem__(self, key):
+        return self.__dict__[key]
+
+    def __delitem__(self, key):
+        del self.__dict__[key]
+
+    def __iter__(self):
+        return iter(self.__dict__)
+
+    def __len__(self):
+        return len(self.__dict__)
+
+    # The final two methods aren't required, but nice for demo purposes:
+    def __str__(self):
+        """returns simple dict representation of the mapping"""
+        return str(self.__dict__)
+
+    def __repr__(self):
+        """echoes class, id, & reproducible representation in the REPL"""
+        return f"{self.__dict__}"
 
 
 @dataclass
@@ -11,12 +52,13 @@ class Env:
     def __init__(
         self,
         users: Optional[dict[str, User]] = None,
-        prices: Optional[dict[str, float]] = None,
+        prices: Optional[PriceDict] = None,
     ):
         if users is None:
             users = {}
+
         if prices is None:
-            prices = {"dai": 1.0, "eth": 2.0}
+            prices = PriceDict({"dai": 1.0, "eth": 2.0})
 
         self.users = users
         self.prices = prices
@@ -27,16 +69,22 @@ class Env:
         return self._prices
 
     @prices.setter
-    def prices(self, value):
-        # print(f"start setting now")
+    def prices(self, value: PriceDict):
+        assert type(value) is PriceDict, "must use PriceDict type"
         self._prices = value
-        for asset in list(value):
-            if "-" not in asset:
-                print(asset)
-                asset_price = self._prices[asset]
-                self._prices.update(
-                    {f"i-{asset}": asset_price, f"b-{asset}": -asset_price}
-                )
+        # print(f"start setting now")
+        # self._prices = value
+        # for asset in list(value):
+        #     if "-" not in asset:
+        #         print(asset)
+        #         asset_price = self.prices[asset]
+        #         self.prices.update(
+        #             {f"i-{asset}": asset_price, f"b-{asset}": -asset_price}
+        #         )
+
+    # @property
+    # def prices(self):
+    #     return self._prices
 
 
 class User:
