@@ -2,6 +2,8 @@ from yieldenv.env import Env, PriceDict, User, CPAmm
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+from operator import add
+
 
 """
 Storyline: investor provides LP tokens to a yield aggregator, which 
@@ -10,20 +12,13 @@ potential loss through divergence loss
 """
 
 
-def Randwalk(days: int, _start_price: float, _daily_change: float):
+def define_price_gov_token(days: int, _start_price: float, _trend_pct: float):
 
     y = _start_price
     price = [y]
 
     for _ in range(days):
-        move = np.random.uniform(0, 1)
-
-        if move < 0.5:  # go up
-            y += _daily_change * y
-
-        if move > 0.5:  # go down
-            y -= _daily_change * y
-
+        y = y * (1+_trend_pct)
         price.append(y)
 
     return price
@@ -36,6 +31,7 @@ def simulate_cpamm(
     _startprice_governance_token: float,
     _gov_tokens_distributed_perday: float,
     _pct_of_pool_to_trade: float,
+    _gov_price_trend:float, 
     _initial_funds_trader: dict = {"dai": 1e20, "eth": 1e20},
     _days_to_simulate: int = 365,
     _scenario: str = "benchmark",
@@ -96,7 +92,7 @@ def simulate_cpamm(
     daily_traded_volume = _pct_of_pool_to_trade * dai_eth_amm.pool_value / _days_to_simulate
 
     # simulate random walk for gov token price
-    gov_token_prices = Randwalk(_days_to_simulate, _startprice_governance_token, 0.05)
+    gov_token_prices = define_price_gov_token(_days_to_simulate, _startprice_governance_token, _gov_price_trend)
 
     # simulate every day
     if _scenario == "benchmark":
@@ -154,11 +150,11 @@ def simulate_cpamm(
 initial_supplied_funds_amm = {"dai": 120000000, "eth": 30000}
 startprice_quote_token=4000
 percentage_liquidity_aggr=0.01
-startprice_governance_token=3000
+startprice_governance_token=30
 gov_tokens_distributed_perday=100
+gov_price_trend = 0.001
 pct_of_pool_to_trade = 0.01
-days_to_simulate=100
-
+days_to_simulate=365
 
 returns_benchmark = simulate_cpamm(
     _initial_supplied_funds_amm=initial_supplied_funds_amm.copy(),
@@ -167,6 +163,7 @@ returns_benchmark = simulate_cpamm(
     _startprice_governance_token=startprice_governance_token,
     _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
     _pct_of_pool_to_trade = pct_of_pool_to_trade,
+    _gov_price_trend = 0.01,
     _days_to_simulate=days_to_simulate,
     _scenario="benchmark",
 )
@@ -179,17 +176,20 @@ returns_only_buy = simulate_cpamm(
     _startprice_governance_token=startprice_governance_token,
     _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
     _pct_of_pool_to_trade = pct_of_pool_to_trade,
+    _gov_price_trend = 0.01,
     _days_to_simulate=days_to_simulate,
     _scenario="only buy",
 )
 
-returns_only_sell = simulate_cpamm(
+
+returns_only_sell= simulate_cpamm(
     _initial_supplied_funds_amm=initial_supplied_funds_amm.copy(),
     _startprice_quote_token=startprice_quote_token,
     _percentage_liquidity_aggr=percentage_liquidity_aggr,
     _startprice_governance_token=startprice_governance_token,
     _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
     _pct_of_pool_to_trade = pct_of_pool_to_trade,
+    _gov_price_trend = 0.01,
     _days_to_simulate=days_to_simulate,
     _scenario="only sell",
 )
@@ -201,9 +201,12 @@ returns_both = simulate_cpamm(
     _startprice_governance_token=startprice_governance_token,
     _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
     _pct_of_pool_to_trade = pct_of_pool_to_trade,
+    _gov_price_trend = 0.01,
     _days_to_simulate=days_to_simulate,
     _scenario="both",
 )
+
+
 
 plt.plot(returns_benchmark, label="Benchmark (no trade)")
 plt.plot(returns_only_buy, label="Only buy ETH")

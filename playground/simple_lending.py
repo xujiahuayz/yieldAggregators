@@ -4,20 +4,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def Randwalk(days: int, _start_price: float, _daily_change: float):
+def define_price_gov_token(days: int, _start_price: float, _trend_pct: float):
 
     y = _start_price
     price = [y]
 
     for _ in range(days):
-        move = np.random.uniform(0, 1)
-
-        if move < 0.5:  # go up
-            y += _daily_change * y
-
-        if move > 0.5:  # go down
-            y -= _daily_change * y
-
+        y = y * (1+_trend_pct)
         price.append(y)
 
     return price
@@ -31,6 +24,7 @@ def simulate_simple_lending(
     _supply_apy_plf: float,
     _borrow_apy_plf: float,
     _gov_tokens_distributed_perday: float,
+    _gov_price_trend:float, 
     _days_to_simulate: int = 365,
 ):
 
@@ -80,7 +74,7 @@ def simulate_simple_lending(
     returns = [0.0] * days_to_simulate
 
     # simulate random walk for gov token price
-    gov_token_prices = Randwalk(365, _startprice_governance_token, 0.05)
+    gov_token_prices = define_price_gov_token(days_to_simulate, _startprice_governance_token, _gov_price_trend)
 
     # simulate every day
     for i in range(days_to_simulate):
@@ -92,9 +86,9 @@ def simulate_simple_lending(
     return returns
 
 
-returns_1 = simulate_simple_lending(1000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
-returns_2 = simulate_simple_lending(100, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
-returns_3 = simulate_simple_lending(10, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 365)
+returns_1 = simulate_simple_lending(1000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 0.01, 365)
+returns_2 = simulate_simple_lending(100, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 0.01, 365)
+returns_3 = simulate_simple_lending(10, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 0.01, 365)
 plt.plot(returns_1, label="Highest start price")
 plt.plot(returns_2, label="Medium start price")
 plt.plot(returns_3, label="Lowest start price")
