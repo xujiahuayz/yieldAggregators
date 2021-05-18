@@ -204,12 +204,16 @@ class User:
         if self.name not in plf.user_b_tokens:
             plf.user_b_tokens[self.name] = 0
 
+        if plf.borrow_token_name not in self.funds_available:
+            self.funds_available[plf.borrow_token_name] = 0
+
         if plf.user_b_tokens[self.name] + amount < 0:
             raise ValueError("cannot repay more b-tokens than you have")
 
+
         if (
             self.funds_available[plf.interest_token_name]
-            < (amount + self.funds_available[plf.borrow_token_name])
+            <= (amount + self.funds_available[plf.borrow_token_name])
             * plf.collateral_ratio
         ):
             raise ValueError(
