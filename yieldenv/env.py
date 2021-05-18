@@ -385,13 +385,6 @@ class Plf:
         if reward_token_name not in available_prices:
             available_prices[self.reward_token_name] = 0
 
-    # TODO: what's this for? can't one set directly?
-    def setSupplyApy(self, apy: float):
-        self.supply_apy = apy
-
-    def setBorrowApy(self, apy: float):
-        self.borrow_apy = apy
-
     def __repr__(self):
         return f"(available funds = {self.total_available_funds}, borrowed funds = {self.total_borrowed_funds})"
 

@@ -98,6 +98,6 @@ returns_3 = simulate_simple_lending(10, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 
 plt.plot(returns_1, label="Highest start price")
 plt.plot(returns_2, label="Medium start price")
 plt.plot(returns_3, label="Lowest start price")
-plt.legend(loc="lower right")
+plt.legend(loc="best")
 
 # random walk for gov token price
