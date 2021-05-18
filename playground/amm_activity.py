@@ -1,5 +1,6 @@
 import logging
 from os import name
+from yieldenv.utils import PriceDict
 from yieldenv.env import CPAmm, Env, User, Plf
 import matplotlib.pyplot as plt
 
@@ -7,7 +8,7 @@ import matplotlib.pyplot as plt
 logging.basicConfig(level=logging.INFO)
 
 
-simulation_env = Env(prices={"dai": 1, "i-dai": 1, "b-dai": -1})
+simulation_env = Env(prices=PriceDict({"dai": 1}))
 simulation_env.prices["aave"] = 10
 alice = User(env=simulation_env, name="alice", funds_available={"dai": 6000})
 print(alice.funds_available, "alice")

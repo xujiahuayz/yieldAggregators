@@ -204,17 +204,17 @@ class User:
         if self.name not in plf.user_b_tokens:
             plf.user_b_tokens[self.name] = 0
 
-        assert (
-            plf.user_b_tokens[self.name] + amount >= 0
-        ), "cannot repay more b-tokens than you have"
+        if plf.user_b_tokens[self.name] + amount < 0:
+            raise ValueError("cannot repay more b-tokens than you have")
 
-        if amount > 0:
-            assert (
-                self.funds_available[plf.interest_token_name]
-                - (amount + self.funds_available[plf.borrow_token_name])
-                * plf.collateral_ratio
-                >= 0
-            ), "insufficient collateral to get the amount of requested b-tokens"
+        if (
+            self.funds_available[plf.interest_token_name]
+            < (amount + self.funds_available[plf.borrow_token_name])
+            * plf.collateral_ratio
+        ):
+            raise ValueError(
+                "insufficient collateral to get the amount of requested debt tokens"
+            )
 
         # update liquidity pool
         plf.total_borrowed_funds += amount
@@ -411,11 +411,15 @@ class Plf:
 
     def get_user_pool_fraction(self, user_name: str) -> tuple[float, float]:
         if user_name not in self.user_i_tokens:
-            self.user_i_tokens[user_name] = 0.0
+            self.user_i_tokens[user_name] = self.env.users[user_name].funds_available[
+                self.interest_token_name
+            ] = 0.0
         i_token_fraction = self.user_i_tokens[user_name] / self.total_pool_shares[0]
 
         if user_name not in self.user_b_tokens:
-            self.user_b_tokens[user_name] = 0.0
+            self.user_b_tokens[user_name] = self.env.users[user_name].funds_available[
+                self.borrow_token_name
+            ] = 0.0
         b_token_fraction = self.user_b_tokens[user_name] / self.total_pool_shares[1]
 
         return i_token_fraction, b_token_fraction
