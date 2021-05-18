@@ -73,7 +73,7 @@ def simulate_simple_lending(
     aggregator.supply_withdraw(aggregator.funds_available['dai'], dai_plf)
 
     for i in range(_spirals):   
-        print(aggregator.funds_available)
+        # print(aggregator.funds_available)
 
         amount_i_dai = aggregator.funds_available[dai_plf.interest_token_name]
         if dai_plf.borrow_token_name in aggregator.funds_available:
@@ -82,18 +82,17 @@ def simulate_simple_lending(
             amount_b_dai = 0
 
         available_to_borrow = amount_i_dai / dai_plf.collateral_ratio - amount_b_dai - 0.1
-        print(available_to_borrow)
+        
+        # print(available_to_borrow)
         
         # aggregator puts borrowed funds back into plf
         aggregator.borrow_repay(available_to_borrow, dai_plf)
         
-        print(aggregator.funds_available)
+        # print(aggregator.funds_available)
 
         aggregator.supply_withdraw(available_to_borrow, dai_plf)
 
-        print(aggregator.funds_available)
-
-
+        # print(aggregator.funds_available)
 
 
     # create array of x days of returns
@@ -109,12 +108,13 @@ def simulate_simple_lending(
         dai_plf.distribute_reward(_gov_tokens_distributed_perday)
         returns[i] = aggregator.wealth
 
+    print(aggregator.funds_available)
     return returns
 
 
-returns_1 = simulate_simple_lending(1000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 0.01, 1, 365)
-returns_2 = simulate_simple_lending(1000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 0.01, 10, 365)
-returns_3 = simulate_simple_lending(1000, 500000000, 0.8, 0.007, 0.06, 0.08, 100, 0.01, 50, 365)
+returns_1 = simulate_simple_lending(0, 500000000, 0.8, 0.007, 0.06, 0.061, 100, 0.01, 1, 365)
+returns_2 = simulate_simple_lending(0, 500000000, 0.8, 0.007, 0.06, 0.061, 100, 0.01, 10, 365)
+returns_3 = simulate_simple_lending(0, 500000000, 0.8, 0.007, 0.06, 0.061, 100, 0.01, 50, 365)
 plt.plot(returns_1, label="1 spiral")
 plt.plot(returns_2, label="10 spirals")
 plt.plot(returns_3, label="50 spirals")
