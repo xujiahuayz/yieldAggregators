@@ -1,7 +1,7 @@
 import os
 import json
 import gzip
-from yieldenv.constants import DATA_PATH, CONTRACT_DATA
+from yieldenv.constants import DATA_PATH, CONTRACT_DATA, FUNCTIONS_INTERESTED
 
 from web3.auto.http import w3
 
@@ -15,7 +15,7 @@ def get_onchain_data(
     start_no: int,
     end_no: int,
     file_prefix: str,
-    function_name: str = "pricePerShare",
+    function_name: str = FUNCTIONS_INTERESTED[2],
 ):
     abi = fetch_abi(proxy_address)
     contract = w3.eth.contract(abi=abi, address=contract_address)
@@ -38,11 +38,12 @@ if __name__ == "__main__":
     os.environ.setdefault("WEB3_PROVIDER_URI", "http://localhost:8545")
 
     for name, value in CONTRACT_DATA.items():
-        get_onchain_data(
-            proxy_address=value["abi_address"],
-            contract_address=value["contract_addresse"],
-            start_no=value["start_block"],
-            end_no=value["end_block"],
-            file_prefix=name,
-            function_name="pricePerShare",
-        )
+        for func in value["function"]:
+            get_onchain_data(
+                proxy_address=value["abi_address"],
+                contract_address=value["contract_addresse"],
+                start_no=value["start_block"],
+                end_no=value["end_block"],
+                file_prefix=name,
+                function_name=func,
+            )
