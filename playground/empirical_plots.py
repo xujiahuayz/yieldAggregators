@@ -9,7 +9,7 @@ BLOCK_SERIES_NAME = "blocks"
 PPS_SERIES_NAME = "pps"
 
 for name, value in CONTRACT_DATA.items():
-    result: dict[str, list[float]] = {BLOCK_SERIES_NAME: [], PPS_SERIES_NAME: []}
+    result = {BLOCK_SERIES_NAME: [], PPS_SERIES_NAME: []}
     with gzip.open(os.path.join(DATA_PATH, f"{name}_pricePerShare.jsonl.gz")) as f:
         for _, w in enumerate(f):
             this_block = json.loads(w)

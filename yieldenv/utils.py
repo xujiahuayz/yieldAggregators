@@ -1,12 +1,11 @@
 from collections.abc import MutableMapping
-import warnings
+import matplotlib.pyplot as plt
+from typing import Optional, Literal
 
 from yieldenv.constants import INTEREST_TOKEN_PREFIX, DEBT_TOKEN_PREFIX
 
 
 class PriceDict(MutableMapping):
-    # def __getitem__(self, key):
-    #     return dict.__getitem__(self, key)
     def __init__(self, *args, **kwargs):
         self.__dict__ = dict()
 
@@ -41,3 +40,50 @@ class PriceDict(MutableMapping):
     def __repr__(self):
         """echoes class, id, & reproducible representation in the REPL"""
         return f"{self.__dict__}"
+
+
+def define_price_gov_token(days: int, _start_price: float, _trend_pct: float):
+
+    y = _start_price
+    price = [y]
+
+    for _ in range(days):
+        y = y * (1 + _trend_pct)
+        price.append(y)
+
+    return price
+
+
+def simulation_plot(
+    simulated_data: dict[str, dict[str, list[float]]],
+    legend_title: str,
+    legend_loc: str = "upper left",
+    xlabel_text: str = "Day",
+    ylabel_text: str = "Wealth in DAI",
+    ticks_fontsize: float = 14,
+    ylim_lower: float = 0.75,
+    ylim_upper: float = 1.75,
+    axes_fontsize: float = 14,
+    title_fontsize: float = 14,
+    legend_fontsize: float = 14,
+    plot_title_prefix: Optional[str] = "initial token price",
+    plot_title_loc: Literal["center", "left", "right"] = "center",
+):
+    for n, series in simulated_data.items():
+        for key, value in series.items():
+            plt.plot(value, label=key)
+        plt.xlabel(xlabel=xlabel_text, fontsize=axes_fontsize)
+        plt.ylabel(ylabel=ylabel_text, fontsize=axes_fontsize)
+        plt.xticks(fontsize=ticks_fontsize)
+        plt.yticks(fontsize=ticks_fontsize)
+        plt.ylim(ylim_lower, ylim_upper)
+        plt.legend(
+            loc=legend_loc,
+            title=legend_title,
+            fontsize=legend_fontsize,
+            title_fontsize=title_fontsize,
+        )
+        if plot_title_prefix:
+            plt.title(label=f"{plot_title_prefix}: {n}", loc=plot_title_loc)
+        plt.show()
+        plt.close()
