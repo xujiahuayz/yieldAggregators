@@ -1,6 +1,8 @@
 from collections.abc import MutableMapping
+from yieldenv.settings import PROJECT_ROOT
 import matplotlib.pyplot as plt
 from typing import Optional, Literal
+from os import path
 
 from yieldenv.constants import INTEREST_TOKEN_PREFIX, DEBT_TOKEN_PREFIX
 
@@ -86,8 +88,8 @@ def simulation_plot(
         )
         if plot_title_prefix:
             label = f"{plot_title_prefix}: {n}"
-            plt.title(label=label, loc=plot_title_loc, fontsize = title_fontsize)
-        path = "C:/Users/simon/Desktop/UCL_DeFi/Yield_figures_notes/code_plots/" + n + "_" + legend_title + ".pdf"
-        plt.savefig(path)
+            plt.title(label=label, loc=plot_title_loc, fontsize=title_fontsize)
+        fig_path = path.join(PROJECT_ROOT, f"assets/{n}-{legend_title}.pdf")
+        plt.savefig(fig_path)
         plt.show()
         plt.close()
