@@ -91,57 +91,60 @@ def simulate_simple_lending(
 #--------------------- SIMULATING ------------------
 
 dict = {}
-for n in (10, 100, 1000): 
-    for m in (0.05, 0.06, 0.07):
+for n in (0, 2, 5): 
+    for m in (0, 0.03, 0.08):
 
         x = str(n) + '_' + str(m)
         dict[x] = simulate_simple_lending(
             _startprice_governance_token = n,
-            _initial_funds_plf = 500000000,
+            _initial_funds_plf = 1/0.01,
             _initial_borrow_ratio = 0.8,
-            _aggregator_percentage_liquidity_plf = 0.007,
+            _aggregator_percentage_liquidity_plf = 0.01,
             _supply_apy_plf = m,
-            _borrow_apy_plf = 0.08,
-            _gov_tokens_distributed_perday = 100,
+            _borrow_apy_plf = 0.06,
+            _gov_tokens_distributed_perday = 0.01,
             _gov_price_trend =  0.002,
             _days_to_simulate =  365)
-
-benchmark = simulate_simple_lending(
-            _startprice_governance_token = 0,
-            _initial_funds_plf = 500000000,
-            _initial_borrow_ratio = 0.8,
-            _aggregator_percentage_liquidity_plf = 0.007,
-            _supply_apy_plf = 0,
-            _borrow_apy_plf = 0.08,
-            _gov_tokens_distributed_perday = 100,
-            _gov_price_trend =  0.002,
-            _days_to_simulate =  365)
-
-
 
 
 #--------------------- PLOTTING ------------------
 
 fontsize = 14
 title_fontsize = 14
+axes_fontsize = 14
+ticks_fontsize = 14
+ylim_lower = 0.7
+ylim_upper= 1.5
 
 for item in islice(dict.items(), 0, 3):
     plt.plot(item[1], label = "APR " + item[0].split("_", 1)[1])
-plt.plot(benchmark, label='benchmark')
+plt.xlabel("Day", fontsize = axes_fontsize)
+plt.ylabel("Wealth (DAI)", fontsize = axes_fontsize)
+plt.xticks(fontsize=ticks_fontsize)
+plt.yticks(fontsize=ticks_fontsize)
+plt.ylim(ylim_lower, ylim_upper)
 plt.legend(loc='upper left', title="Start price " + item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
 plt.show()
 plt.close()
 
 for item in islice(dict.items(), 3, 6):
     plt.plot(item[1], label = "APR " + item[0].split("_", 1)[1])
-plt.plot(benchmark, label='benchmark')
+plt.xlabel("Day", fontsize = axes_fontsize)
+plt.ylabel("Wealth (DAI)", fontsize = axes_fontsize)
+plt.xticks(fontsize=ticks_fontsize)
+plt.yticks(fontsize=ticks_fontsize)
+plt.ylim(ylim_lower, ylim_upper)
 plt.legend(loc='upper left', title="Start price " + item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
 plt.show()
 plt.close()
 
 for item in islice(dict.items(), 6, 9):
     plt.plot(item[1], label = "APR " + item[0].split("_", 1)[1])
-plt.plot(benchmark, label='benchmark')
+plt.xlabel("Day", fontsize = axes_fontsize)
+plt.ylabel("Wealth (DAI)", fontsize = axes_fontsize)
+plt.xticks(fontsize=ticks_fontsize)
+plt.yticks(fontsize=ticks_fontsize)
+plt.ylim(ylim_lower, ylim_upper)
 plt.legend(loc='upper left', title="Start price " + item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
 plt.show()
 plt.close()

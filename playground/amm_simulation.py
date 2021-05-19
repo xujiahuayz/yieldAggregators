@@ -108,7 +108,7 @@ def simulate_cpamm(
             simulation_env.prices["sushi"] = gov_token_prices[i]
 
             for m in range(50):
-                trade_amount = random.uniform(1, daily_traded_volume)
+                trade_amount = random.uniform(0, daily_traded_volume)
                 trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=0)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
@@ -119,7 +119,7 @@ def simulate_cpamm(
             simulation_env.prices["sushi"] = gov_token_prices[i]
 
             for m in range(50):
-                trade_amount = random.uniform(1, daily_traded_volume / simulation_env.prices['eth']) #divide by price of ETH when selling ETH
+                trade_amount = random.uniform(0, daily_traded_volume / simulation_env.prices['eth']) #divide by price of ETH when selling ETH
                 trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=1)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
@@ -132,9 +132,9 @@ def simulate_cpamm(
             simulation_env.prices["sushi"] = gov_token_prices[i]
 
             for m in range(25):
-                trade_amount = random.uniform(1, daily_traded_volume)
+                trade_amount = random.uniform(0, daily_traded_volume)
                 trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=0)
-                trade_amount = random.uniform(1, daily_traded_volume / simulation_env.prices['eth']) #divide by price of ETH when selling ETH
+                trade_amount = random.uniform(0, daily_traded_volume / simulation_env.prices['eth']) #divide by price of ETH when selling ETH
                 trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=1)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
@@ -150,31 +150,35 @@ def simulate_cpamm(
 
 
 #--------------------- SIMULATING ------------------
-initial_supplied_funds_amm = {"dai": 120000000, "eth": 30000}
-startprice_quote_token=4000
+
+startprice_quote_token= 100
 percentage_liquidity_aggr=0.01
-startprice_governance_token=30
-gov_tokens_distributed_perday=100
+initial_supplied_funds_amm = {"dai": 1/percentage_liquidity_aggr/2, "eth": 1/percentage_liquidity_aggr/startprice_quote_token/2}
+gov_tokens_distributed_perday = 0.01
 gov_price_trend = 0.002
-pct_of_pool_to_trade = 0.01
+pct_of_pool_to_trade = 0.005
 days_to_simulate=365
 
 
 dict = {}
-for n in ('no trades','only buy', 'only sell', 'both'): 
-    for m in (10, 50, 100):
+for n in (0, 2, 5): 
+    for m in ('no trades',
+      'only buy',
+      'only sell',
+       'both'
+       ):
 
         x = str(n) + '_' + str(m)
         dict[x] = simulate_cpamm(
             _initial_supplied_funds_amm=initial_supplied_funds_amm.copy(),
             _startprice_quote_token=startprice_quote_token,
             _percentage_liquidity_aggr=percentage_liquidity_aggr,
-            _startprice_governance_token=m,
+            _startprice_governance_token = n,
             _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
             _pct_of_pool_to_trade = pct_of_pool_to_trade,
             _gov_price_trend = gov_price_trend,
             _days_to_simulate=days_to_simulate,
-            _scenario=n,
+            _scenario = m,
             )
 
 
@@ -183,28 +187,41 @@ for n in ('no trades','only buy', 'only sell', 'both'):
 
 fontsize = 14
 title_fontsize = 14
+axes_fontsize = 14
+ticks_fontsize = 14
+ylim_lower = 0.7
+ylim_upper= 1.5
 
-for item in islice(dict.items(), 0, 3):
-    plt.plot(item[1], label = "Start price " + item[0].split("_", 1)[1])
-plt.legend(loc='upper left', title=item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
+for item in islice(dict.items(), 0, 4):
+    plt.plot(item[1], label = "APR " + item[0].split("_", 1)[1])
+plt.xlabel("Day", fontsize = axes_fontsize)
+plt.ylabel("Wealth (DAI)", fontsize = axes_fontsize)
+plt.xticks(fontsize=ticks_fontsize)
+plt.yticks(fontsize=ticks_fontsize)
+plt.ylim(ylim_lower, ylim_upper)
+plt.legend(loc='lower right', title="Start price " + item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
 plt.show()
 plt.close()
 
-for item in islice(dict.items(), 3, 6):
-    plt.plot(item[1], label = "Start price " + item[0].split("_", 1)[1])
-plt.legend(loc='upper left', title=item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
+for item in islice(dict.items(), 4, 8):
+    plt.plot(item[1], label = "APR " + item[0].split("_", 1)[1])
+plt.xlabel("Day", fontsize = axes_fontsize)
+plt.ylabel("Wealth (DAI)", fontsize = axes_fontsize)
+plt.xticks(fontsize=ticks_fontsize)
+plt.yticks(fontsize=ticks_fontsize)
+plt.ylim(ylim_lower, ylim_upper)
+plt.legend(loc='lower right', title="Start price " + item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
 plt.show()
 plt.close()
 
-for item in islice(dict.items(), 6, 9):
-    plt.plot(item[1], label = "Start price " + item[0].split("_", 1)[1])
-plt.legend(loc='upper left', title=item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
-plt.show()
-plt.close()
-
-for item in islice(dict.items(), 9, 12):
-    plt.plot(item[1], label = "Start price " + item[0].split("_", 1)[1])
-plt.legend(loc='upper left', title=item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
+for item in islice(dict.items(), 8, 12):
+    plt.plot(item[1], label = "APR " + item[0].split("_", 1)[1])
+plt.xlabel("Day", fontsize = axes_fontsize)
+plt.ylabel("Wealth (DAI)", fontsize = axes_fontsize)
+plt.xticks(fontsize=ticks_fontsize)
+plt.yticks(fontsize=ticks_fontsize)
+plt.ylim(ylim_lower, ylim_upper)
+plt.legend(loc='lower right', title="Start price " + item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
 plt.show()
 plt.close()
 
