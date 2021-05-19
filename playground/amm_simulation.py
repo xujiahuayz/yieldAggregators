@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 from operator import add
+from itertools import islice
 
 
 """
@@ -34,7 +35,7 @@ def simulate_cpamm(
     _gov_price_trend:float, 
     _initial_funds_trader: dict = {"dai": 1e20, "eth": 1e20},
     _days_to_simulate: int = 365,
-    _scenario: str = "benchmark",
+    _scenario: str = "no trades",
 ):
 
     # initialization vars
@@ -95,7 +96,7 @@ def simulate_cpamm(
     gov_token_prices = define_price_gov_token(_days_to_simulate, _startprice_governance_token, _gov_price_trend)
 
     # simulate every day
-    if _scenario == "benchmark":
+    if _scenario == "no trades":
         for i in range(_days_to_simulate):
             simulation_env.prices["sushi"] = gov_token_prices[i]
 
@@ -147,69 +148,63 @@ def simulate_cpamm(
     return returns
 
 
+
+#--------------------- SIMULATING ------------------
 initial_supplied_funds_amm = {"dai": 120000000, "eth": 30000}
 startprice_quote_token=4000
 percentage_liquidity_aggr=0.01
 startprice_governance_token=30
 gov_tokens_distributed_perday=100
-gov_price_trend = 0.001
+gov_price_trend = 0.002
 pct_of_pool_to_trade = 0.01
 days_to_simulate=365
 
-returns_benchmark = simulate_cpamm(
-    _initial_supplied_funds_amm=initial_supplied_funds_amm.copy(),
-    _startprice_quote_token=startprice_quote_token,
-    _percentage_liquidity_aggr=percentage_liquidity_aggr,
-    _startprice_governance_token=startprice_governance_token,
-    _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
-    _pct_of_pool_to_trade = pct_of_pool_to_trade,
-    _gov_price_trend = 0.01,
-    _days_to_simulate=days_to_simulate,
-    _scenario="benchmark",
-)
 
+dict = {}
+for n in ('no trades','only buy', 'only sell', 'both'): 
+    for m in (10, 50, 100):
 
-returns_only_buy = simulate_cpamm(
-    _initial_supplied_funds_amm=initial_supplied_funds_amm.copy(),
-    _startprice_quote_token=startprice_quote_token,
-    _percentage_liquidity_aggr=percentage_liquidity_aggr,
-    _startprice_governance_token=startprice_governance_token,
-    _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
-    _pct_of_pool_to_trade = pct_of_pool_to_trade,
-    _gov_price_trend = 0.01,
-    _days_to_simulate=days_to_simulate,
-    _scenario="only buy",
-)
-
-
-returns_only_sell= simulate_cpamm(
-    _initial_supplied_funds_amm=initial_supplied_funds_amm.copy(),
-    _startprice_quote_token=startprice_quote_token,
-    _percentage_liquidity_aggr=percentage_liquidity_aggr,
-    _startprice_governance_token=startprice_governance_token,
-    _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
-    _pct_of_pool_to_trade = pct_of_pool_to_trade,
-    _gov_price_trend = 0.01,
-    _days_to_simulate=days_to_simulate,
-    _scenario="only sell",
-)
-
-returns_both = simulate_cpamm(
-    _initial_supplied_funds_amm=initial_supplied_funds_amm.copy(),
-    _startprice_quote_token=startprice_quote_token,
-    _percentage_liquidity_aggr=percentage_liquidity_aggr,
-    _startprice_governance_token=startprice_governance_token,
-    _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
-    _pct_of_pool_to_trade = pct_of_pool_to_trade,
-    _gov_price_trend = 0.01,
-    _days_to_simulate=days_to_simulate,
-    _scenario="both",
-)
+        x = str(n) + '_' + str(m)
+        dict[x] = simulate_cpamm(
+            _initial_supplied_funds_amm=initial_supplied_funds_amm.copy(),
+            _startprice_quote_token=startprice_quote_token,
+            _percentage_liquidity_aggr=percentage_liquidity_aggr,
+            _startprice_governance_token=m,
+            _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
+            _pct_of_pool_to_trade = pct_of_pool_to_trade,
+            _gov_price_trend = gov_price_trend,
+            _days_to_simulate=days_to_simulate,
+            _scenario=n,
+            )
 
 
 
-plt.plot(returns_benchmark, label="Benchmark (no trade)")
-plt.plot(returns_only_buy, label="Only buy ETH")
-plt.plot(returns_only_sell, label="Only sell ETH")
-plt.plot(returns_both, label="Buying and selling")
-plt.legend(loc="best")
+#--------------------- PLOTTING ------------------
+
+fontsize = 14
+title_fontsize = 14
+
+for item in islice(dict.items(), 0, 3):
+    plt.plot(item[1], label = "Start price " + item[0].split("_", 1)[1])
+plt.legend(loc='upper left', title=item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
+plt.show()
+plt.close()
+
+for item in islice(dict.items(), 3, 6):
+    plt.plot(item[1], label = "Start price " + item[0].split("_", 1)[1])
+plt.legend(loc='upper left', title=item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
+plt.show()
+plt.close()
+
+for item in islice(dict.items(), 6, 9):
+    plt.plot(item[1], label = "Start price " + item[0].split("_", 1)[1])
+plt.legend(loc='upper left', title=item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
+plt.show()
+plt.close()
+
+for item in islice(dict.items(), 9, 12):
+    plt.plot(item[1], label = "Start price " + item[0].split("_", 1)[1])
+plt.legend(loc='upper left', title=item[0].split("_", 1)[0], fontsize = fontsize, title_fontsize = title_fontsize)
+plt.show()
+plt.close()
+
