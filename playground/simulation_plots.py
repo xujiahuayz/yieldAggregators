@@ -8,7 +8,7 @@ from yieldenv.strategies import (
 
 N_ARRAY = [0, 2, 5]
 
-# --------------------- SIMULATING ------------------
+# --------------------- SIMPLE LENDING ------------------
 simulated_simple_lending = {
     str(n): {
         str(m): simulate_simple_lending(
@@ -27,7 +27,7 @@ simulated_simple_lending = {
     for n in N_ARRAY
 }
 
-
+# --------------------- SPIRAL LENDING ------------------
 simulated_spiral_lending = {
     str(n): {
         str(m): simulate_spiral_lending(
@@ -47,8 +47,8 @@ simulated_spiral_lending = {
     for n in N_ARRAY
 }
 
-
-startprice_quote_token = 100
+# --------------------- AMM LP ------------------
+startprice_quote_token = 10
 percentage_liquidity_aggr = 0.01
 initial_supplied_funds_amm = {
     "dai": 1 / percentage_liquidity_aggr / 2,
@@ -56,7 +56,8 @@ initial_supplied_funds_amm = {
 }
 gov_tokens_distributed_perday = 0.01
 gov_price_trend = 0.002
-pct_of_pool_to_trade = 0.005
+pct_of_pool_to_trade = 0.4
+
 days_to_simulate = 365
 
 

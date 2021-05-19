@@ -88,7 +88,6 @@ def simulate_spiral_lending(
     _days_to_simulate: int = 365,
 ) -> list[float]:
 
-    # TODO: what's this for?
     # initialization vars
     initial_supplied_funds_plf = _initial_funds_plf
     initial_borrowed_funds = _initial_borrow_ratio * initial_supplied_funds_plf
@@ -265,7 +264,7 @@ def simulate_cpamm(
 
             for m in range(50):
                 trade_amount = random.uniform(0, daily_traded_volume)
-                trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=0)
+                trader.sell_to_amm(dai_eth_amm, trade_amount/50, sell_index=0)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 
@@ -278,7 +277,7 @@ def simulate_cpamm(
                 trade_amount = random.uniform(
                     0, daily_traded_volume / simulation_env.prices["eth"]
                 )  # divide by price of ETH when selling ETH
-                trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=1)
+                trader.sell_to_amm(dai_eth_amm, trade_amount/50, sell_index=1)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 
@@ -290,11 +289,11 @@ def simulate_cpamm(
 
             for m in range(25):
                 trade_amount = random.uniform(0, daily_traded_volume)
-                trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=0)
+                trader.sell_to_amm(dai_eth_amm, trade_amount/50, sell_index=0)
                 trade_amount = random.uniform(
                     0, daily_traded_volume / simulation_env.prices["eth"]
                 )  # divide by price of ETH when selling ETH
-                trader.sell_to_amm(dai_eth_amm, trade_amount, sell_index=1)
+                trader.sell_to_amm(dai_eth_amm, trade_amount/50, sell_index=1)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 

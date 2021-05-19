@@ -60,12 +60,13 @@ def simulation_plot(
     legend_loc: str = "upper left",
     xlabel_text: str = "Day",
     ylabel_text: str = "Wealth in DAI",
-    ticks_fontsize: float = 14,
-    ylim_lower: float = 0.75,
+    ticks_fontsize: float = 17,
+    ylim_lower: float = 0.7,
     ylim_upper: float = 1.75,
-    axes_fontsize: float = 14,
-    title_fontsize: float = 14,
-    legend_fontsize: float = 14,
+    axes_fontsize: float = 17,
+    legend_title_fontsize: float = 17,
+    title_fontsize: float = 17,
+    legend_fontsize: float = 17,
     plot_title_prefix: Optional[str] = "initial token price",
     plot_title_loc: Literal["center", "left", "right"] = "center",
 ):
@@ -81,9 +82,12 @@ def simulation_plot(
             loc=legend_loc,
             title=legend_title,
             fontsize=legend_fontsize,
-            title_fontsize=title_fontsize,
+            title_fontsize=legend_title_fontsize,
         )
         if plot_title_prefix:
-            plt.title(label=f"{plot_title_prefix}: {n}", loc=plot_title_loc)
+            label = f"{plot_title_prefix}: {n}"
+            plt.title(label=label, loc=plot_title_loc, fontsize = title_fontsize)
+        path = "C:/Users/simon/Desktop/UCL_DeFi/Yield_figures_notes/code_plots/" + n + "_" + legend_title + ".pdf"
+        plt.savefig(path)
         plt.show()
         plt.close()
