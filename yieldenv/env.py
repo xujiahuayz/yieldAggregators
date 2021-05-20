@@ -1,17 +1,39 @@
 # make sure User is recognized
 from __future__ import annotations
 from dataclasses import dataclass, field
+from yieldenv.constants import DEBT_TOKEN_PREFIX, INTEREST_TOKEN_PREFIX
 import numpy as np
 import logging
-from typing import Dict, Optional, cast
+from typing import Optional, cast
+
+from yieldenv.utils import PriceDict
 
 
 @dataclass
 class Env:
-    users: Dict[str, User] = field(default_factory=dict)
-    prices: Dict[str, float] = field(
-        default_factory=lambda: {"dai": 1.0, "eth": 2.0, "i-dai": 1.0, "b-dai": -1.0}
-    )
+    def __init__(
+        self,
+        users: Optional[dict[str, User]] = None,
+        prices: Optional[PriceDict] = None,
+    ):
+        if users is None:
+            users = {}
+
+        if prices is None:
+            prices = PriceDict({"dai": 1.0, "eth": 2.0})
+
+        self.users = users
+        self.prices = prices
+
+    @property
+    def prices(self) -> PriceDict:
+        return self._prices
+
+    @prices.setter
+    def prices(self, value: PriceDict):
+        if type(value) is not PriceDict:
+            raise TypeError("must use PriceDict type")
+        self._prices = value
 
 
 class User:
@@ -106,6 +128,8 @@ class User:
         # update market price due to trading
         self.env.prices[amm.asset_names[1]] = amm.spot_price
 
+        self.env.prices[amm.lp_token_name] = amm.lp_token_price
+
         logging.debug(
             f"""
             old invariant: {old_invariant}
@@ -114,6 +138,36 @@ class User:
             new invariant: {amm.invariant}
             """
         )
+
+    def buy_from_amm(self, amm: CPAmm, buy_quantity: float, buy_index: int = 0):
+        """
+        `quantity` means how much quantity to buy (deduct) from the pool;
+        index means which asset it is
+        """
+
+        # initialize asset balance if not yet there
+        for w in amm.asset_names:
+            if w not in self.funds_available:
+                self.funds_available[w] = 0.0
+
+        if buy_quantity < 0:
+            raise ValueError("must buy a non-negative quantity")
+        if buy_index not in [0, 1]:
+            raise ValueError("reserve_index out of range")
+
+        # need to pay for more than wanted, for fees
+        actual_buy_quantity = buy_quantity / (1 - amm.fee)
+
+        new_reserve_buy = amm.reserves[buy_index] - actual_buy_quantity
+
+        if new_reserve_buy < 0:
+            raise ValueError("Insufficient funds in the pool")
+
+        sell_index = 1 - buy_index
+
+        sell_quantity = amm.invariant / new_reserve_buy - amm.reserves[sell_index]
+
+        self.sell_to_amm(amm=amm, sell_quantity=sell_quantity, sell_index=sell_index)
 
     def update_liquidity(self, pool_shares_delta: float, amm: CPAmm):
 
@@ -180,26 +234,32 @@ class User:
         if self.name not in plf.user_b_tokens:
             plf.user_b_tokens[self.name] = 0
 
-        assert (
-            plf.user_b_tokens[self.name] + amount >= 0
-        ), "cannot repay more b-tokens than you have"
+        if plf.borrow_token_name not in self.funds_available:
+            self.funds_available[plf.borrow_token_name] = 0
 
-        assert (
+        if plf.user_b_tokens[self.name] + amount < 0:
+            raise ValueError("cannot repay more b-tokens than you have")
+
+        if (
             self.funds_available[plf.interest_token_name]
-            - amount * plf.collateral_ratio
-            >= 0
-        ), "insufficient i-tokens to get the amount of requested b-tokens"
-
-        self.funds_available[plf.interest_token_name] -= amount
+            <= (amount + self.funds_available[plf.borrow_token_name])
+            * plf.collateral_ratio
+        ):
+            raise ValueError(
+                "insufficient collateral to get the amount of requested debt tokens"
+            )
 
         # update liquidity pool
         plf.total_borrowed_funds += amount
+        plf.total_available_funds -= amount
 
         # update b tokens of the user in the pool registry
         plf.user_b_tokens[self.name] += amount
 
         # matching balance in user's account to pool registry record
         self.funds_available[plf.borrow_token_name] = plf.user_b_tokens[self.name]
+
+        self.funds_available[plf.asset_names] += amount
 
 
 @dataclass
@@ -328,17 +388,11 @@ class Plf:
 
     def __post_init__(self):
         self.total_available_funds = self.initial_starting_funds
-        self.total_borrowed_funds = 0  # start with no funds borrowed
+        self.total_borrowed_funds = 0.0  # start with no funds borrowed
 
         available_prices = self.env.prices
-        self.interest_token_name = "i-" + self.asset_names
-        self.borrow_token_name = "b-" + self.asset_names
-
-        # if (
-        #     self.interest_token_name in available_prices
-        #     and available_prices[self.interest_token_name] != 0
-        # ):
-        #     raise RuntimeError("the dai pool is already created.")
+        self.interest_token_name = INTEREST_TOKEN_PREFIX + self.asset_names
+        self.borrow_token_name = DEBT_TOKEN_PREFIX + self.asset_names
 
         assert (
             self.asset_names in self.initiator.funds_available
@@ -349,11 +403,9 @@ class Plf:
         # deduct funds from user balance
         self.initiator.funds_available[self.asset_names] -= self.initial_starting_funds
 
-        initial_i_tokens = self.initial_starting_funds
-        self.user_i_tokens = {self.initiator.name: initial_i_tokens}
+        self.user_i_tokens = {self.initiator.name: self.initial_starting_funds}
 
-        initial_b_tokens = 0
-        self.user_b_tokens = {self.initiator.name: initial_b_tokens}
+        self.user_b_tokens = {self.initiator.name: 0.0}
 
         # add interest-bearing token into initiator's wallet
         self.initiator.funds_available[
@@ -366,40 +418,44 @@ class Plf:
         if reward_token_name not in available_prices:
             available_prices[self.reward_token_name] = 0
 
-    def setSupplyApy(self, apy: float):
-        self.supply_apy = apy
-
-    def setBorrowApy(self, apy: float):
-        self.borrow_apy = apy
-
     def __repr__(self):
         return f"(available funds = {self.total_available_funds}, borrowed funds = {self.total_borrowed_funds})"
 
     @property
-    def total_pool_shares(self) -> float:
+    def total_pool_shares(self) -> tuple[float, float]:
         total_i_tokens = sum(self.user_i_tokens.values())
         total_b_tokens = sum(self.user_b_tokens.values())
         return total_i_tokens, total_b_tokens
 
-    def get_user_pool_fraction(self, user_name: str) -> float:
+    @property
+    def daily_supplier_multiplier(self) -> float:
+        return (1 + self.supply_apy) ** (1 / 365)
+
+    @property
+    def daily_borrow_multiplier(self) -> float:
+        return (1 + self.borrow_apy) ** (1 / 365)
+
+    def get_user_pool_fraction(self, user_name: str) -> tuple[float, float]:
         if user_name not in self.user_i_tokens:
-            self.user_i_tokens[user_name] = 0.0
+            self.user_i_tokens[user_name] = self.env.users[user_name].funds_available[
+                self.interest_token_name
+            ] = 0.0
         i_token_fraction = self.user_i_tokens[user_name] / self.total_pool_shares[0]
 
         if user_name not in self.user_b_tokens:
-            self.user_b_tokens[user_name] = 0.0
+            self.user_b_tokens[user_name] = self.env.users[user_name].funds_available[
+                self.borrow_token_name
+            ] = 0.0
         b_token_fraction = self.user_b_tokens[user_name] / self.total_pool_shares[1]
 
         return i_token_fraction, b_token_fraction
 
-    def receive_pay_interest(self):
+    def accrue_interest(self):
         for user_name in self.user_i_tokens:
             user_funds = self.env.users[user_name].funds_available
 
-            # distribute reward token proportionaly
-            user_funds[self.interest_token_name] += user_funds[
-                self.interest_token_name
-            ] * ((1 + self.supply_apy) ** (1 / 365) - 1)
+            # distribute i-token
+            user_funds[self.interest_token_name] *= self.daily_supplier_multiplier
 
             # update i token register
             self.user_i_tokens[user_name] = user_funds[self.interest_token_name]
@@ -407,19 +463,14 @@ class Plf:
         for user_name in self.user_b_tokens:
             user_funds = self.env.users[user_name].funds_available
 
-            if self.borrow_token_name not in user_funds:
-                user_funds[self.borrow_token_name] = 0
-
-            # distribute reward token proportionaly
-            user_funds[self.borrow_token_name] += user_funds[self.borrow_token_name] * (
-                (1 + self.borrow_apy) ** (1 / 365) - 1
-            )
+            # distribute b-token
+            user_funds[self.borrow_token_name] *= self.daily_borrow_multiplier
 
             # update b token register
             self.user_b_tokens[user_name] = user_funds[self.borrow_token_name]
 
     def distribute_reward(self, quantity: float):
-        for user_name in self.user_i_tokens:
+        for user_name in self.env.users:
             user_funds = self.env.users[user_name].funds_available
 
             # initialize if the balance does not exist before airdropping
@@ -428,21 +479,5 @@ class Plf:
 
             # distribute reward token proportionaly
             user_funds[self.reward_token_name] += (
-                self.get_user_pool_fraction(user_name=user_name)[0]
-                * quantity
-                * 0.5  # 50% of rewards go to suppliers
-            )
-
-        for user_name in self.user_b_tokens:
-            user_funds = self.env.users[user_name].funds_available
-
-            # initialize if the balance does not exist before airdropping
-            if self.reward_token_name not in user_funds:
-                user_funds[self.reward_token_name] = 0
-
-            # distribute reward token proportionaly
-            user_funds[self.reward_token_name] += (
-                self.get_user_pool_fraction(user_name=user_name)[1]
-                * quantity
-                * 0.5  # 50% of rewards go to borrowers
+                np.mean(self.get_user_pool_fraction(user_name=user_name)) * quantity
             )
