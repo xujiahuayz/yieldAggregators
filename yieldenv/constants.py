@@ -51,7 +51,7 @@ CONTRACT_DATA = {
             FUNCTIONS_INTERESTED[0]: FUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
         },
     }
-    "USDC yVault": {
+    "USDC_yVault": {
         "protocol": "yearn",
         "asset": "USDC",
         "abi_address": "0xe11ba472F74869176652C35D30dB89854b5ae84D",
@@ -77,7 +77,7 @@ CONTRACT_DATA = {
             FUNCTIONS_INTERESTED[2]: "getPricePerFullShare",
         },
     }
-    "Idle_USDCp": {
+    "Idle_USDC": {
         "protocol": "idle",
         "asset": "USDC",
         "abi_address": "0x2854A270FE9c839ffE453e9178d1cFeF109d6B8E",
