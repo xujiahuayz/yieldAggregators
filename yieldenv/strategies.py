@@ -1,6 +1,6 @@
+from typing import Literal
 from yieldenv.utils import PriceDict, define_price_gov_token
 from yieldenv.env import Env, User, Plf, CPAmm
-from numpy import random
 
 
 def simulate_simple_lending(
@@ -183,7 +183,7 @@ def simulate_cpamm(
     _gov_price_trend: float,
     _initial_funds_trader: dict = {"dai": 1e20, "eth": 1e20},
     _days_to_simulate: int = 365,
-    _scenario: str = "no trades",
+    _scenario: Literal["no trades", "only buy", "only sell", "both"] = "no trades",
     _fee: float = 0.03,
 ) -> list[float]:
     """
@@ -252,55 +252,29 @@ def simulate_cpamm(
     )
 
     # simulate every day
-    if _scenario == "no trades":
-        for i in range(_days_to_simulate):
-            simulation_env.prices["sushi"] = gov_token_prices[i]
+    for i in range(_days_to_simulate):
+        simulation_env.prices["sushi"] = gov_token_prices[i]
+        dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 
-            dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
+        if _scenario == "only buy":
+            trader.sell_to_amm(dai_eth_amm, daily_traded_volume, sell_index=0)
+        elif _scenario == "only sell":
+            trader.sell_to_amm(
+                dai_eth_amm,
+                daily_traded_volume / simulation_env.prices["eth"],
+                sell_index=1,
+            )
+        elif _scenario == "both":
+            trader.sell_to_amm(dai_eth_amm, daily_traded_volume / 2, sell_index=0)
 
-            returns[i] = aggregator.wealth
-    elif _scenario == "only buy":
-        for i in range(_days_to_simulate):
-            simulation_env.prices["sushi"] = gov_token_prices[i]
+            trader.sell_to_amm(
+                dai_eth_amm,
+                daily_traded_volume / simulation_env.prices["eth"] / 2,
+                sell_index=1,
+            )
+        elif _scenario != "no trades":
+            raise ValueError("Scenario not available")
 
-            for m in range(50):
-                trade_amount = random.uniform(0, daily_traded_volume)
-                trader.sell_to_amm(dai_eth_amm, trade_amount / 50, sell_index=0)
-
-            dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
-
-            returns[i] = aggregator.wealth
-    elif _scenario == "only sell":
-        for i in range(_days_to_simulate):
-            simulation_env.prices["sushi"] = gov_token_prices[i]
-
-            for m in range(50):
-                trade_amount = random.uniform(
-                    0, daily_traded_volume / simulation_env.prices["eth"]
-                )  # divide by price of ETH when selling ETH
-                trader.sell_to_amm(dai_eth_amm, trade_amount / 50, sell_index=1)
-
-            dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
-
-            returns[i] = aggregator.wealth
-    elif _scenario == "both":
-
-        for i in range(_days_to_simulate):
-            simulation_env.prices["sushi"] = gov_token_prices[i]
-
-            for m in range(25):
-                trade_amount = random.uniform(0, daily_traded_volume)
-                trader.sell_to_amm(dai_eth_amm, trade_amount / 50, sell_index=0)
-                trade_amount = random.uniform(
-                    0, daily_traded_volume / simulation_env.prices["eth"]
-                )  # divide by price of ETH when selling ETH
-                trader.sell_to_amm(dai_eth_amm, trade_amount / 50, sell_index=1)
-
-            dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
-
-            returns[i] = aggregator.wealth
-    else:
-        print("Scenario not available")
-        returns = []
+        returns[i] = aggregator.wealth
 
     return returns

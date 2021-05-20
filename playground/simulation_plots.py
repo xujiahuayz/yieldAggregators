@@ -6,10 +6,10 @@ from yieldenv.strategies import (
     simulate_cpamm,
 )
 
-N_ARRAY = [0, 2, 5]
+N_ARRAY = [0, 2, 4]
 DAYS_TO_SIMULATE = 365
 GOV_TOKENS_DISTRIBUTED_PERDAY = 0.01
-GOV_PRICE_TREND = 0.002
+GOV_PRICE_TREND = 0.001
 
 
 # --------------------- SIMPLE LENDING ------------------
@@ -69,7 +69,7 @@ simulated_cpamm = {
             _percentage_liquidity_aggr=percentage_liquidity_aggr,
             _startprice_governance_token=n,
             _gov_tokens_distributed_perday=GOV_TOKENS_DISTRIBUTED_PERDAY,
-            _pct_of_pool_to_trade=0.4,
+            _pct_of_pool_to_trade=0.1,
             _gov_price_trend=GOV_PRICE_TREND,
             _days_to_simulate=DAYS_TO_SIMULATE,
             _scenario=m,
