@@ -46,9 +46,9 @@ CONTRACT_DATA = {
 ,
         "end_block": END_BLOCK,
         "function": {
-            FUNCTIONS_INTERESTED[0]: fFUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
             FUNCTIONS_INTERESTED[1]: "totalSupply",
             FUNCTIONS_INTERESTED[2]: "tokenPrice",
+            FUNCTIONS_INTERESTED[0]: FUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
         },
     }
     "USDC yVault": {
@@ -86,9 +86,9 @@ CONTRACT_DATA = {
 ,
         "end_block": END_BLOCK,
         "function": {
-            FUNCTIONS_INTERESTED[0]: fFUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
             FUNCTIONS_INTERESTED[1]: "totalSupply",
             FUNCTIONS_INTERESTED[2]: "tokenPrice",
+            FUNCTIONS_INTERESTED[0]: FUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
         },
     }
     "Curve_3pool_yVault": {
