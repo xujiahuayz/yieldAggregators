@@ -1,15 +1,3 @@
-from os import path
-from yieldenv.settings import PROJECT_ROOT
-
-DATA_PATH = path.join(PROJECT_ROOT, "data")
-
-INTEREST_TOKEN_PREFIX = "interest-"
-DEBT_TOKEN_PREFIX = "debt-"
-
-END_BLOCK = 12453546
-
-FUNCTIONS_INTERESTED = ["total_asset", "total_supply", "price_per_share"]
-# must all be checksum address!
 CONTRACT_DATA = {
     "DAI yVault": {
         "protocol": "yearn",
