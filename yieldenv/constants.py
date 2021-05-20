@@ -19,6 +19,7 @@ CONTRACT_DATA = {
         "start_block": 11673762,
         "start_block_proxy": 11616780,
         "end_block": END_BLOCK,
+        "decimals": 18,
         "function": {
             FUNCTIONS_INTERESTED[0]: "totalAssets",
             FUNCTIONS_INTERESTED[1]: "totalSupply",
@@ -33,6 +34,7 @@ CONTRACT_DATA = {
         "start_block": 11086832,
         "start_block_proxy": 10997712,
         "end_block": END_BLOCK,
+        "decimals": 18,
         "function": {
             FUNCTIONS_INTERESTED[0]: "underlyingBalanceWithInvestment",
             FUNCTIONS_INTERESTED[1]: "totalSupply",
@@ -47,6 +49,7 @@ CONTRACT_DATA = {
         "start_block": 10595640,
         "start_block_proxy": 12426425,
         "end_block": END_BLOCK,
+        "decimals": 18,
         "function": {
             # FUNCTIONS_INTERESTED[0]: FUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
             FUNCTIONS_INTERESTED[1]: "totalSupply",
@@ -61,6 +64,7 @@ CONTRACT_DATA = {
         "start_block": 11674456,
         "start_block_proxy": 11616780,
         "end_block": END_BLOCK,
+        "decimals": 6,
         "function": {
             FUNCTIONS_INTERESTED[0]: "totalAssets",
             FUNCTIONS_INTERESTED[1]: "totalSupply",
@@ -75,6 +79,7 @@ CONTRACT_DATA = {
         "start_block": 11086842,
         "start_block_proxy": 10997712,
         "end_block": END_BLOCK,
+        "decimals": 6,
         "function": {
             FUNCTIONS_INTERESTED[0]: "underlyingBalanceWithInvestment",
             FUNCTIONS_INTERESTED[1]: "totalSupply",
@@ -89,6 +94,7 @@ CONTRACT_DATA = {
         "start_block": 10627792,
         "start_block_proxy": 12342939,
         "end_block": END_BLOCK,
+        "decimals": 18,
         "function": {
             #FUNCTIONS_INTERESTED[0]: FUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
             FUNCTIONS_INTERESTED[1]: "totalSupply",
@@ -103,6 +109,7 @@ CONTRACT_DATA = {
         "start_block": 12245666,
         "start_block_proxy": 12185982,
         "end_block": END_BLOCK,
+        "decimals": 18,
         "function": {
             FUNCTIONS_INTERESTED[0]: "totalAssets",
             FUNCTIONS_INTERESTED[1]: "totalSupply",
@@ -117,6 +124,7 @@ CONTRACT_DATA = {
         "start_block": 11159005,
         "start_block_proxy": 10997712,
         "end_block": END_BLOCK,
+        "decimals": 18,
         "function": {
             FUNCTIONS_INTERESTED[0]: "underlyingBalanceWithInvestment",
             FUNCTIONS_INTERESTED[1]: "totalSupply",
@@ -130,6 +138,7 @@ CONTRACT_DATA = {
         "contract_address": "0x1BB74b5DdC1f4fC91D6f9E7906cf68bc93538e33",
         "start_block": 11010885,
         "end_block": END_BLOCK,
+        "decimals": 18,
         "function": {
             FUNCTIONS_INTERESTED[0]: "balance",
             FUNCTIONS_INTERESTED[1]: "totalSupply",

@@ -2,31 +2,195 @@ import os
 import gzip
 import json
 from yieldenv.constants import CONTRACT_DATA, DATA_PATH
+from yieldenv.settings import PROJECT_ROOT
 
 import matplotlib.pyplot as plt
+
+IMAGE_PATH = os.path.join(PROJECT_ROOT, "assets")
 
 BLOCK_NUMBER = "blocks"
 VALUE = "pps"
 
-for name, value in CONTRACT_DATA.items():
-    for key, func in value["function"].items():
-        result = {BLOCK_NUMBER: [], VALUE: []}
-        with gzip.open(
-            os.path.join(
-                DATA_PATH, f"{value['protocol']}_{value['asset']}_{key}.jsonl.gz"
-            )
-        ) as f:
-            for _, w in enumerate(f):
-                this_block = json.loads(w)
-                if this_block[1] < 100:
-                    next
-                result[BLOCK_NUMBER].append(this_block[0])
-                result[VALUE].append(this_block[1] / 1e24)
-            plt.plot(result[BLOCK_NUMBER], result[VALUE])
-            plt.title(f"{value['protocol']}_{value['asset']}_{key}")
-            plt.show()
-            plt.close()
+# --------------- vault DAI supply ---------------------
 
+for name, value in CONTRACT_DATA.items():
+    if (value['asset'] == "DAI"):
+        for key, func in value["function"].items():
+            if (key == "total_supply"):
+                result = {BLOCK_NUMBER: [], VALUE: []}
+                with gzip.open(
+                    os.path.join(
+                        DATA_PATH, f"{value['protocol']}_{value['asset']}_{key}.jsonl.gz"
+                    )
+                ) as f:
+                    for _, w in enumerate(f):
+                        this_block = json.loads(w)
+                        # if this_block[1] < 100:
+                        #     next
+                        result[BLOCK_NUMBER].append(this_block[0])
+                        result[VALUE].append(this_block[1] / (10**int(value['decimals'])))
+                    plt.plot(result[BLOCK_NUMBER], result[VALUE], label = f"{value['protocol']}")
+                    title=f"vault_{value['asset']}_{key}"
+                    plt.title(title)
+
+plt.legend(loc='upper left')
+fig_path = os.path.join(IMAGE_PATH, f"{title}.pdf")
+plt.savefig(fig_path)
+plt.show()
+plt.close()
+
+
+# ---------------  DAI price per share  ---------------------
+
+for name, value in CONTRACT_DATA.items():
+    if (value['asset'] == "DAI"):
+        for key, func in value["function"].items():
+            if (key == "price_per_share"):
+                result = {BLOCK_NUMBER: [], VALUE: []}
+                with gzip.open(
+                    os.path.join(
+                        DATA_PATH, f"{value['protocol']}_{value['asset']}_{key}.jsonl.gz"
+                    )
+                ) as f:
+                    for _, w in enumerate(f):
+                        this_block = json.loads(w)
+                        if this_block[1] / 1e18 > 0.1:
+                            result[BLOCK_NUMBER].append(this_block[0])
+                            result[VALUE].append(this_block[1] / (10**int(value['decimals'])))
+                    plt.plot(result[BLOCK_NUMBER], result[VALUE], label = f"{value['protocol']}")
+                    title=f"vault_{value['asset']}_{key}"
+                    plt.title(title)
+
+plt.legend(loc='upper left')
+fig_path = os.path.join(IMAGE_PATH, f"{title}.pdf")
+plt.savefig(fig_path)
+plt.show()
+plt.close()
+
+# --------------- vault USDC supply ---------------------
+
+for name, value in CONTRACT_DATA.items():
+    if (value['asset'] == "USDC"):
+        for key, func in value["function"].items():
+            if (key == "total_supply"):
+                result = {BLOCK_NUMBER: [], VALUE: []}
+                with gzip.open(
+                    os.path.join(
+                        DATA_PATH, f"{value['protocol']}_{value['asset']}_{key}.jsonl.gz"
+                    )
+                ) as f:
+                    for _, w in enumerate(f):
+                        this_block = json.loads(w)
+                        # if this_block[1] < 100:
+                        #     next
+                        result[BLOCK_NUMBER].append(this_block[0])
+                        result[VALUE].append(this_block[1] / (10**int(value['decimals'])))
+                    plt.plot(result[BLOCK_NUMBER], result[VALUE], label = f"{value['protocol']}")
+                    title=f"vault_{value['asset']}_{key}"
+                    plt.title(title)
+
+plt.legend(loc='upper left')
+fig_path = os.path.join(IMAGE_PATH, f"{title}.pdf")
+plt.savefig(fig_path)
+plt.show()
+plt.close()
+
+
+
+# ---------------  USDC price per share  ---------------------
+
+for name, value in CONTRACT_DATA.items():
+    if (value['asset'] == "USDC"):
+        for key, func in value["function"].items():
+            if (key == "price_per_share"):
+                result = {BLOCK_NUMBER: [], VALUE: []}
+                with gzip.open(
+                    os.path.join(
+                        DATA_PATH, f"{value['protocol']}_{value['asset']}_{key}.jsonl.gz"
+                    )
+                ) as f:
+                    for _, w in enumerate(f):
+                        this_block = json.loads(w)
+                        if this_block[1] / 1e6 > 0.1:
+                            result[BLOCK_NUMBER].append(this_block[0])
+                            result[VALUE].append(this_block[1] / 1e6)
+                    plt.plot(result[BLOCK_NUMBER], result[VALUE], label = f"{value['protocol']}")
+                    title=f"vault_{value['asset']}_{key}"
+                    plt.title(title)
+
+plt.legend(loc='upper left')
+fig_path = os.path.join(IMAGE_PATH, f"{title}.pdf")
+plt.savefig(fig_path)
+plt.show()
+plt.close()
+
+
+# --------------- vault 3crv supply ---------------------
+
+for name, value in CONTRACT_DATA.items():
+    if (value['asset'] == "3crv"):
+        for key, func in value["function"].items():
+            if (key == "total_supply"):
+                result = {BLOCK_NUMBER: [], VALUE: []}
+                with gzip.open(
+                    os.path.join(
+                        DATA_PATH, f"{value['protocol']}_{value['asset']}_{key}.jsonl.gz"
+                    )
+                ) as f:
+                    for _, w in enumerate(f):
+                        this_block = json.loads(w)
+                        # if this_block[1] < 100:
+                        #     next
+                        result[BLOCK_NUMBER].append(this_block[0])
+                        result[VALUE].append(this_block[1] / (10**int(value['decimals'])))
+                    plt.plot(result[BLOCK_NUMBER], result[VALUE], label = f"{value['protocol']}")
+                    title=f"vault_{value['asset']}_{key}"
+                    plt.title(title)
+
+plt.legend(loc='upper left')
+fig_path = os.path.join(IMAGE_PATH, f"{title}.pdf")
+plt.savefig(fig_path)
+plt.show()
+plt.close()
+
+# ---------------  3crv price per share  ---------------------
+
+for name, value in CONTRACT_DATA.items():
+    if (value['asset'] == "3crv"):
+        for key, func in value["function"].items():
+            if (key == "price_per_share"):
+                result = {BLOCK_NUMBER: [], VALUE: []}
+                with gzip.open(
+                    os.path.join(
+                        DATA_PATH, f"{value['protocol']}_{value['asset']}_{key}.jsonl.gz"
+                    )
+                ) as f:
+                    for _, w in enumerate(f):
+                        this_block = json.loads(w)
+                        if this_block[1] / 1e18 > 0.1:
+                            result[BLOCK_NUMBER].append(this_block[0])
+                            result[VALUE].append(this_block[1] / 1e18)
+                    plt.plot(result[BLOCK_NUMBER], result[VALUE], label = f"{value['protocol']}")
+                    title=f"vault_{value['asset']}_{key}"
+                    plt.title(title)
+
+plt.legend(loc='upper left')
+fig_path = os.path.join(IMAGE_PATH, f"{title}.pdf")
+plt.savefig(fig_path)
+plt.show()
+plt.close()
+
+
+
+
+
+# --------------------------------------------------------------
+
+# result = {BLOCK_NUMBER: [], VALUE: []}
+# for _, w in enumerate(harvest_dai_data):
+#     this_block = json.loads(w)
+#     result[BLOCK_NUMBER].append(this_block[0])
+#     result[VALUE].append(this_block[1] / 1e24)
 
 # plt.plot(result[BLOCK_SERIES_NAME], result[PPS_SERIES_NAME])
 
