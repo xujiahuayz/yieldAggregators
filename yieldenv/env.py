@@ -139,6 +139,36 @@ class User:
             """
         )
 
+    def buy_from_amm(self, amm: CPAmm, buy_quantity: float, buy_index: int = 0):
+        """
+        `quantity` means how much quantity to buy (deduct) from the pool;
+        index means which asset it is
+        """
+
+        # initialize asset balance if not yet there
+        for w in amm.asset_names:
+            if w not in self.funds_available:
+                self.funds_available[w] = 0.0
+
+        if buy_quantity < 0:
+            raise ValueError("must buy a non-negative quantity")
+        if buy_index not in [0, 1]:
+            raise ValueError("reserve_index out of range")
+
+        # need to pay for more than wanted, for fees
+        actual_buy_quantity = buy_quantity / (1 - amm.fee)
+
+        new_reserve_buy = amm.reserves[buy_index] - actual_buy_quantity
+
+        if new_reserve_buy < 0:
+            raise ValueError("Insufficient funds in the pool")
+
+        sell_index = 1 - buy_index
+
+        sell_quantity = amm.invariant / new_reserve_buy - amm.reserves[sell_index]
+
+        self.sell_to_amm(amm=amm, sell_quantity=sell_quantity, sell_index=sell_index)
+
     def update_liquidity(self, pool_shares_delta: float, amm: CPAmm):
 
         """
@@ -209,7 +239,6 @@ class User:
 
         if plf.user_b_tokens[self.name] + amount < 0:
             raise ValueError("cannot repay more b-tokens than you have")
-
 
         if (
             self.funds_available[plf.interest_token_name]

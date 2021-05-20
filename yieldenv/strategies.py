@@ -179,11 +179,10 @@ def simulate_cpamm(
     _percentage_liquidity_aggr: float,
     _startprice_governance_token: float,
     _gov_tokens_distributed_perday: float,
-    _pct_of_pool_to_trade: float,
+    _pct_of_pool_to_trade: tuple[float, float],
     _gov_price_trend: float,
     _initial_funds_trader: dict = {"dai": 1e20, "eth": 1e20},
     _days_to_simulate: int = 365,
-    _scenario: Literal["no trades", "only buy", "only sell", "both"] = "no trades",
     _fee: float = 0.03,
 ) -> list[float]:
     """
@@ -241,39 +240,36 @@ def simulate_cpamm(
     # create array of x days of returns
     returns = [0.0] * _days_to_simulate
 
-    # set daily traded volume
-    daily_traded_volume = (
-        _pct_of_pool_to_trade * dai_eth_amm.pool_value / _days_to_simulate
-    )
-
     # simulate random walk for gov token price
     gov_token_prices = define_price_gov_token(
         _days_to_simulate, _startprice_governance_token, _gov_price_trend
     )
+
+    daily_volume_sell = (
+        dai_eth_amm.reserves[0] * _pct_of_pool_to_trade[0] / _days_to_simulate
+    )
+
+    # actual received is smaller than volume due to fee
+    daily_volume_buy = (
+        dai_eth_amm.reserves[0] * _pct_of_pool_to_trade[1] * (1 - dai_eth_amm.fee)
+    ) / _days_to_simulate
 
     # simulate every day
     for i in range(_days_to_simulate):
         simulation_env.prices["sushi"] = gov_token_prices[i]
         dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 
-        if _scenario == "only buy":
-            trader.sell_to_amm(dai_eth_amm, daily_traded_volume, sell_index=0)
-        elif _scenario == "only sell":
-            trader.sell_to_amm(
-                dai_eth_amm,
-                daily_traded_volume / simulation_env.prices["eth"],
-                sell_index=1,
-            )
-        elif _scenario == "both":
-            trader.sell_to_amm(dai_eth_amm, daily_traded_volume / 2, sell_index=0)
+        trader.sell_to_amm(
+            dai_eth_amm,
+            sell_quantity=daily_volume_sell,
+            sell_index=0,
+        )
 
-            trader.sell_to_amm(
-                dai_eth_amm,
-                daily_traded_volume / simulation_env.prices["eth"] / 2,
-                sell_index=1,
-            )
-        elif _scenario != "no trades":
-            raise ValueError("Scenario not available")
+        trader.buy_from_amm(
+            dai_eth_amm,
+            buy_quantity=daily_volume_buy,
+            buy_index=0,
+        )
 
         returns[i] = aggregator.wealth
 
