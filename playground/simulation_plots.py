@@ -7,6 +7,10 @@ from yieldenv.strategies import (
 )
 
 N_ARRAY = [0, 2, 5]
+DAYS_TO_SIMULATE = 365
+GOV_TOKENS_DISTRIBUTED_PERDAY = 0.01
+GOV_PRICE_TREND = 0.002
+
 
 # --------------------- SIMPLE LENDING ------------------
 simulated_simple_lending = {
@@ -18,9 +22,9 @@ simulated_simple_lending = {
             _aggregator_percentage_liquidity_plf=0.01,
             _supply_apy_plf=m,
             _borrow_apy_plf=0.06,
-            _gov_tokens_distributed_perday=0.01,
-            _gov_price_trend=0.002,
-            _days_to_simulate=365,
+            _gov_tokens_distributed_perday=GOV_TOKENS_DISTRIBUTED_PERDAY,
+            _gov_price_trend=GOV_PRICE_TREND,
+            _days_to_simulate=DAYS_TO_SIMULATE,
         )
         for m in (0, 0.03, 0.09)
     }
@@ -37,10 +41,10 @@ simulated_spiral_lending = {
             _aggregator_percentage_liquidity_plf=0.01,
             _supply_apy_plf=0.03,
             _borrow_apy_plf=0.06,
-            _gov_tokens_distributed_perday=0.01,
-            _gov_price_trend=0.002,
+            _gov_tokens_distributed_perday=GOV_TOKENS_DISTRIBUTED_PERDAY,
+            _gov_price_trend=GOV_PRICE_TREND,
             _spirals=m,
-            _days_to_simulate=365,
+            _days_to_simulate=DAYS_TO_SIMULATE,
         )
         for m in (1, 3, 8)
     }
@@ -48,17 +52,13 @@ simulated_spiral_lending = {
 }
 
 # --------------------- AMM LP ------------------
+
 startprice_quote_token = 10
 percentage_liquidity_aggr = 0.01
 initial_supplied_funds_amm = {
     "dai": 1 / percentage_liquidity_aggr / 2,
     "eth": 1 / percentage_liquidity_aggr / startprice_quote_token / 2,
 }
-gov_tokens_distributed_perday = 0.01
-gov_price_trend = 0.002
-pct_of_pool_to_trade = 0.4
-
-days_to_simulate = 365
 
 
 simulated_cpamm = {
@@ -68,11 +68,12 @@ simulated_cpamm = {
             _startprice_quote_token=startprice_quote_token,
             _percentage_liquidity_aggr=percentage_liquidity_aggr,
             _startprice_governance_token=n,
-            _gov_tokens_distributed_perday=gov_tokens_distributed_perday,
-            _pct_of_pool_to_trade=pct_of_pool_to_trade,
-            _gov_price_trend=gov_price_trend,
-            _days_to_simulate=days_to_simulate,
+            _gov_tokens_distributed_perday=GOV_TOKENS_DISTRIBUTED_PERDAY,
+            _pct_of_pool_to_trade=0.4,
+            _gov_price_trend=GOV_PRICE_TREND,
+            _days_to_simulate=DAYS_TO_SIMULATE,
             _scenario=m,
+            _fee=0.05,
         )
         for m in ("no trades", "only buy", "only sell", "both")
     }

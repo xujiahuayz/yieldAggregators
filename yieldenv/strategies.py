@@ -184,6 +184,7 @@ def simulate_cpamm(
     _initial_funds_trader: dict = {"dai": 1e20, "eth": 1e20},
     _days_to_simulate: int = 365,
     _scenario: str = "no trades",
+    _fee: float = 0.03,
 ) -> list[float]:
     """
     Storyline: investor provides LP tokens to a yield aggregator, which
@@ -213,7 +214,7 @@ def simulate_cpamm(
     dai_eth_amm = CPAmm(
         env=simulation_env,
         reward_token_name="sushi",
-        fee=0.003,
+        fee=_fee,
         initiator=market_maker,
         initial_reserves=initial_reserves_amm,
     )
@@ -264,7 +265,7 @@ def simulate_cpamm(
 
             for m in range(50):
                 trade_amount = random.uniform(0, daily_traded_volume)
-                trader.sell_to_amm(dai_eth_amm, trade_amount/50, sell_index=0)
+                trader.sell_to_amm(dai_eth_amm, trade_amount / 50, sell_index=0)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 
@@ -277,7 +278,7 @@ def simulate_cpamm(
                 trade_amount = random.uniform(
                     0, daily_traded_volume / simulation_env.prices["eth"]
                 )  # divide by price of ETH when selling ETH
-                trader.sell_to_amm(dai_eth_amm, trade_amount/50, sell_index=1)
+                trader.sell_to_amm(dai_eth_amm, trade_amount / 50, sell_index=1)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 
@@ -289,11 +290,11 @@ def simulate_cpamm(
 
             for m in range(25):
                 trade_amount = random.uniform(0, daily_traded_volume)
-                trader.sell_to_amm(dai_eth_amm, trade_amount/50, sell_index=0)
+                trader.sell_to_amm(dai_eth_amm, trade_amount / 50, sell_index=0)
                 trade_amount = random.uniform(
                     0, daily_traded_volume / simulation_env.prices["eth"]
                 )  # divide by price of ETH when selling ETH
-                trader.sell_to_amm(dai_eth_amm, trade_amount/50, sell_index=1)
+                trader.sell_to_amm(dai_eth_amm, trade_amount / 50, sell_index=1)
 
             dai_eth_amm.distribute_reward(quantity=_gov_tokens_distributed_perday)
 
