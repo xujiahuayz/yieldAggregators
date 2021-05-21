@@ -49,8 +49,14 @@ pip install -e ".[dev]"
 
 ## Connect to a full node to fetch onchain data
 
-```
+Connect to a full node using `ssh` with port forwarding flag `-L` on:
+
+```zsh
 ssh -L 8545:localhost:8545 satoshi.doc.ic.ac.uk
+
+Assign URI value to `WEB3_PROVIDER_URI` in a new terminal:
+
+```zsh
 set -xg WEB3_PROVIDER_URI http://localhost:8545
 ```
 
