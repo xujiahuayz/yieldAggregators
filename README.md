@@ -53,6 +53,7 @@ Connect to a full node using `ssh` with port forwarding flag `-L` on:
 
 ```zsh
 ssh -L 8545:localhost:8545 satoshi.doc.ic.ac.uk
+```
 
 Assign URI value to `WEB3_PROVIDER_URI` in a new terminal:
 
