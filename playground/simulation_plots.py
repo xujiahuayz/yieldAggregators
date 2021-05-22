@@ -10,7 +10,7 @@ from yieldenv.strategies import (
 N_ARRAY = [0, 1, 2]
 DAYS_TO_SIMULATE = 365
 GOV_TOKENS_DISTRIBUTED_PERDAY = 0.01
-GOV_PRICE_TREND = 0.001
+GOV_PRICE_TREND = 0.0
 AGGREGATOR_POOL_PERCENTAGE = 0.01
 
 
@@ -19,16 +19,16 @@ simulated_simple_lending = {
     str(n): {
         str(m): simulate_simple_lending(
             _startprice_governance_token=n,
-            _initial_funds_plf=1 / AGGREGATOR_POOL_PERCENTAGE,
+            _initial_funds_plf=1 / AGGREGATOR_POOL_PERCENTAGE - 1,
             _initial_borrow_ratio=0.8,
             _aggregator_percentage_liquidity_plf=AGGREGATOR_POOL_PERCENTAGE,
             _supply_apy_plf=m,
-            _borrow_apy_plf=0.06,
+            _borrow_apy_plf=0.1,
             _gov_tokens_distributed_perday=GOV_TOKENS_DISTRIBUTED_PERDAY,
             _gov_price_trend=GOV_PRICE_TREND,
             _days_to_simulate=DAYS_TO_SIMULATE,
         )
-        for m in (0, 0.03, 0.09)
+        for m in (0, 0.03, 0.08)
     }
     for n in N_ARRAY
 }
@@ -89,7 +89,7 @@ simulated_cpamm = {
 # --------------------- PLOTTING ------------------
 
 simulation_plot(
-    simulated_data=simulated_simple_lending, legend_title="annualized return"
+    simulated_data=simulated_simple_lending, legend_title="Lending APY $\\rho$"
 )
 simulation_plot(
     simulated_data=simulated_spiral_lending, legend_title="number of spirals"

@@ -60,8 +60,8 @@ def simulation_plot(
     simulated_data: dict[str, dict[str, list[float]]],
     legend_title: str,
     legend_loc: str = "upper left",
-    xlabel_text: str = "Day",
-    ylabel_text: str = "Wealth in DAI",
+    xlabel_text: str = "Day t",
+    ylabel_text: str = "Yield farming pool value $W_t$",
     ticks_fontsize: float = 18,
     ylim_lower: float = 0.85,
     ylim_upper: float = 1.45,
@@ -69,7 +69,7 @@ def simulation_plot(
     legend_title_fontsize: float = 17,
     title_fontsize: float = 18,
     legend_fontsize: float = 17,
-    plot_title_prefix: Optional[str] = "initial token price",
+    plot_title_prefix: Optional[str] = "governance token price",
     plot_title_loc: Literal["center", "left", "right"] = "center",
 ):
     for n, series in simulated_data.items():
@@ -89,7 +89,7 @@ def simulation_plot(
             frameon=False,
         )
         if plot_title_prefix:
-            label = f"{plot_title_prefix}: {n}"
+            label = f"{plot_title_prefix}: {n} DAI"
             plt.title(label=label, loc=plot_title_loc, fontsize=title_fontsize)
         plt.tight_layout()
         fig_path = path.join(PROJECT_ROOT, f"assets/{n}_{legend_title}.pdf")
