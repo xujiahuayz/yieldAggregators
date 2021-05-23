@@ -141,7 +141,7 @@ def simulate_spiral_lending(
             amount_b_dai = 0
 
         available_to_borrow = (
-            amount_i_dai / dai_plf.collateral_ratio - amount_b_dai - 0.1
+            amount_i_dai * (dai_plf.collateral_factor - 0.1) - amount_b_dai
         )
 
         # print(available_to_borrow)
@@ -179,7 +179,7 @@ def simulate_cpamm(
     _percentage_liquidity_aggr: float,
     _startprice_governance_token: float,
     _gov_tokens_distributed_perday: float,
-    _pct_of_pool_to_trade: tuple[float, float],
+    trading_volume: tuple[float, float],
     _gov_price_trend: float,
     _initial_funds_trader: dict = {"dai": 1e20, "eth": 1e20},
     _days_to_simulate: int = 365,
@@ -245,14 +245,10 @@ def simulate_cpamm(
         _days_to_simulate, _startprice_governance_token, _gov_price_trend
     )
 
-    daily_volume_sell = (
-        dai_eth_amm.reserves[0] * _pct_of_pool_to_trade[0] / _days_to_simulate
-    )
+    daily_volume_sell = trading_volume[0] / _days_to_simulate
 
     # actual received is smaller than volume due to fee
-    daily_volume_buy = (
-        dai_eth_amm.reserves[0] * _pct_of_pool_to_trade[1] * (1 - dai_eth_amm.fee)
-    ) / _days_to_simulate
+    daily_volume_buy = (trading_volume[1] * (1 - dai_eth_amm.fee)) / _days_to_simulate
 
     # simulate every day
     for i in range(_days_to_simulate):

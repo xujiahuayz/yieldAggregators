@@ -12,6 +12,8 @@ DAYS_TO_SIMULATE = 365
 GOV_TOKENS_DISTRIBUTED_PERDAY = 0.01
 GOV_PRICE_TREND = 0.0
 AGGREGATOR_POOL_PERCENTAGE = 0.01
+BORROW_APY_PLF = 0.1
+INITIAL_BORROW_RATIO = 0.7
 
 
 # --------------------- SIMPLE LENDING ------------------
@@ -20,10 +22,10 @@ simulated_simple_lending = {
         str(m): simulate_simple_lending(
             _startprice_governance_token=n,
             _initial_funds_plf=1 / AGGREGATOR_POOL_PERCENTAGE - 1,
-            _initial_borrow_ratio=0.8,
+            _initial_borrow_ratio=INITIAL_BORROW_RATIO,
             _aggregator_percentage_liquidity_plf=AGGREGATOR_POOL_PERCENTAGE,
             _supply_apy_plf=m,
-            _borrow_apy_plf=0.1,
+            _borrow_apy_plf=BORROW_APY_PLF,
             _gov_tokens_distributed_perday=GOV_TOKENS_DISTRIBUTED_PERDAY,
             _gov_price_trend=GOV_PRICE_TREND,
             _days_to_simulate=DAYS_TO_SIMULATE,
@@ -39,10 +41,10 @@ simulated_spiral_lending = {
         str(m): simulate_spiral_lending(
             _startprice_governance_token=n,
             _initial_funds_plf=1 / AGGREGATOR_POOL_PERCENTAGE,
-            _initial_borrow_ratio=0.8,
+            _initial_borrow_ratio=INITIAL_BORROW_RATIO,
             _aggregator_percentage_liquidity_plf=AGGREGATOR_POOL_PERCENTAGE,
             _supply_apy_plf=0.03,
-            _borrow_apy_plf=0.06,
+            _borrow_apy_plf=BORROW_APY_PLF,
             _gov_tokens_distributed_perday=GOV_TOKENS_DISTRIBUTED_PERDAY,
             _gov_price_trend=GOV_PRICE_TREND,
             _spirals=m,
@@ -70,17 +72,16 @@ simulated_cpamm = {
             _percentage_liquidity_aggr=AGGREGATOR_POOL_PERCENTAGE,
             _startprice_governance_token=n,
             _gov_tokens_distributed_perday=GOV_TOKENS_DISTRIBUTED_PERDAY,
-            _pct_of_pool_to_trade=m,
+            trading_volume=m,
             _gov_price_trend=GOV_PRICE_TREND,
             _days_to_simulate=DAYS_TO_SIMULATE,
-            # _scenario=m,
             _fee=0.05,
         )
         for m in [
             (0, 0),
-            (0.4, 0.6),
-            (0.5, 0.5),
-            (0.6, 0.4),
+            (45, 55),
+            (50, 50),
+            (55, 45),
         ]
     }
     for n in N_ARRAY
@@ -88,9 +89,7 @@ simulated_cpamm = {
 
 # --------------------- PLOTTING ------------------
 
-simulation_plot(
-    simulated_data=simulated_simple_lending, legend_title="Lending APY $\\rho$"
-)
+simulation_plot(simulated_data=simulated_simple_lending, legend_title="Lending APY$")
 simulation_plot(
     simulated_data=simulated_spiral_lending, legend_title="number of spirals"
 )

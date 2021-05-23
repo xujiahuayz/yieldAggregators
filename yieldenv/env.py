@@ -240,10 +240,8 @@ class User:
         if plf.user_b_tokens[self.name] + amount < 0:
             raise ValueError("cannot repay more b-tokens than you have")
 
-        if (
-            self.funds_available[plf.interest_token_name]
-            <= (amount + self.funds_available[plf.borrow_token_name])
-            * plf.collateral_ratio
+        if self.funds_available[plf.interest_token_name] * plf.collateral_factor <= (
+            amount + self.funds_available[plf.borrow_token_name]
         ):
             raise ValueError(
                 "insufficient collateral to get the amount of requested debt tokens"
@@ -383,7 +381,7 @@ class Plf:
     supply_apy: float = 0.06
     borrow_apy: float = 0.07
     initial_starting_funds: float = 1000
-    collateral_ratio: float = 1.2
+    collateral_factor: float = 0.8
     asset_names: str = "dai"  # you can only deposit and borrow 1 token
 
     def __post_init__(self):
