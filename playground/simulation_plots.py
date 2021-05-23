@@ -89,7 +89,7 @@ simulated_cpamm = {
 
 # --------------------- PLOTTING ------------------
 
-simulation_plot(simulated_data=simulated_simple_lending, legend_title="Lending APY$")
+simulation_plot(simulated_data=simulated_simple_lending, legend_title="Lending APY")
 simulation_plot(
     simulated_data=simulated_spiral_lending, legend_title="number of spirals"
 )
