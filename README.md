@@ -1,5 +1,8 @@
 # SoK - Yield Aggregators in DeFi
 
+Paper link:
+> Cousaert, S., Xu, J., & Matsui, T. (2021). SoK: Yield Aggregators in DeFi. http://arxiv.org/abs/2105.13891
+
 ## yieldenv
 
 Environment for yield generators
