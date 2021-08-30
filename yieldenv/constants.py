@@ -7,7 +7,7 @@ DATA_PATH = path.join(PROJECT_ROOT, "data")
 INTEREST_TOKEN_PREFIX = "interest-"
 DEBT_TOKEN_PREFIX = "debt-"
 
-END_BLOCK = 12453546
+END_BLOCK = 12960000
 
 FUNCTIONS_INTERESTED = ["total_asset", "total_supply", "price_per_share"]
 # must all be checksum address!
@@ -109,7 +109,7 @@ CONTRACT_DATA = {
         "end_date": pd.to_datetime("May-17-2021"),
         "decimals": 18,
         "function": {
-            #FUNCTIONS_INTERESTED[0]: FUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
+            # FUNCTIONS_INTERESTED[0]: FUNCTIONS_INTERESTED[1]*FUNCTIONS_INTERESTED[2],
             FUNCTIONS_INTERESTED[1]: "totalSupply",
             FUNCTIONS_INTERESTED[2]: "tokenPrice",
         },
