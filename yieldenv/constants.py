@@ -7,7 +7,7 @@ DATA_PATH = path.join(PROJECT_ROOT, "data")
 INTEREST_TOKEN_PREFIX = "interest-"
 DEBT_TOKEN_PREFIX = "debt-"
 
-END_BLOCK = 12960000
+END_BLOCK = 13000000
 
 FUNCTIONS_INTERESTED = ["total_asset", "total_supply", "price_per_share"]
 # must all be checksum address!
