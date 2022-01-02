@@ -1,4 +1,3 @@
-from typing import Literal
 from yieldenv.utils import simulation_plot
 
 from yieldenv.strategies import (

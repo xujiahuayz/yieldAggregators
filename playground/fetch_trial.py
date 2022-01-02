@@ -1,5 +1,9 @@
 import os
+import gzip
+import json
+
 from yieldenv.fetcher import get_onchain_data
+from yieldenv.constants import DATA_PATH
 
 
 if __name__ == "__main__":
@@ -13,3 +17,8 @@ if __name__ == "__main__":
         file_name="trial",
         function_name="totalSupply",
     )
+
+    with gzip.open(os.path.join(DATA_PATH, "trial.jsonl.gz")) as f:
+        for _, w in enumerate(f):
+            this_block = json.loads(w)
+            print(this_block)
