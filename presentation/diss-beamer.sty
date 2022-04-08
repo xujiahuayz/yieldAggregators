@@ -1,0 +1,53 @@
+\usepackage{tabularx,ragged2e,booktabs,rotating,pdflscape,xcolor,colortbl}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{float}
+\usepackage[justification=centering]{caption}
+
+\hypersetup{colorlinks,linkcolor={blue},citecolor={black},urlcolor={blue}}
+
+\setbeamertemplate{headline}{}
+
+\setbeamertemplate{navigation symbols}[horizontal]
+
+\setbeamertemplate{footline}
+{
+    \leavevmode
+    \hbox{
+        \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=2ex,center]{author in head/foot}\insertshortauthor
+        \end{beamercolorbox}
+        \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=2ex,center]{title in head/foot}\inserttitle
+        \end{beamercolorbox}
+        \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=2ex,center]{date in head/foot}\insertframenumber{} / \inserttotalframenumber
+        \end{beamercolorbox}
+        }
+        \vskip0pt
+    }
+
+% \titlegraphic{
+% \includegraphics[width=3cm,height=3cm,keepaspectratio]{figure/edheclogo}
+% }
+
+
+\beamertemplatenavigationsymbolsempty
+
+
+% The following allows multi-columns
+
+\newenvironment{cols}[1][]{}{}
+
+\newenvironment{col}[1]{\begin{minipage}{#1}\ignorespaces}{%
+\end{minipage}
+\ifhmode\unskip\fi
+\aftergroup\useignorespacesandallpars}
+
+\def\useignorespacesandallpars#1\ignorespaces\fi{%
+#1\fi\ignorespacesandallpars}
+
+\makeatletter
+\def\ignorespacesandallpars{%
+  \@ifnextchar\par
+    {\expandafter\ignorespacesandallpars\@gobble}%
+    {}%
+}
+\makeatother

@@ -1,0 +1,65 @@
+---
+title: SOK
+subtitle: Yield Aggregators in DeFi
+author: "Jiahua (Java) Xu, Ph.D."
+date: 2022
+classoption: aspectratio=169    
+output:
+  beamer_presentation:
+    slide_level: 2
+    theme: Dresden
+    keep_tex: no
+    toc: false
+    incremental: false
+    colortheme: beaver
+    fonttheme: structurebold
+    highlight: haddock
+    pandoc_args: ["--syntax-definition=solidity.xml"]
+    includes:
+      in_header: diss-beamer.sty
+  ioslides_presentation:
+    logo: figure/ucllogo.svg
+  slidy_presentation:
+    footer: "Yield Aggregators in DeFi"
+link-citations: yes
+bibliography: YieldAggregators.bib
+# suppress-bibliography: no
+...
+
+```{r echo=FALSE, warning=FALSE}
+library(magrittr)
+options(stringsAsFactors=FALSE)
+
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, eval=FALSE)
+```
+
+
+```{r child = 'yieldaggregators.Rmd', eval=TRUE}
+```
+
+
+## Thank you!
+
+**Contact**
+
+\vspace{0.6cm}
+
+Jiahua (Java) Xu
+
+\vspace{0.4cm}
+
+UCL Centre for Blockchain Technologies
+
+
+66-72 Gower Street
+
+
+
+\vspace{0.4cm}
+
+jiahua.xu@ucl.ac.uk
+
+## References {.allowframebreaks}
+\small
+
+\widowpenalties 1 0

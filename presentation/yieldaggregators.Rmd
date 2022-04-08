@@ -1,0 +1,193 @@
+## Decentralized finance
+
+DeFi
+: A **rule-based** financial system that operates according to **protocols** composed of **smart contracts** on **blockchains**.
+
+## DeFi applications
+
+- Decentralized exchanges [@xu2021dexAmm]
+    - ![Uniswap](figure/uniswaplogo){width=20%}
+    ![Balancer](figure/balancerlogo){width=20%}
+    ![Curve](figure/curvefilogo){width=20%}
+    ![DODO](figure/dodologo){width=20%}
+- Lending protocols [@Xu2021c; @Perez2020liquidations]
+    - ![Maker](figure/makerlogo){width=20%}
+    ![Compound](figure/compoundlogo){width=20%}
+    ![Aave](figure/aavelogo){width=20%}
+- Yield aggregators [@Cousaert2021]
+    - ![Yearn](figure/yearnlogo){width=20%}
+    ![Harvest](figure/harvestlogo){width=20%}
+    ![Pickle](figure/picklelogo){width=20%}
+    ![Bank Of Chain](figure/boclogo){width=30%}
+- Token-based insurance solutions [@Cousaert2022]
+    - ![Nexus Mutual](figure/nexuslogo){width=20%}
+    ![Etherisc](figure/etherisclogo){width=20%}
+    ![Insur](figure/insurlogo){width=20%}
+
+## Yield Aggregators
+
+DeFi yield aggregators
+: A DeFi yield aggregator is a decentralized fund manager that uses smart contracts to determine and execute investment strategies.
+
+
+
+## Where do yields come from
+
+![Yield sources](figure/yield_assets){width=60%}
+
+
+
+## Yield farming process
+
+![Stylized yield aggregator mechanism [@Cousaert2021]](figure/mechanism_workflow-All)
+
+---
+
+### Yield farming process - Phase 2
+
+![Execution process of a single strategy. SC = Smart Contract [@Cousaert2021]](figure/mechanism_workflow-Phase2)
+
+
+
+
+## Classic yield farming strategies
+
+
+\begin{algorithm}[H]
+  \small
+  \floatname{algorithm}{Strategy}
+  \caption{Simple lending}
+  \begin{algorithmic}[1]
+  \STATE {\bf Deposit} assets in a lending protocol.
+  \STATE {\bf Accrue} supply interest and {\bf collect} native tokens over time.
+  \STATE {\bf Withdraw} deposits with accrued supply interest.
+  \end{algorithmic}
+\end{algorithm}
+
+
+![Simple lending](figure/mechanism_workflow-strat_case_1)
+
+
+---
+
+\begin{figure}
+        \includegraphics[height=0.4\textheight, trim = {5, 0, 0, 0}, clip]{figure/0_Lending_APY}
+        \includegraphics[height=0.4\textheight, trim = {65, 0, 0, 0}, clip]{figure/1_Lending_APY}
+        \includegraphics[height=0.4\textheight, trim = {65, 0, 0, 0}, clip]{figure/2_Lending_APY}
+        \caption{Simple lending}
+\end{figure}
+
+
+{.shrink}
+---
+
+\begin{algorithm}[H]
+  \small
+  \floatname{algorithm}{Strategy}
+  \caption{Leveraged borrow}
+  \begin{algorithmic}[1]
+    \STATE {\bf Deposit} assets in a lending protocol
+    \STATE {\bf Borrow} assets with the deposits as collateral. \label{state:borrow}
+    \STATE {\bf Deposit} borrowed assets. \label{state:redeposit}
+    \STATE {\bf Repeat} steps \ref{state:borrow}--\ref{state:redeposit} multiple times.
+    \STATE {\bf Accrue} interest and {\bf collect} native tokens over time.
+    \STATE {\bf Swap} the native tokens into the assets borrowed.
+    \STATE {\bf Repay} loans with accrued borrow interest.
+    \STATE {\bf Withdraw} deposits with accrued supply interest when needed.
+  \end{algorithmic}
+\end{algorithm}
+
+
+![Leveraged borrow](figure/mechanism_workflow-strat_case_3)
+
+---
+
+\begin{figure}
+        \includegraphics[height=0.4\textheight, trim = {5, 0, 0, 0}, clip]{figure/0_number_of_spirals}
+        \includegraphics[height=0.4\textheight, trim = {65, 0, 0, 0}, clip]{figure/1_number_of_spirals}
+        \includegraphics[height=0.4\textheight, trim = {65, 0, 0, 0}, clip]{figure/2_number_of_spirals}
+        \caption{Leveraged borrow}
+\end{figure}
+
+
+{.shrink}
+---
+
+\begin{algorithm}[H]
+  \small
+  \floatname{algorithm}{Strategy}
+  \caption{Liquidity provision}
+  \begin{algorithmic}[1]
+    \STATE {\bf Provide} assets as liquidity in an AMM pool.
+    \STATE {\bf Collect} native tokens over time.
+    \STATE {\bf Withdraw} liquidity.
+  \end{algorithmic}
+\end{algorithm}
+
+![Liquidity provision](figure/mechanism_workflow-strat_case_2)
+
+
+---
+
+\begin{figure}
+        \includegraphics[height=0.4\textheight, trim = {5, 0, 0, 0}, clip]{figure/0_volume_buysell}
+        \includegraphics[height=0.4\textheight, trim = {65, 0, 0, 0}, clip]{figure/1_volume_buysell}
+        \includegraphics[height=0.4\textheight, trim = {65, 0, 0, 0}, clip]{figure/2_volume_buysell}
+        \caption{Liquidity provisio}
+\end{figure}
+
+---
+
+### Classic yield farming strategies
+
+::: columns
+
+:::: column 
+
+![Simple lending](figure/mechanism_workflow-strat_case_1)
+
+![Leveraged borrow](figure/mechanism_workflow-strat_case_3)
+
+![Liquidity provision](figure/mechanism_workflow-strat_case_2)
+
+
+::::
+
+
+:::: column 
+
+***Risks***
+
+- Lending and borrowing risks
+    - Liquidity risk
+    - Liquidation risk
+- Composability risks
+    - Individual smart contract risk
+    - Composing multiple smart contracts risk
+- APY instability
+    - Divergence loss
+    - Low trading activity
+    - Price fluctuations in liquidity incentives (governance token)
+    - Uncertainty on yield sustainability
+
+::::
+
+:::
+
+## Existing yield farming protocols
+
+\begin{figure}
+        \centering
+        \includegraphics[height=0.32\textheight]{figure/vault_DAI_price_per_share.pdf}
+        \includegraphics[height=0.32\textheight]{figure/vault_USDC_price_per_share.pdf}
+        \includegraphics[height=0.32\textheight]{figure/vault_3crv_price_per_share.pdf}
+        \caption{Price per share of Yearn, Harvest, Pickle}
+\end{figure}
+
+On 26th October, a flash loan attack occured on Harvest.
+
+
+## Emerging yield farming protocols
+
+![Bank Of Chain, a smart multi-chain yield optimizer that provides long-term "risk-free" return [@BankOfChain2022]](figure/ScreenshotBOC){width=60%}
+
