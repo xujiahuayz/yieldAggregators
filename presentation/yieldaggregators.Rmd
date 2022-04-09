@@ -50,8 +50,20 @@ DeFi yield aggregators
 
 
 
-## Classic yield farming strategies
+## Classic yield farming strategies -- Simulation assumptions {.plain}
 
+
+- the transaction cost is neglected;
+- the value of the yield aggregator $W_t$ is measured in `DAI`; $W_0 = 1$;
+- the aggregator supplies all funds in the pool to a yield-generating protocol---either a lending platform or an AMM, and the funds represent 1\% of the protocol's total assets held at $t = 0$;
+- the yield-generating protocol---either a lending platform or an AMM---distributes 0.01 governance token / day to its users proportionately to their stake;
+- the governance token price remains constant during the simulation period;
+- the lending platform has a fixed borrow APY of 10\% and a collateral factor of 80\%, meaning for each `DAI` deposited, the depositor is allowed to take 0.8 `DAI`'s worth of loan; at $t=0$, 70\% of the funds in the lending platform pool is lent out, and all other market participants' additional borrow and repay, as well as deposit and withdraw cancel each other out on an aggregate level during the simulated period;
+- the AMM has a fixed exchange fee of 5\% and applies a constant-product conservation function; the fee is charged by retaining 5\% of the theoretical fee-free purchase quantity within the AMM pool.
+
+    
+{.shrink}
+---
 
 \begin{algorithm}[H]
   \small
@@ -133,7 +145,7 @@ DeFi yield aggregators
         \includegraphics[height=0.4\textheight, trim = {5, 0, 0, 0}, clip]{figure/0_volume_buysell}
         \includegraphics[height=0.4\textheight, trim = {65, 0, 0, 0}, clip]{figure/1_volume_buysell}
         \includegraphics[height=0.4\textheight, trim = {65, 0, 0, 0}, clip]{figure/2_volume_buysell}
-        \caption{Liquidity provisio}
+        \caption{Liquidity provision}
 \end{figure}
 
 ---

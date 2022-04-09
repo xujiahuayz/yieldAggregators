@@ -1,6 +1,6 @@
 ---
-title: SOK
-subtitle: Yield Aggregators in DeFi
+title: SoK (Systemization of Knowledge)
+subtitle: Yield Aggregators in DeFi (Decentralized Finance)
 author: "Jiahua (Java) Xu, Ph.D."
 date: 2022
 classoption: aspectratio=169    
