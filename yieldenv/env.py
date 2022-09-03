@@ -9,7 +9,6 @@ from typing import Optional, cast
 from yieldenv.utils import PriceDict
 
 
-@dataclass
 class Env:
     def __init__(
         self,
@@ -60,19 +59,6 @@ class User:
         logging.info(f"{self.name}'s wealth in DAI: {user_wealth}")
 
         return user_wealth
-
-    # # AMM actions
-    # def initiate_amm(
-    #     self, reward_token_name, initial_reserves, fee, asset_names
-    # ) -> CPAmm:
-
-    #     CPAmm(
-    #         env=self.env,
-    #         reward_token_name=reward_token_name,
-    #         initial_reserves=initial_reserves,
-    #         fee=fee,
-    #         asset_names=asset_names,
-    #     )
 
     def sell_to_amm(self, amm: CPAmm, sell_quantity: float, sell_index: int = 0):
         """

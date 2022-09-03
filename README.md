@@ -55,8 +55,22 @@ pip install -e ".[dev]"
 
 Connect to a full node using `ssh` with port forwarding flag `-L` on:
 
+### imperial node
+
 ```zsh
 ssh -L 8545:localhost:8545 satoshi.doc.ic.ac.uk
+```
+
+Assign URI value to `WEB3_PROVIDER_URI` in a new terminal:
+
+```zsh
+set -xg WEB3_PROVIDER_URI http://localhost:8545
+```
+
+### EPFL node
+
+```zsh
+ssh java@65.21.197.167 -L 8545:127.0.0.1:8545
 ```
 
 Assign URI value to `WEB3_PROVIDER_URI` in a new terminal:

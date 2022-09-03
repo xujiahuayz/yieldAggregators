@@ -1,4 +1,3 @@
-from typing import Literal
 from yieldenv.utils import PriceDict, define_price_gov_token
 from yieldenv.env import Env, User, Plf, CPAmm
 

@@ -7,7 +7,7 @@ from yieldenv.constants import DATA_PATH
 
 
 if __name__ == "__main__":
-    os.environ.setdefault("WEB3_PROVIDER_URI", "http://localhost:8545")
+    # os.environ.setdefault("WEB3_PROVIDER_URI", "http://localhost:8545")
 
     get_onchain_data(
         abi_address="0x1F573D6Fb3F13d689FF844B4cE37794d79a7FF1C",
