@@ -70,7 +70,7 @@ def simulation_plot(
     legend_title_fontsize: float = 21,
     title_fontsize: float = 23,
     legend_fontsize: float = 21,
-    plot_title_prefix: Optional[str] = "governance token price",
+    plot_title_prefix: Optional[str] = "protocol token price",
     plot_title_loc: Literal["center", "left", "right"] = "center",
 ):
     for n, series in simulated_data.items():
@@ -90,7 +90,7 @@ def simulation_plot(
             frameon=False,
         )
         if plot_title_prefix:
-            label = f"{plot_title_prefix}: {n} DAI"
+            label = f"{plot_title_prefix}: ${n} \\, \\tt{{ USDT}}$"
             plt.title(label=label, loc=plot_title_loc, fontsize=title_fontsize)
         plt.tight_layout()
         fig_path = path.join(PROJECT_ROOT, f"assets/{n}_{file_name}.pdf")
