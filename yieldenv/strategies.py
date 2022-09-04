@@ -1,3 +1,4 @@
+from ipaddress import collapse_addresses
 from yieldenv.utils import PriceDict, define_price_gov_token
 from yieldenv.env import Env, User, Plf, CPAmm
 
@@ -7,12 +8,15 @@ def simulate_simple_lending(
     _initial_funds_plf: float,
     _initial_borrow_ratio: float,
     _aggregator_percentage_liquidity_plf: float,
-    _supply_apy_plf: float,
-    _borrow_apy_plf: float,
+    # _supply_apy_plf: float,
+    # _borrow_apy_plf: float,
     _gov_tokens_distributed_perday: float,
     _gov_price_trend: float,
     _days_to_simulate: int = 365,
 ) -> list[float]:
+
+    # set up an environment with all DAI prices of 1, price for governance token
+    simulation_env = Env(prices=PriceDict({"dai": 1}))
 
     # initialization vars
     initial_supplied_funds_plf = _initial_funds_plf
@@ -21,9 +25,6 @@ def simulate_simple_lending(
         _aggregator_percentage_liquidity_plf * initial_supplied_funds_plf
     )
     days_to_simulate = _days_to_simulate
-
-    # set up an environment with all DAI prices of 1, price for governance token
-    simulation_env = Env(prices=PriceDict({"dai": 1}))
 
     # set up a user that represents (market - yield aggregator): give 500M DAI
     market_maker = User(
@@ -38,11 +39,15 @@ def simulate_simple_lending(
         reward_token_name="aave",
         initiator=market_maker,
         initial_starting_funds=initial_supplied_funds_plf,
-        supply_apy=_supply_apy_plf,
-        borrow_apy=_borrow_apy_plf,
+        # supply_apy=_supply_apy_plf,
+        # borrow_apy=_borrow_apy_plf,
     )
     ### Supply and borrow rates are default 0.06 and 0.07 respectively, can be changed
     ### Collateral ratio is 1.2 by default, can be changed
+
+    assert (
+        _initial_borrow_ratio < dai_plf.collateral_factor
+    ), f"initial borrow ratio {_initial_borrow_ratio} cannot exceed collateral factor {dai_plf.collateral_factor}"
 
     # assume that 80% of the supplied funds are borrowed
     market_maker.borrow_repay(initial_borrowed_funds, dai_plf)
@@ -79,13 +84,16 @@ def simulate_spiral_lending(
     _initial_funds_plf: float,
     _initial_borrow_ratio: float,
     _aggregator_percentage_liquidity_plf: float,
-    _supply_apy_plf: float,
-    _borrow_apy_plf: float,
+    # _supply_apy_plf: float,
+    # _borrow_apy_plf: float,
     _gov_tokens_distributed_perday: float,
     _gov_price_trend: float,
     _spirals: int,
     _days_to_simulate: int = 365,
 ) -> list[float]:
+
+    # set up an environment with all DAI prices of 1, price for governance token
+    simulation_env = Env(prices=PriceDict({"dai": 1}))
 
     # initialization vars
     initial_supplied_funds_plf = _initial_funds_plf
@@ -94,9 +102,6 @@ def simulate_spiral_lending(
         _aggregator_percentage_liquidity_plf * initial_supplied_funds_plf
     )
     days_to_simulate = _days_to_simulate
-
-    # set up an environment with all DAI prices of 1, price for governance token
-    simulation_env = Env(prices=PriceDict({"dai": 1}))
 
     # set up a user that represents (market - yield aggregator): give 500M DAI
     market_maker = User(
@@ -111,11 +116,15 @@ def simulate_spiral_lending(
         reward_token_name="aave",
         initiator=market_maker,
         initial_starting_funds=initial_supplied_funds_plf,
-        supply_apy=_supply_apy_plf,
-        borrow_apy=_borrow_apy_plf,
+        # supply_apy=_supply_apy_plf,
+        # borrow_apy=_borrow_apy_plf,
     )
     ### Supply and borrow rates are default 0.06 and 0.07 respectively, can be changed
     ### Collateral ratio is 1.2 by default, can be changed
+
+    assert (
+        _initial_borrow_ratio < dai_plf.collateral_factor
+    ), f"initial borrow ratio {_initial_borrow_ratio} cannot exceed collateral factor {dai_plf.collateral_factor}"
 
     # assume that 80% of the supplied funds are borrowed
     market_maker.borrow_repay(initial_borrowed_funds, dai_plf)
@@ -140,7 +149,7 @@ def simulate_spiral_lending(
             amount_b_dai = 0
 
         available_to_borrow = (
-            amount_i_dai * (dai_plf.collateral_factor - 0.1) - amount_b_dai
+            amount_i_dai * (dai_plf.collateral_factor - 0.2) - amount_b_dai
         )
 
         # print(available_to_borrow)

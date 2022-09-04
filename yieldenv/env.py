@@ -5,6 +5,7 @@ from yieldenv.constants import DEBT_TOKEN_PREFIX, INTEREST_TOKEN_PREFIX
 import numpy as np
 import logging
 from typing import Optional, cast
+from yieldenv.interest_rate import borrow_lend_rates
 
 from yieldenv.utils import PriceDict
 
@@ -364,10 +365,10 @@ class Plf:
     env: Env
     initiator: User
     reward_token_name: str = "aave"
-    supply_apy: float = 0.06
-    borrow_apy: float = 0.07
+    # supply_apy: float = 0.06
+    # borrow_apy: float = 0.07
     initial_starting_funds: float = 1000
-    collateral_factor: float = 0.8
+    collateral_factor: float = 0.85
     asset_names: str = "dai"  # you can only deposit and borrow 1 token
 
     def __post_init__(self):
@@ -406,6 +407,22 @@ class Plf:
         return f"(available funds = {self.total_available_funds}, borrowed funds = {self.total_borrowed_funds})"
 
     @property
+    def utilization_ratio(self) -> float:
+        return self.total_borrowed_funds / (
+            self.total_available_funds + self.total_borrowed_funds
+        )
+
+    @property
+    def supply_apy(self) -> float:
+        _, rs = borrow_lend_rates(self.utilization_ratio)
+        return rs
+
+    @property
+    def borrow_apy(self) -> float:
+        rb, _ = borrow_lend_rates(self.utilization_ratio)
+        return rb
+
+    @property
     def total_pool_shares(self) -> tuple[float, float]:
         total_i_tokens = sum(self.user_i_tokens.values())
         total_b_tokens = sum(self.user_b_tokens.values())
@@ -430,7 +447,13 @@ class Plf:
             self.user_b_tokens[user_name] = self.env.users[user_name].funds_available[
                 self.borrow_token_name
             ] = 0.0
-        b_token_fraction = self.user_b_tokens[user_name] / self.total_pool_shares[1]
+
+        assert 0 <= self.user_b_tokens[user_name] <= self.total_pool_shares[1]
+
+        if self.total_pool_shares[1] == 0:
+            b_token_fraction = 0
+        else:
+            b_token_fraction = self.user_b_tokens[user_name] / self.total_pool_shares[1]
 
         return i_token_fraction, b_token_fraction
 
