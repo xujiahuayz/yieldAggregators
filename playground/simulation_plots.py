@@ -89,9 +89,17 @@ simulated_cpamm = {
 # --------------------- PLOTTING ------------------
 
 simulation_plot(
-    simulated_data=simulated_simple_lending, legend_title="initial utilization ratio"
+    file_name="util_ratio",
+    simulated_data=simulated_simple_lending,
+    legend_title="initial utilization ratio",
 )
 simulation_plot(
-    simulated_data=simulated_spiral_lending, legend_title="number of spirals"
+    file_name="spirals",
+    simulated_data=simulated_spiral_lending,
+    legend_title="number of spirals",
 )
-simulation_plot(simulated_data=simulated_cpamm, legend_title="volume (buy, sell)")
+simulation_plot(
+    file_name="volume",
+    simulated_data=simulated_cpamm,
+    legend_title="volume (buy, sell)",
+)

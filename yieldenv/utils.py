@@ -57,6 +57,7 @@ def define_price_gov_token(days: int, _start_price: float, _trend_pct: float):
 
 
 def simulation_plot(
+    file_name: str,
     simulated_data: dict[str, dict[str, list[float]]],
     legend_title: str,
     legend_loc: str = "upper left",
@@ -92,9 +93,7 @@ def simulation_plot(
             label = f"{plot_title_prefix}: {n} DAI"
             plt.title(label=label, loc=plot_title_loc, fontsize=title_fontsize)
         plt.tight_layout()
-        fig_path = path.join(
-            PROJECT_ROOT, f"assets/{n}_{legend_title.replace(' ','_')}.pdf"
-        )
+        fig_path = path.join(PROJECT_ROOT, f"assets/{n}_{file_name}.pdf")
         plt.savefig(fig_path)
         plt.show()
         plt.close()
