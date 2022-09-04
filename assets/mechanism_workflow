@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-09-04T13:50:19.008Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36" etag="Cy5K8z_-4dslzt53q_R1" version="20.2.7" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2022-09-04T13:50:28.124Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36" etag="eQnuqE9YzDWkHkHNByaw" version="20.2.7" type="github" pages="8">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="946" dy="650" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -678,6 +678,9 @@
         <mxCell id="IKoTMqs8rZ_QVPxRCzDe-3" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="211" y="290" width="130" height="330" as="geometry" />
         </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-4" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="361" y="290" width="130" height="330" as="geometry" />
+        </mxCell>
         <mxCell id="IKoTMqs8rZ_QVPxRCzDe-5" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="511" y="290" width="130" height="330" as="geometry" />
         </mxCell>
@@ -722,6 +725,9 @@
         </mxCell>
         <mxCell id="IKoTMqs8rZ_QVPxRCzDe-19" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Stablecoins&lt;/b&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="526" y="260" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-20" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Derivatives&lt;/b&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="376" y="260" width="100" height="30" as="geometry" />
         </mxCell>
         <mxCell id="IKoTMqs8rZ_QVPxRCzDe-21" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Lending&lt;/b&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="226" y="260" width="100" height="30" as="geometry" />
@@ -773,6 +779,30 @@
         </mxCell>
         <mxCell id="IKoTMqs8rZ_QVPxRCzDe-37" value="Solend" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="221.5" y="460" width="109" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-38" value="Hegic" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="371.5" y="420" width="109" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-39" value="GMX" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="371.5" y="380" width="109" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-40" value="Synthetix" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="371.5" y="340" width="109" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-41" value="dYdX" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="371.5" y="300" width="109" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-42" value="Reflexer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="371.5" y="580" width="109" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-43" value="NFT20" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="371.5" y="540" width="109" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-44" value="Indexed Finance" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="371.5" y="500" width="109" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IKoTMqs8rZ_QVPxRCzDe-45" value="Mirror Protocol" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="371.5" y="460" width="109" height="30" as="geometry" />
         </mxCell>
         <mxCell id="IKoTMqs8rZ_QVPxRCzDe-46" value="Tether" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="521.5" y="420" width="109" height="30" as="geometry" />
