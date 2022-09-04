@@ -92,7 +92,9 @@ def simulation_plot(
             label = f"{plot_title_prefix}: {n} DAI"
             plt.title(label=label, loc=plot_title_loc, fontsize=title_fontsize)
         plt.tight_layout()
-        fig_path = path.join(PROJECT_ROOT, f"assets/{n}_{legend_title}.pdf")
+        fig_path = path.join(
+            PROJECT_ROOT, f"assets/{n}_{legend_title.replace(' ','_')}.pdf"
+        )
         plt.savefig(fig_path)
         plt.show()
         plt.close()

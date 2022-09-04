@@ -1,5 +1,8 @@
+from os import path
 import matplotlib.pyplot as plt
 import numpy as np
+
+from yieldenv.settings import PROJECT_ROOT
 
 RB_FACTOR = 25
 RS_FACTOR = 50
@@ -41,7 +44,7 @@ if __name__ == "__main__":
         borrow_rates.append(r1)
         lend_rates.append(r2)
 
-    plt.rcParams.update({"font.size": 20})
+    plt.rcParams.update({"font.size": 15})
 
     plt.plot(
         util_rates,
@@ -57,4 +60,9 @@ if __name__ == "__main__":
     plt.ylabel("Interest rate per annum $r$")
     plt.xlim(0, 1)
     plt.ylim(0, 1.6)
-    plt.legend()
+    plt.legend(frameon=False)
+    plt.tight_layout()
+    fig_path = path.join(PROJECT_ROOT, f"assets/interest_model.pdf")
+    plt.savefig(fig_path)
+    plt.show()
+    plt.close()
