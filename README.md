@@ -2,7 +2,7 @@
 
 Paper link:
 
-> Cousaert, S., Xu, J., & Matsui, T. (2021). SoK: Yield Aggregators in DeFi. http://arxiv.org/abs/2105.13891
+> Cousaert, S., Xu, J., & Matsui, T. (2021). SoK: Yield Aggregators in DeFi. https://ieeexplore.ieee.org/abstract/document/9805523
 
 ## yieldenv
 
@@ -13,7 +13,7 @@ Environment for yield generators
 ### Clone the repo
 
 ```
-git clone https://github.com/SimonCousaert/yieldAggregators
+git clone https://github.com/xujiahuayz/yieldAggregators.git
 cd yieldAggregators
 ```
 
