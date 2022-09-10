@@ -49,15 +49,15 @@ if __name__ == "__main__":
     plt.plot(
         util_rates,
         borrow_rates,
-        label=f"Borrow rate $r_b=\\frac{{u}}{{{RB_FACTOR} \\times (1-u)}}$",
+        label=f"borrow interest rate $r_b=\\frac{{u}}{{{RB_FACTOR} \\times (1-u)}}$",
     )
     plt.plot(
         util_rates,
         lend_rates,
-        label=f"Supply rate $r_s=\\frac{{u}}{{{RS_FACTOR}  \\times (1-u)}}$",
+        label=f"supply interest rate $r_s=\\frac{{u}}{{{RS_FACTOR}  \\times (1-u)}}$",
     )
-    plt.xlabel("Utilization ratio $u$")
-    plt.ylabel("Interest rate per annum $r$")
+    plt.xlabel("utilization ratio $u$")
+    plt.ylabel("interest rate per annum $r$")
     plt.xlim(0, 1)
     plt.ylim(0, 1.6)
     plt.legend(frameon=False)
