@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-09-11T07:42:24.458Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="k3SdgYoYJOY_v28_VS_1" version="20.2.8" type="github" pages="10">
+<mxfile host="app.diagrams.net" modified="2022-09-11T07:44:19.865Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="EjboZzCTRV0DmSvgp892" version="20.2.8" type="github" pages="10">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="2066" dy="1128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -532,7 +532,7 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="bHcdDqsm5AaHa4cDlpOj-1" value="&lt;i&gt;&lt;font style=&quot;font-size: 25px&quot;&gt;User actions&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="510" y="240" width="200" height="450" as="geometry" />
+          <mxGeometry x="490" y="240" width="220" height="450" as="geometry" />
         </mxCell>
         <mxCell id="bHcdDqsm5AaHa4cDlpOj-2" value="&lt;i&gt;&lt;font style=&quot;font-size: 25px&quot;&gt;Pool state&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="810" y="240" width="500" height="450" as="geometry" />
@@ -541,13 +541,13 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="bHcdDqsm5AaHa4cDlpOj-4" value="&lt;font style=&quot;font-size: 20px&quot;&gt;&amp;nbsp;Deposit&lt;br&gt;(Provide liquidity)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="520" y="290" width="176" height="90" as="geometry" />
+          <mxGeometry x="500" y="290" width="196" height="90" as="geometry" />
         </mxCell>
         <mxCell id="bHcdDqsm5AaHa4cDlpOj-5" value="&lt;font style=&quot;font-weight: normal ; font-size: 20px&quot;&gt;&amp;nbsp;Redeem&lt;br&gt;(Withdraw liquidity)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;fontStyle=1;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="520" y="400" width="176" height="90" as="geometry" />
+          <mxGeometry x="500" y="400" width="196" height="90" as="geometry" />
         </mxCell>
         <mxCell id="bHcdDqsm5AaHa4cDlpOj-6" value="&lt;font style=&quot;font-size: 20px ; font-weight: normal&quot;&gt;Swap&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=20;fontStyle=1;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="522" y="585" width="176" height="90" as="geometry" />
+          <mxGeometry x="500" y="585" width="198" height="90" as="geometry" />
         </mxCell>
         <mxCell id="bHcdDqsm5AaHa4cDlpOj-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Georgia;fontSize=20;labelBackgroundColor=none;" parent="1" source="bHcdDqsm5AaHa4cDlpOj-5" target="bHcdDqsm5AaHa4cDlpOj-17" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -642,7 +642,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="OBh7owem4dzXwgSJosWf" name="defi_eco">
-    <mxGraphModel dx="1653" dy="902" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1722" dy="940" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
