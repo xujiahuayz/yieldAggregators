@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-09-11T18:29:21.990Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="cvscgGzvFUrDHyHH1mcw" version="20.3.0" type="github" pages="10">
+<mxfile host="app.diagrams.net" modified="2022-09-11T18:30:44.854Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="Oo4pLPJA9Ti1A4STAqSt" version="20.3.0" type="github" pages="10">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="2066" dy="1071" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -527,7 +527,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="R70OpsL0MWUFN4q3pa7R" name="amm_mechanism">
-    <mxGraphModel dx="1530" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1968" dy="1020" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -537,13 +537,13 @@
         <mxCell id="bHcdDqsm5AaHa4cDlpOj-2" value="&lt;i&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 25px&quot;&gt;&lt;b&gt;Protocol State&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="770" y="240" width="500" height="450" as="geometry" />
         </mxCell>
-        <mxCell id="bHcdDqsm5AaHa4cDlpOj-4" value="&lt;font style=&quot;font-size: 20px&quot;&gt;&amp;nbsp;Deposit&lt;br&gt;(Provide liquidity)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="bHcdDqsm5AaHa4cDlpOj-4" value="&lt;font style=&quot;font-size: 20px&quot;&gt;&amp;nbsp;Deposit&lt;br&gt;(Provide liquidity)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="278" y="290" width="196" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="bHcdDqsm5AaHa4cDlpOj-5" value="&lt;font style=&quot;font-weight: normal ; font-size: 20px&quot;&gt;&amp;nbsp;Redeem&lt;br&gt;(Withdraw liquidity)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;fontStyle=1;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="bHcdDqsm5AaHa4cDlpOj-5" value="&lt;font style=&quot;font-weight: normal ; font-size: 20px&quot;&gt;&amp;nbsp;Redeem&lt;br&gt;(Withdraw liquidity)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;fontStyle=1;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="278" y="400" width="196" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="bHcdDqsm5AaHa4cDlpOj-6" value="&lt;font style=&quot;font-size: 20px ; font-weight: normal&quot;&gt;Swap&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=20;fontStyle=1;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="bHcdDqsm5AaHa4cDlpOj-6" value="&lt;font style=&quot;font-size: 20px ; font-weight: normal&quot;&gt;Swap&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=20;fontStyle=1;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="277" y="585" width="198" height="90" as="geometry" />
         </mxCell>
         <mxCell id="bHcdDqsm5AaHa4cDlpOj-17" value="&lt;font style=&quot;font-size: 22px&quot;&gt;&amp;nbsp; Reserves&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;align=left;verticalAlign=top;dashed=1;dashPattern=1 1;labelBackgroundColor=none;strokeWidth=3;" parent="1" vertex="1">
@@ -575,10 +575,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="F3W-351Iyz_OmIII71X5-3" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;Mint&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="F3W-351Iyz_OmIII71X5-3" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;Mint&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="528" y="350" width="200" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="F3W-351Iyz_OmIII71X5-4" value="&lt;span style=&quot;font-size: 20px; font-weight: 400;&quot;&gt;Burn&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;fontStyle=1;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="F3W-351Iyz_OmIII71X5-4" value="&lt;span style=&quot;font-size: 20px; font-weight: 400;&quot;&gt;Burn&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;fontStyle=1;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="528" y="500" width="200" height="90" as="geometry" />
         </mxCell>
         <mxCell id="wIZbgm8yNmMAM6c9M6Fr-8" value="" style="endArrow=classic;html=1;rounded=1;strokeWidth=2;fontSize=12;exitX=1;exitY=0.379;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="bHcdDqsm5AaHa4cDlpOj-6" target="bHcdDqsm5AaHa4cDlpOj-19" edge="1">
@@ -663,7 +663,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="OBh7owem4dzXwgSJosWf" name="defi_eco">
-    <mxGraphModel dx="1252" dy="649" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1797" dy="931" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -830,7 +830,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="oiS-JT85qRho-ozf5FCs" name="PFL">
-    <mxGraphModel dx="1455" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2066" dy="1071" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
