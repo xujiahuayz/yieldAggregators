@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-09-12T07:38:38.693Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="FoUvjwRPQNv_DABODOhK" version="20.3.0" type="github" pages="10">
+<mxfile host="app.diagrams.net" modified="2022-09-12T11:48:05.151Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="IMFqXQLruGIKzLOIVUH-" version="20.3.0" type="github" pages="10">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="2066" dy="1128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -998,15 +998,15 @@
     </mxGraphModel>
   </diagram>
   <diagram id="HUSKyLFwmxPmLgz4rcbW" name="yield-agg">
-    <mxGraphModel dx="2175" dy="1187" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1722" dy="940" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="caRcMuu22XtTANkgAoEX-2" value="&lt;i&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 25px&quot;&gt;&lt;b&gt;Pool state&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" vertex="1" parent="1">
+        <mxCell id="caRcMuu22XtTANkgAoEX-2" value="&lt;font face=&quot;Helvetica&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;&lt;b&gt;&lt;i&gt;Yield&lt;/i&gt;&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" vertex="1" parent="1">
           <mxGeometry x="770" y="240" width="580" height="450" as="geometry" />
         </mxCell>
         <mxCell id="caRcMuu22XtTANkgAoEX-10" value="" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=20;fontStyle=1;labelBackgroundColor=none;" vertex="1" parent="1">
-          <mxGeometry x="780" y="290" width="198" height="320" as="geometry" />
+          <mxGeometry x="880" y="330" width="198" height="320" as="geometry" />
         </mxCell>
         <mxCell id="caRcMuu22XtTANkgAoEX-20" value="&lt;i&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 25px&quot;&gt;&lt;b&gt;Protocol actions&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" vertex="1" parent="1">
           <mxGeometry x="520" y="240" width="220" height="660" as="geometry" />
@@ -1024,7 +1024,7 @@
           <mxGeometry x="278" y="372" width="196" height="60" as="geometry" />
         </mxCell>
         <mxCell id="caRcMuu22XtTANkgAoEX-8" value="&lt;font style=&quot;font-size: 20px ; font-weight: normal&quot;&gt;Pool token&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=20;fontStyle=1;labelBackgroundColor=none;" vertex="1" parent="1">
-          <mxGeometry x="800" y="330" width="158" height="60" as="geometry" />
+          <mxGeometry x="790" y="260" width="158" height="60" as="geometry" />
         </mxCell>
         <mxCell id="caRcMuu22XtTANkgAoEX-21" value="" style="endArrow=classic;html=1;rounded=1;strokeWidth=2;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="caRcMuu22XtTANkgAoEX-22" target="caRcMuu22XtTANkgAoEX-8">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -1101,13 +1101,13 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="in7Ym3DxoKE7M4WpUTdb-3" value="&lt;span style=&quot;font-family: Georgia; font-size: 20px;&quot;&gt;Yield farming pool&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="777" y="290" width="190" height="40" as="geometry" />
+          <mxGeometry x="899" y="360" width="190" height="40" as="geometry" />
         </mxCell>
         <mxCell id="caRcMuu22XtTANkgAoEX-9" value="&lt;span style=&quot;font-weight: 400;&quot;&gt;AMM&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=20;fontStyle=1;labelBackgroundColor=none;" vertex="1" parent="1">
-          <mxGeometry x="790" y="540" width="160" height="60" as="geometry" />
+          <mxGeometry x="899" y="550" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="in7Ym3DxoKE7M4WpUTdb-4" value="&lt;span style=&quot;font-weight: 400;&quot;&gt;PLF&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=20;fontStyle=1;labelBackgroundColor=none;" vertex="1" parent="1">
-          <mxGeometry x="790" y="470" width="160" height="60" as="geometry" />
+          <mxGeometry x="900" y="470" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="in7Ym3DxoKE7M4WpUTdb-5" value="" style="endArrow=classic;html=1;rounded=1;strokeWidth=2;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="caRcMuu22XtTANkgAoEX-66" target="caRcMuu22XtTANkgAoEX-10">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
