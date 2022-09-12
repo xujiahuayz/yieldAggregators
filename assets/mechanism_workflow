@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-09-12T13:04:13.606Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="i2GbM0GqHbi3vZsRSSki" version="20.3.0" type="github" pages="10">
+<mxfile host="app.diagrams.net" modified="2022-09-12T13:06:05.549Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="zFTuEtaxwj0JVfeCLvYK" version="20.3.0" type="github" pages="10">
   <diagram name="All" id="HXfB1lmMOvxMZCIUIoRl">
     <mxGraphModel dx="2066" dy="1128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -1028,20 +1028,20 @@
     </mxGraphModel>
   </diagram>
   <diagram id="HUSKyLFwmxPmLgz4rcbW" name="yield-agg">
-    <mxGraphModel dx="1589" dy="868" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1117" dy="610" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="gIlaifZvADpd6cz7BuEI-1" value="&lt;i&gt;&lt;font size=&quot;1&quot; style=&quot;&quot; face=&quot;Helvetica&quot;&gt;&lt;b style=&quot;font-size: 26px;&quot;&gt;External yield-generating protocols&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" vertex="1" parent="1">
+        <mxCell id="gIlaifZvADpd6cz7BuEI-1" value="&lt;i&gt;&lt;font size=&quot;1&quot; style=&quot;&quot; face=&quot;Helvetica&quot;&gt;&lt;b style=&quot;font-size: 26px;&quot;&gt;External yield-generating protocols&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="770" y="540" width="420" height="230" as="geometry" />
         </mxCell>
-        <mxCell id="caRcMuu22XtTANkgAoEX-2" value="&lt;i&gt;&lt;font size=&quot;1&quot; style=&quot;&quot; face=&quot;Helvetica&quot;&gt;&lt;b style=&quot;font-size: 26px;&quot;&gt;Protocol state&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="caRcMuu22XtTANkgAoEX-2" value="&lt;i&gt;&lt;font size=&quot;1&quot; style=&quot;&quot; face=&quot;Helvetica&quot;&gt;&lt;b style=&quot;font-size: 26px;&quot;&gt;Protocol state&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="770" y="240" width="420" height="260" as="geometry" />
         </mxCell>
-        <mxCell id="caRcMuu22XtTANkgAoEX-20" value="&lt;i&gt;&lt;font size=&quot;1&quot; face=&quot;Helvetica&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 26px;&quot;&gt;Protocol actions&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="caRcMuu22XtTANkgAoEX-20" value="&lt;i&gt;&lt;font size=&quot;1&quot; face=&quot;Helvetica&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 26px;&quot;&gt;Protocol actions&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
           <mxGeometry x="520" y="240" width="220" height="530" as="geometry" />
         </mxCell>
-        <mxCell id="caRcMuu22XtTANkgAoEX-1" value="&lt;i&gt;&lt;font size=&quot;1&quot; face=&quot;Helvetica&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 26px;&quot;&gt;User actions&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="caRcMuu22XtTANkgAoEX-1" value="&lt;i&gt;&lt;font size=&quot;1&quot; face=&quot;Helvetica&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 26px;&quot;&gt;User actions&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;dashed=1;verticalAlign=top;flipH=1;labelBackgroundColor=none;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
           <mxGeometry x="270" y="240" width="220" height="530" as="geometry" />
         </mxCell>
         <mxCell id="caRcMuu22XtTANkgAoEX-3" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 23px;&quot;&gt;Deposit&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;glass=0;fontFamily=Georgia;fontSize=18;labelBackgroundColor=none;flipV=1;" parent="1" vertex="1">
