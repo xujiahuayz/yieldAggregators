@@ -25,7 +25,7 @@ def borrow_lend_rates(
 
     borrow_rate = util_rate / (rb_factor * (1 - util_rate))
     # initial_borrow_rate / (1 - util_rate) ** EXPONENT
-    supply_rate = util_rate / (RS_FACTOR * (1 - util_rate))
+    supply_rate = util_rate / (rs_factor * (1 - util_rate))
     # initial_supply_rate / (1 - util_rate) ** EXPONENT
     return borrow_rate, supply_rate
 
