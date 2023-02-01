@@ -3,6 +3,7 @@
 Paper link:
 
 > Cousaert, S., Xu, J., & Matsui, T. (2021). SoK: Yield Aggregators in DeFi. https://ieeexplore.ieee.org/abstract/document/9805523
+
 > Xu, J. & Feng, Y. (2022). Reap the Harvest on Blockchain: A Survey of Yield Farming Protocols. https://doi.org/10.1109/TNSM.2022.3222815
 
 ## yieldenv
